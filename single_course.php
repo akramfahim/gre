@@ -1,0 +1,278 @@
+<?php 
+	require 'header.php';
+
+	ob_start();
+    session_start();
+    include("inc/config.php");
+    include("inc/CSRF_Protect.php");
+    $csrf = new CSRF_Protect();
+    $error_message = '';
+    $success_message = '';
+    $error_message1 = '';
+    $success_message1 = '';
+    $loggedIn= true;
+
+    $user_id = $_SESSION['user']['id'];
+    $level_one_pass = false;
+    $level_one_check_message ='';
+
+      // Check if the user is logged in or not
+        if(!isset($_SESSION['user'])) {
+            $loggedIn = false;
+            header('location: signin.php');
+            exit;
+        }else{
+        	$loggedIn = true;
+        }
+
+    	$ques_id='';
+        $correct_ans = '';
+
+        $statement2 = $pdo->prepare("SELECT * FROM level_one_question ORDER BY RAND() limit 3");
+        $statement2->execute();
+        $result2 = $statement2->fetchAll(PDO::FETCH_ASSOC);
+        $ques_id = $result2[0]['id'];
+        $random_question =  $result2[0]['question'];
+        $correct_ans = $result2[0]['answer'];
+
+        if (isset($_POST['submit'])) {
+            if(empty($_POST['answer'])) {
+                $error_message = 'You Must Select a Answer';
+            } else {
+                  $user_id = $_POST['user_id'];
+                  $answer = $_POST['answer'];
+
+                  if ($answer == $correct_ans) {
+
+                    $sql1 = $pdo->prepare("SELECT * FROM barron_word_settings WHERE user_id=?");
+                    $sql1->execute(array($_POST['user_id']));
+                    $totalrow = $sql1->rowCount();              
+                    if($totalrow) {
+                        $error_message .= 'You already Passed Level 1';
+                    }else{
+
+                        $sql = $pdo->prepare("INSERT INTO barron_word_settings (levelOne,user_id) VALUES (?,?)");
+                        $sql->execute(array('Completed',$_POST['user_id']));
+                        $success_message = "Your Answer is Correct !!";
+
+                    }
+                    unset($_POST['answer']);
+                  }else{
+                    $error_message = "Your Answer is Incorrect" ;
+                    unset($_POST['answer']);
+                  }
+              }
+        }
+
+
+
+
+	require 'navbar.php';
+?>
+
+	<div class="container-fluid my-3" style="height: 100vh">
+		<div class="heading_section my-3">
+			<h2 class="text-center">Barron Word Practice</h2>
+			<p class="text-center">Each Level Has 5 words</p>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-3">
+				<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+					<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Level 1</a>
+					<a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Level 2</a>
+					<a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Level 3</a>
+					<a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Level 4</a>
+					<a class="nav-link" id="v-pills-five-tab" data-toggle="pill" href="#v-pills-five" role="tab" aria-controls="v-pills-five" aria-selected="false">Level 5</a>
+				</div>
+			</div>
+			<div class="col-9">
+				<div class="tab-content" id="v-pills-tabContent">
+					<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+						
+						
+						<h1 class="text-center p-3">Level One Words</h1>
+							
+
+							<?php if( (isset($error_message)) && ($error_message!='') ): ?>
+                              <div class="alert alert-danger text-center text-white">
+
+                                <h3><?php echo $error_message; ?></h3>
+                              </div>
+                            <?php endif; ?>
+
+                            <?php if($success_message): ?>
+                              <div class="alert alert-success text-center text-white">
+								<h3><?php echo $success_message; ?></h3>
+                              </div>
+                            <?php endif; ?>
+						<!-- Horizontal tab -->
+						<nav>
+							<div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+								<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">One</a>
+
+								<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Two</a>
+
+								<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Three</a>
+
+								<a class="nav-item nav-link" id="nav-four-tab" data-toggle="tab" href="#nav-four" role="tab" aria-controls="nav-contact" aria-selected="false">Four</a>
+
+								<a class="nav-item nav-link" id="nav-five-tab" data-toggle="tab" href="#nav-five" role="tab" aria-controls="nav-contact" aria-selected="false">Five</a>
+							</div>
+						</nav>
+						
+
+						<?php
+                                
+                                $statement = $pdo->prepare("SELECT * FROM level_one_word_barron where id BETWEEN 1 AND 5");
+                                $statement->execute();
+                                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                                ?>
+
+						<div class="tab-content text-dark" id="nav-tabContent">
+							<div class="tab-pane fade show active h-75" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                                 
+
+                                 <div class="container">
+                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
+                                 		<h1 class="text-center text-white p3 mt-3">
+                                 			<?php echo $result[0]['word_name']; ?>		
+                                 		</h1>
+                                 		<h3 class="text-center">
+                                 			<?php echo $result[0]['description']; ?>
+                                 		</h3>
+                                 	</div>
+                                 </div>
+
+							</div>
+							<div class="tab-pane fade h-75" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+								
+								<div class="container">
+                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
+										<h1 class="text-center text-white p3 mt-3">
+											<?php echo $result[1]['word_name']; ?>
+										</h1>
+	                               		<h3 class="text-center">
+	                                		<?php echo $result[1]['description']; ?>	
+	                                	</h3>
+	                                </div>
+	                            </div>
+
+							</div>
+							<div class="tab-pane fade h-75" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+								
+								<div class="container">
+                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
+										<h1 class="text-center text-white p3 mt-3">
+											<?php echo $result[2]['word_name']; ?>
+										</h1>
+	                               		<h3 class="text-center">
+	                                		<?php echo $result[2]['description']; ?>	
+	                                	</h3>
+	                                </div>
+	                            </div>
+
+							</div>
+							<div class="tab-pane fade h-75" id="nav-four" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+								<div class="container">
+                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
+										<h1 class="text-center text-white p3 mt-3">
+											<?php echo $result[3]['word_name']; ?>
+										</h1>
+	                               		<h3 class="text-center">
+	                                		<?php echo $result[3]['description']; ?>	
+	                                	</h3>
+	                                </div>
+	                            </div>
+
+							</div>
+							<div class="tab-pane fade h-75" id="nav-five" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+								<div class="container">
+                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
+										<h1 class="text-center text-white p3 mt-3">
+											<?php echo $result[4]['word_name']; ?>
+										</h1>
+	                               		<h3 class="text-center">
+	                                		<?php echo $result[4]['description']; ?>	
+	                                	</h3>
+	                                </div>
+	                            </div>
+
+							</div>
+						</div>
+						<!-- Horizontal tab Ends-->
+						<div class="row justify-content-center my-5">
+							<button class="btn btn-outline-info font-weight-bold text-white p-3 mb-3" data-toggle="modal" data-target="#myModalOne">
+								LEVEL 1 TEST
+							</button>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+						<h1>Hello 2</h1>
+					</div>
+					<div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+						<h1>Hello 3</h1>
+					</div>
+					<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+						<h1>Hello 4</h1>
+					</div>
+					<div class="tab-pane fade" id="v-pills-five" role="tabpanel" aria-labelledby="v-pills-five-tab">
+						<h1>Hello 5</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- The Modal -->
+<div class="modal fade" id="myModalOne">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      	<div class="modal-header">
+        	<h4 class="modal-title">Level One Questions</h4>
+        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+      	</div>
+
+      <!-- Modal body -->
+      	<div class="modal-body">
+			
+        	
+        	<h5>Q: <b> <?php echo $random_question;  ?> ?</b></h5>
+        	<hr>
+
+			<?php
+                    $statement3 = $pdo->prepare("SELECT * FROM level_one_question_option where level_one_question_option.question_id = ".$ques_id." limit 4");
+                    $statement3->execute();
+                    $result3 = $statement3->fetchAll(PDO::FETCH_ASSOC); ?>
+
+                    <form action="" method="post">
+                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
+
+                        <?php foreach ($result3 as $row3) {
+                            
+                        ?>
+                       	<input type="radio" class="form-check-group" name="answer" required="required" value="<?php echo $row3['option'] ?>"> <?php echo $row3['option'] ?> <br>
+                        <?php
+                            }
+                        ?>
+
+      	</div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      	<button class="btn btn-success btn-block" type="submit" name="submit"> Submit </button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+					</form>
+    </div>
+  </div>
+</div>
+
+	<?php require 'footer.php'; ?>

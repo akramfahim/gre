@@ -1,0 +1,45 @@
+.bg-myColor{
+	background-color: #3bc8bb;
+}
+.jumbotron {
+  background-color: #3bc8bb !important;
+}
+.card-header{
+	background-color: #3bc8bb !important;
+}
+.nav-pills .nav-link{
+	font-size: 18px !important;
+	transition: .3s;
+}
+.nav-pills .nav-link.active{
+	background-color: #24beb7 !important;
+	font-weight: bolder !important;
+}
+
+.fade{
+	transition: .3s !important;
+}
+.nav-tabs .nav-link{
+	color: #fff !important;
+}
+.nav-tabs .nav-link.active{
+	background-color: #fff !important;
+	color: #000 !important;
+	font-weight: bolder !important;
+	border-color: #fff !important;
+} 
+.tab-content{
+	background-color: #24beb7 !important;
+}
+
+/* Sign In Form Design */
+.signin-form{
+	border: 1px solid #38a7a7;
+    padding: 20px;
+    background-color: #3ad7c8;
+    border-radius: 4%;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+	box-shadow: 5px 10px #38a7a7;
+}
