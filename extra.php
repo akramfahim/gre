@@ -23,7 +23,7 @@
  <div class="container-fluid">
  	<div class="row">
  		<div class="col-md-2 col-sm-12 bg-warning mx-auto">
- 			<h1 class="text-center text-danger">Hello JIII</h1>
+ 			<h1 class="text-center text-danger">Hello Fahim</h1>
  		</div>
  		<div class="col-md-10 col-sm-12">
  			<div class="continer-fluid">
