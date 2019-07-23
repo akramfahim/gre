@@ -13,6 +13,7 @@
     $loggedIn= true;
 
     $user_id = $_SESSION['user']['id'];
+
     $level_one_pass = false;
     $level_one_check_message ='';
 
@@ -27,22 +28,38 @@
 
     	$ques_id='';
         $correct_ans = '';
+        $correct_ans_two = '';
+        $correct_ans_three = '';
 
-        $statement2 = $pdo->prepare("SELECT * FROM level_one_question ORDER BY RAND() limit 3");
-        $statement2->execute();
-        $result2 = $statement2->fetchAll(PDO::FETCH_ASSOC);
-        $ques_id = $result2[0]['id'];
-        $random_question =  $result2[0]['question'];
-        $correct_ans = $result2[0]['answer'];
+        $statementOne = $pdo->prepare("SELECT * FROM level_one_question ORDER BY RAND() limit 3");
+        $statementOne->execute();
+        $resultOne = $statementOne->fetchAll(PDO::FETCH_ASSOC);
+
+        /* Get Random First Question */
+        $ques_id = $resultOne[0]['id'];
+        $random_question =  $resultOne[0]['question'];
+        $correct_ans = $resultOne[0]['answer'];
+
+        /* Get Random Second Question */
+        $ques_id_two = $resultOne[1]['id'];
+        $random_question_two =  $resultOne[1]['question'];
+        $correct_ans_two = $resultOne[1]['answer'];
+
+        /* Get Random Third Question */
+        $ques_id_three = $resultOne[2]['id'];
+        $random_question_three =  $resultOne[2]['question'];
+        $correct_ans_three = $resultOne[2]['answer'];
 
         if (isset($_POST['submit'])) {
-            if(empty($_POST['answer'])) {
-                $error_message = 'You Must Select a Answer';
+            if(empty($_POST['answer']) || empty($_POST['answer2']) || empty($_POST['answer3']) ) {
+                $error_message = 'You Must Answer All The Question';
             } else {
                   $user_id = $_POST['user_id'];
                   $answer = $_POST['answer'];
+                  $answer2 = $_POST['answer2'];
+                  $answer3 = $_POST['answer3'];
 
-                  if ($answer == $correct_ans) {
+                  if ($answer == $correct_ans && $answer2 == $correct_ans_two && $answer3 == $correct_ans_three ) {
 
                     $sql1 = $pdo->prepare("SELECT * FROM barron_word_settings WHERE user_id=?");
                     $sql1->execute(array($_POST['user_id']));
@@ -58,11 +75,26 @@
                     }
                     unset($_POST['answer']);
                   }else{
-                    $error_message = "Your Answer is Incorrect" ;
+                    $error_message = "Your All Answer is not correct" ;
                     unset($_POST['answer']);
                   }
               }
         }
+
+
+        /* Level One Check whether he or She Passed The Level or Not */
+
+        $level_sql = $pdo->prepare("SELECT * FROM barron_word_settings WHERE user_id=?");
+        $level_sql->execute(array($user_id));
+        $level_pass = $level_sql->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($level_pass)) {
+                if ($level_pass[0]['levelOne'] == 'Completed') {
+                    $level_one_pass = true;
+                }else{
+                	$level_one_pass = false;
+                    $level_one_check_message="You Have not completed Level One Words Yet";
+                }
+            }
 
 
 
@@ -217,13 +249,141 @@
 						<!-- Horizontal tab Ends-->
 						<div class="row justify-content-center my-5">
 							<button class="btn btn-outline-info font-weight-bold text-white p-3 mb-3" data-toggle="modal" data-target="#myModalOne">
-								LEVEL 1 TEST
+								TAKE LEVEL 1 TEST
 							</button>
 						</div>
 					</div>
 
 					<div class="tab-pane fade" id="v-pills-two" role="tabpanel" aria-labelledby="v-pills-two-tab">
-						<h1>Hello 2</h1>
+						
+
+						<h1 class="text-center p-3">Level Two Words</h1>
+							
+							<?php if (!$level_one_pass) :?> 
+
+								<div class="alert alert-danger text-center text-white p-5">
+                                	<h1>You Have not Completed Level 1 Words Yet</h1>
+                              	</div>
+
+							<?php else: ?>
+
+							<?php if( (isset($error_message)) && ($error_message!='') ): ?>
+                              <div class="alert alert-danger text-center">
+
+                                <h3><?php echo $error_message; ?></h3>
+                              </div>
+                            <?php endif; ?>
+
+                            <?php if($success_message): ?>
+                              <div class="alert alert-success text-center text-white">
+								<h3><?php echo $success_message; ?></h3>
+                              </div>
+                            <?php endif; ?>
+						<!-- Horizontal tab -->
+						<nav>
+							<div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
+								<a class="nav-item nav-link active" id="nav-six-tab" data-toggle="tab" href="#nav-six" role="tab" aria-controls="nav-six" aria-selected="true">One</a>
+
+								<a class="nav-item nav-link" id="nav-seven-tab" data-toggle="tab" href="#nav-seven" role="tab" aria-controls="nav-seven" aria-selected="false">Two</a>
+
+								<a class="nav-item nav-link" id="nav-eight-tab" data-toggle="tab" href="#nav-eight" role="tab" aria-controls="nav-eight" aria-selected="false">Three</a>
+
+								<a class="nav-item nav-link" id="nav-nine" data-toggle="tab" href="#nav-nine" role="tab" aria-controls="nav-nine" aria-selected="false">Four</a>
+
+								<a class="nav-item nav-link" id="nav-ten-tab" data-toggle="tab" href="#nav-ten" role="tab" aria-controls="nav-ten" aria-selected="false">Five</a>
+							</div>
+						</nav>
+						
+
+						<?php
+                                
+                                $statementTwo = $pdo->prepare("SELECT * FROM level_one_word_barron where id BETWEEN 6 AND 10");
+                                $statementTwo->execute();
+                                $resultTwo = $statementTwo->fetchAll(PDO::FETCH_ASSOC);
+                                ?>
+
+						<div class="tab-content text-dark" id="nav-tabContent">
+							<div class="tab-pane fade show active h-75" id="nav-six" role="tabpanel" aria-labelledby="nav-six-tab">
+
+                                 
+
+                                 <div class="container">
+                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
+                                 		<h1 class="text-center text-white p3 mt-3">
+                                 			<?php echo $resultTwo[0]['word_name']; ?>		
+                                 		</h1>
+                                 		<h3 class="text-center">
+                                 			<?php echo $resultTwo[0]['description']; ?>
+                                 		</h3>
+                                 	</div>
+                                 </div>
+
+							</div>
+							<div class="tab-pane fade h-75" id="nav-seven" role="tabpanel" aria-labelledby="nav-seven-tab">
+								
+								<div class="container">
+                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
+										<h1 class="text-center text-white p3 mt-3">
+											<?php echo $resultTwo[1]['word_name']; ?>
+										</h1>
+	                               		<h3 class="text-center">
+	                                		<?php echo $resultTwo[1]['description']; ?>	
+	                                	</h3>
+	                                </div>
+	                            </div>
+
+							</div>
+							<div class="tab-pane fade h-75" id="nav-eight" role="tabpanel" aria-labelledby="nav-eight-tab">
+								
+								<div class="container">
+                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
+										<h1 class="text-center text-white p3 mt-3">
+											<?php echo $resultTwo[2]['word_name']; ?>
+										</h1>
+	                               		<h3 class="text-center">
+	                                		<?php echo $resultTwo[2]['description']; ?>	
+	                                	</h3>
+	                                </div>
+	                            </div>
+
+							</div>
+							<div class="tab-pane fade h-75" id="nav-nine" role="tabpanel" aria-labelledby="nav-nine-tab">
+
+								<div class="container">
+                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
+										<h1 class="text-center text-white p3 mt-3">
+											<?php echo $resultTwo[3]['word_name']; ?>
+										</h1>
+	                               		<h3 class="text-center">
+	                                		<?php echo $resultTwo[3]['description']; ?>	
+	                                	</h3>
+	                                </div>
+	                            </div>
+
+							</div>
+							<div class="tab-pane fade h-75" id="nav-ten" role="tabpanel" aria-labelledby="nav-ten-tab">
+
+								<div class="container">
+                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
+										<h1 class="text-center text-white p3 mt-3">
+											<?php echo $resultTwo[4]['word_name']; ?>
+										</h1>
+	                               		<h3 class="text-center">
+	                                		<?php echo $resultTwo[4]['description']; ?>	
+	                                	</h3>
+	                                </div>
+	                            </div>
+
+							</div>
+						</div>
+						<!-- Horizontal tab Ends-->
+						<div class="row justify-content-center my-5">
+							<button class="btn btn-outline-info font-weight-bold text-white p-3 mb-3" data-toggle="modal" data-target="#myModalOne">
+								TAKE LEVEL 2 TEST
+							</button>
+						</div>
+
+						<?php endif ; ?>
 					</div>
 
 					<div class="tab-pane fade" id="v-pills-three" role="tabpanel" aria-labelledby="v-pills-three-tab">
@@ -245,7 +405,7 @@
 
 	<!-- The Modal -->
 <div class="modal fade" id="myModalOne">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
       <!-- Modal Header -->
@@ -258,21 +418,57 @@
       	<div class="modal-body">
 			
         	
-        	<h5>Q: <b> <?php echo $random_question;  ?> ?</b></h5>
-        	<hr>
+        	
 
 			<?php
-                    $statement3 = $pdo->prepare("SELECT * FROM level_one_question_option where level_one_question_option.question_id = ".$ques_id." limit 4");
-                    $statement3->execute();
-                    $result3 = $statement3->fetchAll(PDO::FETCH_ASSOC); ?>
+                    $ModalQuestionOne = $pdo->prepare("SELECT * FROM level_one_question_option where level_one_question_option.question_id = ".$ques_id." limit 4");
+                    $ModalQuestionOne->execute();
+                    $resultModalOne = $ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC); 
+
+                    $ModalQuestionTwo = $pdo->prepare("SELECT * FROM level_one_question_option where level_one_question_option.question_id = ".$ques_id_two." limit 4");
+                    $ModalQuestionTwo->execute();
+                    $resultModalTwo = $ModalQuestionTwo->fetchAll(PDO::FETCH_ASSOC); 
+
+                    $ModalQuestionThree = $pdo->prepare("SELECT * FROM level_one_question_option where level_one_question_option.question_id = ".$ques_id_three." limit 4");
+                    $ModalQuestionThree->execute();
+                    $resultModalThree = $ModalQuestionThree->fetchAll(PDO::FETCH_ASSOC); ?>
 
                     <form action="" method="post">
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
+						
+						<h5>Q: <b> <?php echo $random_question;  ?> ?</b></h5>
+        				<hr>
 
-                        <?php foreach ($result3 as $row3) {
+                        <?php foreach ($resultModalOne as $row3) {
                             
                         ?>
                        	<input type="radio" class="form-check-group" name="answer" required="required" value="<?php echo $row3['option'] ?>"> <?php echo $row3['option'] ?> <br>
+                        <?php
+                            }
+                        ?>
+
+                        <br><hr>
+
+                        <h5>Q: <b> <?php echo $random_question_two;  ?> ?</b></h5>
+        				<hr>
+
+                        <?php foreach ($resultModalTwo as $row3) {
+                            
+                        ?>
+                       	<input type="radio" class="form-check-group" name="answer2" required="required" value="<?php echo $row3['option'] ?>"> <?php echo $row3['option'] ?> <br>
+                        <?php
+                            }
+                        ?>
+						
+						<br><hr>
+
+                        <h5>Q: <b> <?php echo $random_question_three;  ?> ?</b></h5>
+        				<hr>
+
+                        <?php foreach ($resultModalThree as $row3) {
+                            
+                        ?>
+                       	<input type="radio" class="form-check-group" name="answer3" required="required" value="<?php echo $row3['option'] ?>"> <?php echo $row3['option'] ?> <br>
                         <?php
                             }
                         ?>
