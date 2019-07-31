@@ -65,13 +65,16 @@
             if(empty($_POST['answer']) || empty($_POST['answer2']) || empty($_POST['answer3']) ) {
                 $error_message = 'You Must Answer All The Question';
             } else {
-                  $user_id = $_POST['user_id'];
-                  $answer = $_POST['answer'];
-                  $answer2 = $_POST['answer2'];
-                  $answer3 = $_POST['answer3'];
+                    $user_id = $_POST['user_id'];
+                    $answer = $_POST['answer'];
+                    $answer2 = $_POST['answer2'];
+                    $answer3 = $_POST['answer3'];
 
+                    /*echo $answer."<br>";
+                    echo $answer2."<br>";
+                    echo $answer3."<br><hr>";*/
                   /* Level 1 Test */
-                  if ($answer == $correct_ans || $answer2 == $correct_ans_two || $answer3 == $correct_ans_three ) {
+                if ($answer == $correct_ans || $answer2 == $correct_ans_two || $answer3 == $correct_ans_three ){
 
                     $sql1 = $pdo->prepare("SELECT * FROM barron_word_settings WHERE user_id=?");
                     $sql1->execute(array($_POST['user_id']));
@@ -122,6 +125,10 @@
         $level_two_random_question_three =  $level_two_resultOne[2]['question'];
         $level_two_correct_ans_three = $level_two_resultOne[2]['answer'];
 
+        /*echo $level_two_correct_ans."<br>";
+        echo $level_two_correct_ans_two."<br>";
+        echo $level_two_correct_ans_three."<br><hr>";*/
+
         /* Level 2 Test */
         if (isset($_POST['level_two_submit'])) {
         	if(empty($_POST['level_two_answer']) || empty($_POST['level_two_answer2']) || empty($_POST['level_two_answer3']) ) {
@@ -132,6 +139,10 @@
                 $level_two_answer = $_POST['level_two_answer'];
                 $level_two_answer2 = $_POST['level_two_answer2'];
                 $level_two_answer3 = $_POST['level_two_answer3'];
+
+                /*echo $level_two_answer."<br>";
+                echo $level_two_answer2."<br>";
+                echo $level_two_answer3."<br>";*/
 
         		if (
                 	$level_two_answer  == $level_two_correct_ans  
@@ -161,7 +172,7 @@
         /* Level 2 Test end */
 
 
-        /* Level Two Question Barron*/
+        /* Level Three Question Barron*/
     	$level_three_ques_id='';
         $level_three_correct_ans = '';
         $level_three_correct_ans_two = '';
@@ -186,7 +197,11 @@
         $level_three_random_question_three =  $level_three_resultOne[2]['question'];
         $level_three_correct_ans_three = $level_three_resultOne[2]['answer'];
 
-        /* Level 2 Test */
+        /*echo $level_three_correct_ans."<br>";
+        echo $level_three_correct_ans_two."<br>";
+        echo $level_three_correct_ans_three."<br><hr>";*/
+
+        /* Level 3 Test */
         if (isset($_POST['level_three_submit'])) {
             if(empty($_POST['level_three_answer']) || empty($_POST['level_three_answer2']) || empty($_POST['level_three_answer3']) ) {
                 $error_message = 'You Must Answer All The Question';
@@ -196,6 +211,10 @@
                 $level_three_answer = $_POST['level_three_answer'];
                 $level_three_answer2 = $_POST['level_three_answer2'];
                 $level_three_answer3 = $_POST['level_three_answer3'];
+
+                /*echo $level_three_answer."<br>";
+                echo $level_three_answer2."<br>";
+                echo $level_three_answer3."<br>";*/
 
                 if (
                     $level_three_answer  == $level_three_correct_ans  
@@ -210,23 +229,27 @@
 
                         $level_three_sql = $pdo->prepare("UPDATE barron_word_settings SET levelThree=? WHERE user_id= ?");
                         $level_three_sql->execute(array('Completed',$_POST['user_id']));
-                        $success_message = "Your Have Passed Level Two Now!!";
+                        $success_message = "Your Have Passed Level Three Now!!";
+
+                        /*echo "You Passes";*/
+
 
                     }else{
                         $error_message = "You Have not Passed Level One Yet";
+
+                        echo "You have no raw in db";
                     }
                     // unset($_POST['answer']);
                   }else{
                     $error_message = "Your Level Three Answer is not correct" ;
+                    echo "Answer Is not Correct";
                     // unset($_POST['answer']);
                 }
             }        
         }        
-        /* Level 2 Test end */
+        /* Level 3 Test end */
 
-
-
-
+        
 
         /* Level Check whether he or She Passed The Level or Not */
         $level_sql = $pdo->prepare("SELECT * FROM barron_word_settings WHERE user_id=?");
@@ -235,8 +258,17 @@
         if (!empty($level_pass)) {
                 if ($level_pass[0]['levelOne'] == 'Completed') {
                     $level_one_pass = true;
+                    
                     if ($level_pass[0]['levelTwo'] == 'Completed') {
                     	$level_two_pass = true;
+
+                        if ($level_pass[0]['levelThree'] == 'Completed') {
+                            $level_three_pass = true;
+                        }else{
+                            $level_three_pass = false;
+                            $level_three_check_message = "Please Complete Level Three";
+                        }
+
                     } else {
                     	$level_two_pass = false;
                     	$level_two_check_message = "You Have not Completed Level Two Words Yet";
@@ -1104,11 +1136,12 @@
                     $level_three_ModalQuestionTwo->execute();
                     $level_three_resultModalTwo = $level_three_ModalQuestionTwo->fetchAll(PDO::FETCH_ASSOC); 
 
-                    $level_three_ModalQuestionThree = $pdo->prepare("SELECT * FROM level_three_question_option_barron where level_three_question_option_barron.question_id = ".$level_two_ques_id_three." limit 4");
+                    $level_three_ModalQuestionThree = $pdo->prepare("SELECT * FROM level_three_question_option_barron where level_three_question_option_barron.question_id = ".$level_three_ques_id_three." limit 4");
                     $level_three_ModalQuestionThree->execute();
                     $level_three_resultModalThree = $level_three_ModalQuestionThree->fetchAll(PDO::FETCH_ASSOC); ?>
 
                     <form action="" method="post">
+
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
 						
 						<h5>Q: <b> <?php echo $level_three_random_question;  ?> ?</b></h5>
@@ -1159,8 +1192,6 @@
     </div>
   </div>
 </div>
-<!-- My Modal Three End --><!-- My Modal Three -->
-<
 <!-- My Modal Three End -->
 
 <?php require 'footer.php'; ?>
