@@ -124,7 +124,7 @@
 
         /* Level 2 Test */
         if (isset($_POST['level_two_submit'])) {
-        	if(empty($_POST['answer']) || empty($_POST['answer2']) || empty($_POST['answer3']) ) {
+        	if(empty($_POST['level_two_answer']) || empty($_POST['level_two_answer2']) || empty($_POST['level_two_answer3']) ) {
                 $error_message = 'You Must Answer All The Question';
             } else {
         			
@@ -186,6 +186,44 @@
         $level_three_random_question_three =  $level_three_resultOne[2]['question'];
         $level_three_correct_ans_three = $level_three_resultOne[2]['answer'];
 
+        /* Level 2 Test */
+        if (isset($_POST['level_three_submit'])) {
+            if(empty($_POST['level_three_answer']) || empty($_POST['level_three_answer2']) || empty($_POST['level_three_answer3']) ) {
+                $error_message = 'You Must Answer All The Question';
+            } else {
+                    
+                $user_id = $_POST['user_id'];
+                $level_three_answer = $_POST['level_three_answer'];
+                $level_three_answer2 = $_POST['level_three_answer2'];
+                $level_three_answer3 = $_POST['level_three_answer3'];
+
+                if (
+                    $level_three_answer  == $level_three_correct_ans  
+                    || $level_three_answer2 == $level_three_correct_ans_two 
+                    || $level_three_answer3 == $level_three_correct_ans_three
+                ) {
+
+                    $level_three_sql1 = $pdo->prepare("SELECT * FROM barron_word_settings WHERE user_id=?");
+                    $level_three_sql1->execute(array($_POST['user_id']));
+                    $level_three_totalrow = $level_three_sql1->rowCount();              
+                    if($level_three_totalrow) {
+
+                        $level_three_sql = $pdo->prepare("UPDATE barron_word_settings SET levelThree=? WHERE user_id= ?");
+                        $level_three_sql->execute(array('Completed',$_POST['user_id']));
+                        $success_message = "Your Have Passed Level Two Now!!";
+
+                    }else{
+                        $error_message = "You Have not Passed Level One Yet";
+                    }
+                    // unset($_POST['answer']);
+                  }else{
+                    $error_message = "Your Level Three Answer is not correct" ;
+                    // unset($_POST['answer']);
+                }
+            }        
+        }        
+        /* Level 2 Test end */
+
 
 
 
@@ -208,7 +246,7 @@
                 	$level_one_pass = false;
                     $level_one_check_message="You Have not completed Level One Words Yet";
                 }
-            }
+        }
 
 
 
@@ -245,7 +283,6 @@
 			<div class="col-9">
 				<div class="tab-content" id="v-pills-tabContent">
 					<div class="tab-pane fade show active" id="v-pills-one" role="tabpanel" aria-labelledby="v-pills-one-tab">
-						
 						
 						<h1 class="text-center p-3">Level One Words</h1>
 							
@@ -664,7 +701,7 @@
 
 						<?php
                                 
-                                $statementTwo = $pdo->prepare("SELECT * FROM level_two_word_barron where id BETWEEN 1 AND 5");
+                                $statementTwo = $pdo->prepare("SELECT * FROM level_four_word_barron where id BETWEEN 1 AND 5");
                                 $statementTwo->execute();
                                 $resultTwo = $statementTwo->fetchAll(PDO::FETCH_ASSOC);
                                 ?>
@@ -871,8 +908,8 @@
 						</div>
 						<!-- Horizontal tab Ends-->
 						<div class="row justify-content-center my-5">
-							<button class="btn btn-outline-info font-weight-bold text-white p-3 mb-3" data-toggle="modal" data-target="#myModalFour">
-								TAKE LEVEL 4 TEST
+							<button class="btn btn-outline-info font-weight-bold text-white p-3 mb-3" data-toggle="modal" data-target="#myModalFive">
+								TAKE LEVEL 5 TEST
 							</button>
 						</div>
 
@@ -1043,6 +1080,7 @@
     </div>
   </div>
 </div>
+
 <!-- My Modal Three -->
 <div class="modal fade" id="myModalThree">
   <div class="modal-dialog modal-lg">
@@ -1058,15 +1096,15 @@
       	<div class="modal-body">
 			
 			<?php
-                    $level_three_ModalQuestionOne = $pdo->prepare("SELECT * FROM level_three_question_option_barron where level_two_question_option_barron.question_id = ".$level_three_ques_id." limit 4");
+                    $level_three_ModalQuestionOne = $pdo->prepare("SELECT * FROM level_three_question_option_barron where level_three_question_option_barron.question_id = ".$level_three_ques_id." limit 4");
                     $level_three_ModalQuestionOne->execute();
                     $level_three_resultModalOne = $level_three_ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC); 
 
-                    $level_three_ModalQuestionTwo = $pdo->prepare("SELECT * FROM level_three_question_option_barron where level_two_question_option_barron.question_id = ".$level_three_ques_id_two." limit 4");
+                    $level_three_ModalQuestionTwo = $pdo->prepare("SELECT * FROM level_three_question_option_barron where level_three_question_option_barron.question_id = ".$level_three_ques_id_two." limit 4");
                     $level_three_ModalQuestionTwo->execute();
                     $level_three_resultModalTwo = $level_three_ModalQuestionTwo->fetchAll(PDO::FETCH_ASSOC); 
 
-                    $level_three_ModalQuestionThree = $pdo->prepare("SELECT * FROM level_three_question_option_barron where level_two_question_option_barron.question_id = ".$level_two_ques_id_three." limit 4");
+                    $level_three_ModalQuestionThree = $pdo->prepare("SELECT * FROM level_three_question_option_barron where level_three_question_option_barron.question_id = ".$level_two_ques_id_three." limit 4");
                     $level_three_ModalQuestionThree->execute();
                     $level_three_resultModalThree = $level_three_ModalQuestionThree->fetchAll(PDO::FETCH_ASSOC); ?>
 
@@ -1121,164 +1159,8 @@
     </div>
   </div>
 </div>
+<!-- My Modal Three End --><!-- My Modal Three -->
+<
 <!-- My Modal Three End -->
-<!-- My Modal Four -->
-<div class="modal fade" id="myModalFour">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
 
-      <!-- Modal Header -->
-      	<div class="modal-header">
-        	<h4 class="modal-title">Level Two Questions</h4>
-        	<button type="button" class="close" data-dismiss="modal">&times;</button>
-      	</div>
-		
-      <!-- Modal body -->
-      	<div class="modal-body">
-			
-			<?php
-                    $level_two_ModalQuestionOne = $pdo->prepare("SELECT * FROM level_two_question_option_barron where level_two_question_option_barron.question_id = ".$level_two_ques_id." limit 4");
-                    $level_two_ModalQuestionOne->execute();
-                    $level_two_resultModalOne = $level_two_ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC); 
-
-                    $level_two_ModalQuestionTwo = $pdo->prepare("SELECT * FROM level_two_question_option_barron where level_two_question_option_barron.question_id = ".$level_two_ques_id_two." limit 4");
-                    $level_two_ModalQuestionTwo->execute();
-                    $level_two_resultModalTwo = $level_two_ModalQuestionTwo->fetchAll(PDO::FETCH_ASSOC); 
-
-                    $level_two_ModalQuestionThree = $pdo->prepare("SELECT * FROM level_two_question_option_barron where level_two_question_option_barron.question_id = ".$level_two_ques_id_three." limit 4");
-                    $level_two_ModalQuestionThree->execute();
-                    $level_two_resultModalThree = $level_two_ModalQuestionThree->fetchAll(PDO::FETCH_ASSOC); ?>
-
-                    <form action="" method="post">
-                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
-						
-						<h5>Q: <b> <?php echo $level_two_random_question;  ?> ?</b></h5>
-        				<hr>
-
-                        <?php foreach ($level_two_resultModalOne as $row3) {
-                            
-                        ?>
-                       	<input type="radio" class="form-check-group" name="level_two_answer" required="required" value="<?php echo $row3['option'] ?>"> <?php echo $row3['option'] ?> <br>
-                        <?php
-                            }
-                        ?>
-
-                        <br><hr>
-
-                        <h5>Q: <b> <?php echo $level_two_random_question_two;  ?> ?</b></h5>
-        				<hr>
-
-                        <?php foreach ($level_two_resultModalTwo as $row3) {
-                            
-                        ?>
-                       	<input type="radio" class="form-check-group" name="level_two_answer2" required="required" value="<?php echo $row3['option'] ?>"> <?php echo $row3['option'] ?> <br>
-                        <?php
-                            }
-                        ?>
-						
-						<br><hr>
-
-                        <h5>Q: <b> <?php echo $level_two_random_question_three;  ?> ?</b></h5>
-        				<hr>
-
-                        <?php foreach ($level_two_resultModalThree as $row3) {
-                            
-                        ?>
-                       	<input type="radio" class="form-check-group" name="level_two_answer3" required="required" value="<?php echo $row3['option'] ?>"> <?php echo $row3['option'] ?> <br>
-                        <?php
-                            }
-                        ?>
-
-      	</div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-      	<button class="btn btn-success btn-block" type="submit" name="level_two_submit"> Submit </button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-					</form>
-    </div>
-  </div>
-</div>
-<!-- My Modal Four End -->
-
-<!-- My Modal Five -->
-<div class="modal fade" id="myModalFive">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      	<div class="modal-header">
-        	<h4 class="modal-title">Level Two Questions</h4>
-        	<button type="button" class="close" data-dismiss="modal">&times;</button>
-      	</div>
-		
-      <!-- Modal body -->
-      	<div class="modal-body">
-			
-			<?php
-                    $level_two_ModalQuestionOne = $pdo->prepare("SELECT * FROM level_two_question_option_barron where level_two_question_option_barron.question_id = ".$level_two_ques_id." limit 4");
-                    $level_two_ModalQuestionOne->execute();
-                    $level_two_resultModalOne = $level_two_ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC); 
-
-                    $level_two_ModalQuestionTwo = $pdo->prepare("SELECT * FROM level_two_question_option_barron where level_two_question_option_barron.question_id = ".$level_two_ques_id_two." limit 4");
-                    $level_two_ModalQuestionTwo->execute();
-                    $level_two_resultModalTwo = $level_two_ModalQuestionTwo->fetchAll(PDO::FETCH_ASSOC); 
-
-                    $level_two_ModalQuestionThree = $pdo->prepare("SELECT * FROM level_two_question_option_barron where level_two_question_option_barron.question_id = ".$level_two_ques_id_three." limit 4");
-                    $level_two_ModalQuestionThree->execute();
-                    $level_two_resultModalThree = $level_two_ModalQuestionThree->fetchAll(PDO::FETCH_ASSOC); ?>
-
-                    <form action="" method="post">
-                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
-						
-						<h5>Q: <b> <?php echo $level_two_random_question;  ?> ?</b></h5>
-        				<hr>
-
-                        <?php foreach ($level_two_resultModalOne as $row3) {
-                            
-                        ?>
-                       	<input type="radio" class="form-check-group" name="level_two_answer" required="required" value="<?php echo $row3['option'] ?>"> <?php echo $row3['option'] ?> <br>
-                        <?php
-                            }
-                        ?>
-
-                        <br><hr>
-
-                        <h5>Q: <b> <?php echo $level_two_random_question_two;  ?> ?</b></h5>
-        				<hr>
-
-                        <?php foreach ($level_two_resultModalTwo as $row3) {
-                            
-                        ?>
-                       	<input type="radio" class="form-check-group" name="level_two_answer2" required="required" value="<?php echo $row3['option'] ?>"> <?php echo $row3['option'] ?> <br>
-                        <?php
-                            }
-                        ?>
-						
-						<br><hr>
-
-                        <h5>Q: <b> <?php echo $level_two_random_question_three;  ?> ?</b></h5>
-        				<hr>
-
-                        <?php foreach ($level_two_resultModalThree as $row3) {
-                            
-                        ?>
-                       	<input type="radio" class="form-check-group" name="level_two_answer3" required="required" value="<?php echo $row3['option'] ?>"> <?php echo $row3['option'] ?> <br>
-                        <?php
-                            }
-                        ?>
-
-      	</div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-      	<button class="btn btn-success btn-block" type="submit" name="level_two_submit"> Submit </button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-					</form>
-    </div>
-  </div>
-</div>
-<!-- My Modal Five  End-->
 <?php require 'footer.php'; ?>
