@@ -32,146 +32,7 @@
        		$loggedIn = true;
     	}
 
-        
-
-        /* Level One Question Barron*/
-    	$ques_id='';
-        $correct_ans = '';
-        $correct_ans_two = '';
-        $correct_ans_three = '';
-
-        $statementOne = $pdo->prepare("SELECT * FROM level_one_question ORDER BY RAND() limit 3");
-        $statementOne->execute();
-        $resultOne = $statementOne->fetchAll(PDO::FETCH_ASSOC);
-
-        /* Get Random First Question */
-        $ques_id = $resultOne[0]['id'];
-        $random_question =  $resultOne[0]['question'];
-        $correct_ans = $resultOne[0]['answer'];
-
-        /* Get Random Second Question */
-        $ques_id_two = $resultOne[1]['id'];
-        $random_question_two =  $resultOne[1]['question'];
-        $correct_ans_two = $resultOne[1]['answer'];
-
-        /* Get Random Third Question */
-        $ques_id_three = $resultOne[2]['id'];
-        $random_question_three =  $resultOne[2]['question'];
-        $correct_ans_three = $resultOne[2]['answer'];
-
-
-        /* Level 1 Test */
-        if (isset($_POST['submit'])) {
-            if(empty($_POST['answer']) || empty($_POST['answer2']) || empty($_POST['answer3']) ) {
-                $error_message = 'You Must Answer All The Question';
-            } else {
-                    $user_id = $_POST['user_id'];
-                    $answer = $_POST['answer'];
-                    $answer2 = $_POST['answer2'];
-                    $answer3 = $_POST['answer3'];
-
-                    /*echo $answer."<br>";
-                    echo $answer2."<br>";
-                    echo $answer3."<br><hr>";*/
-                  /* Level 1 Test */
-                if ($answer == $correct_ans || $answer2 == $correct_ans_two || $answer3 == $correct_ans_three ){
-
-                    $sql1 = $pdo->prepare("SELECT * FROM barron_word_settings WHERE user_id=?");
-                    $sql1->execute(array($_POST['user_id']));
-                    $totalrow = $sql1->rowCount();              
-                    if($totalrow) {
-                        $error_message .= 'You already Passed Level 1';
-                    }else{
-
-                        $sql = $pdo->prepare("INSERT INTO barron_word_settings (levelOne,user_id) VALUES (?,?)");
-                        $sql->execute(array('Completed',$_POST['user_id']));
-                        $success_message = "Your Level One Answer is Correct !!";
-
-                    }
-                    // unset($_POST['answer']);
-                  }else{
-                    $error_message = "Your Level One Answer is not correct" ;
-                    // unset($_POST['answer']);
-                }
-                /* Level 1 Test End */
-            }
-        }
-        /* Level 1 Test End*/
-
-
-
-        /* Level Two Question Barron*/
-    	$level_two_ques_id='';
-        $level_two_correct_ans = '';
-        $level_two_correct_ans_two = '';
-        $level_two_correct_ans_three = '';
-
-        $level_two_statementOne = $pdo->prepare("SELECT * FROM level_two_question_barron ORDER BY RAND() limit 3");
-        $level_two_statementOne->execute();
-        $level_two_resultOne = $level_two_statementOne->fetchAll(PDO::FETCH_ASSOC);
-
-        /* Get Random First Question */
-        $level_two_ques_id = $level_two_resultOne[0]['id'];
-        $level_two_random_question =  $level_two_resultOne[0]['question'];
-        $level_two_correct_ans = $level_two_resultOne[0]['answer'];
-
-        /* Get Random Second Question */
-        $level_two_ques_id_two = $level_two_resultOne[1]['id'];
-        $level_two_random_question_two =  $level_two_resultOne[1]['question'];
-        $level_two_correct_ans_two = $level_two_resultOne[1]['answer'];
-
-        /* Get Random Third Question */
-        $level_two_ques_id_three = $level_two_resultOne[2]['id'];
-        $level_two_random_question_three =  $level_two_resultOne[2]['question'];
-        $level_two_correct_ans_three = $level_two_resultOne[2]['answer'];
-
-        /*echo $level_two_correct_ans."<br>";
-        echo $level_two_correct_ans_two."<br>";
-        echo $level_two_correct_ans_three."<br><hr>";*/
-
-        /* Level 2 Test */
-        if (isset($_POST['level_two_submit'])) {
-        	if(empty($_POST['level_two_answer']) || empty($_POST['level_two_answer2']) || empty($_POST['level_two_answer3']) ) {
-                $error_message = 'You Must Answer All The Question';
-            } else {
-        			
-        		$user_id = $_POST['user_id'];
-                $level_two_answer = $_POST['level_two_answer'];
-                $level_two_answer2 = $_POST['level_two_answer2'];
-                $level_two_answer3 = $_POST['level_two_answer3'];
-
-                /*echo $level_two_answer."<br>";
-                echo $level_two_answer2."<br>";
-                echo $level_two_answer3."<br>";*/
-
-        		if (
-                	$level_two_answer  == $level_two_correct_ans  
-                	|| $level_two_answer2 == $level_two_correct_ans_two 
-                	|| $level_two_answer3 == $level_two_correct_ans_three
-                ) {
-
-                    $level_two_sql1 = $pdo->prepare("SELECT * FROM barron_word_settings WHERE user_id=?");
-                    $level_two_sql1->execute(array($_POST['user_id']));
-                    $level_two_totalrow = $level_two_sql1->rowCount();              
-                    if($level_two_totalrow) {
-
-                    	$level_two_sql = $pdo->prepare("UPDATE barron_word_settings SET levelTwo=? WHERE user_id= ?");
-                        $level_two_sql->execute(array('Completed',$_POST['user_id']));
-                        $success_message = "Your Have Passed Level Two Now!!";
-
-                    }else{
-                    	$error_message = "You Have not Passed Level One Yet";
-                    }
-                    // unset($_POST['answer']);
-                  }else{
-                    $error_message = "Your Level Two Answer is not correct" ;
-                    // unset($_POST['answer']);
-                }
-            }        
-        }        
-        /* Level 2 Test end */
-
-
+    
         /* Level Three Question Barron*/
     	$level_three_ques_id='';
         $level_three_correct_ans = '';
@@ -319,18 +180,18 @@
 						<h1 class="text-center p-3">Level One Words</h1>
 							
 
-							<?php if( (isset($error_message)) && ($error_message!='') ): ?>
-                              <div class="alert alert-danger text-center text-white">
-
-                                <h3><?php echo $error_message; ?></h3>
-                              </div>
-                            <?php endif; ?>
-
-                            <?php if($success_message): ?>
-                              <div class="alert alert-success text-center text-white">
-								<h3><?php echo $success_message; ?></h3>
-                              </div>
-                            <?php endif; ?>
+							
+                        <?php 
+                            if (!empty($_SESSION['success_message'])) {
+                                echo '<div class="alert alert-success"><h3 class="text-center text-white"> '.$_SESSION['success_message'].'</h3></div>';
+                                unset($_SESSION['success_message']);
+                            }
+    
+                            if (!empty($_SESSION['error_message'])) {
+                                echo '<div class="alert alert-danger"><h3 class="text-center text-white"> '.$_SESSION['error_message'].'</h3></div>';
+                                unset($_SESSION['error_message']);
+                            }
+                        ?>
 						<!-- Horizontal tab -->
 						<nav>
 							<div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
@@ -441,27 +302,7 @@
 						
 
 						<h1 class="text-center p-3">Level Two Words</h1>
-							
-							<?php if (!$level_one_pass) :?> 
-
-								<div class="alert alert-danger text-center text-white p-5">
-                                	<h1>You Have not Completed Level 1 Words Yet</h1>
-                              	</div>
-
-							<?php else: ?>
-
-							<?php if( (isset($error_message)) && ($error_message!='') ): ?>
-                              <div class="alert alert-danger text-center">
-
-                                <h3><?php echo $error_message; ?></h3>
-                              </div>
-                            <?php endif; ?>
-
-                            <?php if($success_message): ?>
-                              <div class="alert alert-success text-center text-white">
-								<h3><?php echo $success_message; ?></h3>
-                              </div>
-                            <?php endif; ?>
+						
 						<!-- Horizontal tab -->
 						<nav>
 							<div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
@@ -566,7 +407,6 @@
 							</button>
 						</div>
 
-						<?php endif ; ?>
 					</div>
 
 					<div class="tab-pane fade" id="v-pills-three" role="tabpanel" aria-labelledby="v-pills-three-tab">
@@ -971,6 +811,31 @@
         	
 
 			<?php
+                    /* Level One Question Barron*/
+                    $ques_id='';
+                    $correct_ans = '';
+                    $correct_ans_two = '';
+                    $correct_ans_three = '';
+
+                    $statementOne = $pdo->prepare("SELECT * FROM level_one_question ORDER BY RAND() limit 3");
+                    $statementOne->execute();
+                    $resultOne = $statementOne->fetchAll(PDO::FETCH_ASSOC);
+
+                    /* Get Random First Question */
+                    $ques_id = $resultOne[0]['id'];
+                    $random_question =  $resultOne[0]['question'];
+                    $correct_ans = $resultOne[0]['answer'];
+
+                    /* Get Random Second Question */
+                    $ques_id_two = $resultOne[1]['id'];
+                    $random_question_two =  $resultOne[1]['question'];
+                    $correct_ans_two = $resultOne[1]['answer'];
+
+                    /* Get Random Third Question */
+                    $ques_id_three = $resultOne[2]['id'];
+                    $random_question_three =  $resultOne[2]['question'];
+                    $correct_ans_three = $resultOne[2]['answer'];
+
                     $ModalQuestionOne = $pdo->prepare("SELECT * FROM level_one_question_option where level_one_question_option.question_id = ".$ques_id." limit 4");
                     $ModalQuestionOne->execute();
                     $resultModalOne = $ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC); 
@@ -983,7 +848,7 @@
                     $ModalQuestionThree->execute();
                     $resultModalThree = $ModalQuestionThree->fetchAll(PDO::FETCH_ASSOC); ?>
 
-                    <form action="" method="post">
+                    <form action="barron_level_one.php" method="post">
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
 						
 						<h5>Q: <b> <?php echo $random_question;  ?> ?</b></h5>
@@ -1049,6 +914,36 @@
       	<div class="modal-body">
 			
 			<?php
+
+                /* Getting Level 2 Question randomly with answer */
+                $level_two_ques_id='';
+                $level_two_ques_id_two='';
+                $level_two_ques_id_three='';
+                $level_two_correct_ans = '';
+                $level_two_correct_ans_two = '';
+                $level_two_correct_ans_three = '';
+
+                $level_two_statementOne = $pdo->prepare("SELECT * FROM level_two_question_barron ORDER BY RAND() limit 3");
+                $level_two_statementOne->execute();
+                $level_two_resultOne = $level_two_statementOne->fetchAll(PDO::FETCH_ASSOC);
+
+                /* Get Random First Question */
+                $level_two_ques_id = $level_two_resultOne[0]['id'];
+                $level_two_random_question =  $level_two_resultOne[0]['question'];
+                $level_two_correct_ans = $level_two_resultOne[0]['answer'];
+
+                /* Get Random Second Question */
+                $level_two_ques_id_two = $level_two_resultOne[1]['id'];
+                $level_two_random_question_two =  $level_two_resultOne[1]['question'];
+                $level_two_correct_ans_two = $level_two_resultOne[1]['answer'];
+
+                /* Get Random Third Question */
+                $level_two_ques_id_three = $level_two_resultOne[2]['id'];
+                $level_two_random_question_three =  $level_two_resultOne[2]['question'];
+                $level_two_correct_ans_three = $level_two_resultOne[2]['answer'];
+
+
+                    /* Getting Level 2 Question option */
                     $level_two_ModalQuestionOne = $pdo->prepare("SELECT * FROM level_two_question_option_barron where level_two_question_option_barron.question_id = ".$level_two_ques_id." limit 4");
                     $level_two_ModalQuestionOne->execute();
                     $level_two_resultModalOne = $level_two_ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC); 
@@ -1061,11 +956,12 @@
                     $level_two_ModalQuestionThree->execute();
                     $level_two_resultModalThree = $level_two_ModalQuestionThree->fetchAll(PDO::FETCH_ASSOC); ?>
 
-                    <form action="" method="post">
+                    <form action="barron_level_two.php" method="post">
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
 						
 						<h5>Q: <b> <?php echo $level_two_random_question;  ?> ?</b></h5>
         				<hr>
+                        <input type="hidden" name="level_two_ques_id" value="<?php echo $level_two_ques_id ?>">
 
                         <?php foreach ($level_two_resultModalOne as $row3) {
                             
@@ -1079,6 +975,7 @@
 
                         <h5>Q: <b> <?php echo $level_two_random_question_two;  ?> ?</b></h5>
         				<hr>
+                        <input type="hidden" name="level_two_ques_id_two" value="<?php echo $level_two_ques_id_two ?>">
 
                         <?php foreach ($level_two_resultModalTwo as $row3) {
                             
@@ -1092,6 +989,7 @@
 
                         <h5>Q: <b> <?php echo $level_two_random_question_three;  ?> ?</b></h5>
         				<hr>
+                        <input type="hidden" name="level_two_ques_id_three" value="<?php echo $level_two_ques_id_three ?>">
 
                         <?php foreach ($level_two_resultModalThree as $row3) {
                             
