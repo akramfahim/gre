@@ -48,9 +48,6 @@
                 $level_two_answer2 = $_POST['level_two_answer2'];
                 $level_two_answer3 = $_POST['level_two_answer3'];
 
-                /*echo $level_two_answer."<br>";
-                echo $level_two_answer2."<br>";
-                echo $level_two_answer3."<br><hr>";*/
 
         		if (
                 	$level_two_answer  == $level_two_correct_ans  
