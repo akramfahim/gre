@@ -5,32 +5,13 @@
 
    	/* Level One Question Barron*/
     	$ques_id='';
+        $ques_id_two='';
+        $ques_id_three='';
+
         $correct_ans = '';
         $correct_ans_two = '';
         $correct_ans_three = '';
 
-        $statementOne = $pdo->prepare("SELECT * FROM level_one_question ORDER BY RAND() limit 3");
-        $statementOne->execute();
-        $resultOne = $statementOne->fetchAll(PDO::FETCH_ASSOC);
-
-        /* Get Random First Question */
-        $ques_id = $resultOne[0]['id'];
-        $random_question =  $resultOne[0]['question'];
-        $correct_ans = $resultOne[0]['answer'];
-
-        /* Get Random Second Question */
-        $ques_id_two = $resultOne[1]['id'];
-        $random_question_two =  $resultOne[1]['question'];
-        $correct_ans_two = $resultOne[1]['answer'];
-
-        /* Get Random Third Question */
-        $ques_id_three = $resultOne[2]['id'];
-        $random_question_three =  $resultOne[2]['question'];
-        $correct_ans_three = $resultOne[2]['answer'];
-
-                    /*echo $correct_ans."<br>";
-                    echo $correct_ans_two."<br>";
-                    echo $correct_ans_three."<br><hr>";*/
 
         /* Level 1 Test */
         if (isset($_POST['submit'])) {
@@ -38,15 +19,42 @@
                 $error_message = 'You Must Answer All The Question';
             } else {
                     $user_id = $_POST['user_id'];
+
+                    $ques_id = $_POST['question_id'];
+                    $ques_id_two = $_POST['question_id_two'];
+                    $ques_id_three = $_POST['question_id_three'];
+
+                    
+                    /* Get Correct ans of specific question */
+                    $stmt_one = $pdo->prepare("SELECT answer from level_one_question where id=?");
+                    $stmt_one->execute(array($ques_id));
+                    $resultOne = $stmt_one->fetch();
+                    $correct_ans = $resultOne['answer'];
+
+                    $stmt_two = $pdo->prepare("SELECT answer from level_one_question where id=?");
+                    $stmt_two->execute(array($ques_id_two));
+                    $resultTwo = $stmt_two->fetch();
+                    $correct_ans_two = $resultTwo['answer'];
+
+                    $stmt_three = $pdo->prepare("SELECT answer from level_one_question where id=?");
+                    $stmt_three->execute(array($ques_id_three));
+                    $resultThree = $stmt_three->fetch();
+                    $correct_ans_three = $resultThree['answer'];
+
+                    /*echo $correct_ans."<br>";
+                    echo $correct_ans_two."<br>";
+                    echo $correct_ans_three."<br><hr>";*/
+
+
                     $answer = $_POST['answer'];
                     $answer2 = $_POST['answer2'];
                     $answer3 = $_POST['answer3'];
 
-                  /*  echo $answer."<br>";
+                    /*echo $answer."<br>";
                     echo $answer2."<br>";
                     echo $answer3."<br><hr>";*/
                   /* Level 1 Test */
-                if ($answer == $correct_ans || $answer2 == $correct_ans_two || $answer3 == $correct_ans_three ){
+                if ($answer == $correct_ans && $answer2 == $correct_ans_two && $answer3 == $correct_ans_three ){
 
                     $sql1 = $pdo->prepare("SELECT * FROM barron_word_settings WHERE user_id=?");
                     $sql1->execute(array($_POST['user_id']));
