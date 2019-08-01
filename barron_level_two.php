@@ -75,13 +75,11 @@
                   		/*echo "You Failed level 1";*/
 
                     }
-                    // unset($_POST['answer']);
                   }else{
 
                     $_SESSION['error_message'] = 'Your Level Two Answers are not correct';
                   	header('Location:single_course.php');
-                  	/*echo "Your Answers are wrong";*/
-                    // unset($_POST['answer']);
+                  	
                 }
             }        
         }        
