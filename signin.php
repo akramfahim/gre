@@ -24,8 +24,8 @@
       $email = strip_tags($_POST['email']);
       $password = strip_tags($_POST['password']);
 
-      $statement = $pdo->prepare("SELECT * FROM users WHERE email=? AND userType=?");
-      $statement->execute(array($email,'0'));
+      $statement = $pdo->prepare("SELECT * FROM users WHERE email=?");
+      $statement->execute(array($email));
       $total = $statement->rowCount();    
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);    
         if($total==0) {
