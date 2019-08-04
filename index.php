@@ -51,7 +51,7 @@
                         <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
                         </div>
-                        <button type="button" class="btn btn-lg btn-block btn-info text-white">Learn</button>
+                        <a  href="single_course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
                      </div>
                   </div>
                </div>
@@ -67,7 +67,7 @@
                         <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
                         </div>
-                        <button type="button" class="btn btn-lg btn-block btn-info text-white">Learn</button>
+                        <a  href="magoosh_course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
                      </div>
                   </div>
                </div>
@@ -83,7 +83,7 @@
                         <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
                         </div>
-                        <button type="button" class="btn btn-lg btn-block btn-info text-white">Learn</button>
+                        <a  href="manhattan_course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
                      </div>
                   </div>
                </div>
