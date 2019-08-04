@@ -115,8 +115,8 @@
 
   <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body class="bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Admin Panel | Gre</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -128,10 +128,7 @@
           <a class="nav-link" href="#">DashBoard <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Users</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Words List</a>
+          <a class="nav-link" href="word_list.php">Words List</a>
         </li>
         <li class="nav-item">
           <a class="nav-link btn btn-success" href="word_insert.php">Insert a new Word</a>
@@ -156,7 +153,7 @@
                 <div class="card-body">
                   <h5 class="card-title">Total Active Users</h5>
                   <h1 class="text-center text-success"><?php echo $number_of_users; ?></h1>
-                  <a href="#" class="btn btn-primary btn-block">Users List</a>
+                  <a href="#userlist" class="btn btn-primary btn-block">Users List</a>
                 </div>
               </div>
             </div>
@@ -168,7 +165,7 @@
                 <div class="card-body">
                   <h5 class="card-title">Total Words Number</h5>
                   <h1 class="text-center text-success"><?php echo $number_of_words; ?></h1>
-                  <a href="#" class="btn btn-primary btn-block">Check Words</a>
+                  <a href="word_list.php" class="btn btn-primary btn-block">Check Words</a>
                 </div>
               </div>
             </div>
@@ -177,10 +174,10 @@
       </div>
     </div>
   </div>
-  <div class="container-fluid">
-    <div class="row mt-5 bg-dark">
+  <div class="container" id="userlist">
+    <div class="row mt-5 bg-light">
       <div class="col-12">
-        <h2 class="text-center text-white py-3">Users List</h2>
+        <h2 class="text-center text-dark py-3">Users List</h2>
         <hr>
         <table class="table table-dark table-striped text-center">
           <thead>
