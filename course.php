@@ -63,7 +63,7 @@
                <div class="col-md-4 col-sm-12">
                   <div class="card mb-4 shadow-sm">
                      <div class="card-header text-white">
-                        <h4 class="my-0 font-weight-bold">Manhattan</h4>
+                        <h4 class="my-0 font-weight-bold">Magoosh</h4>
                      </div>
                      <div class="card-body">
                         <img src="img/Magoosh_copy.jpg" class="img-fluid mb-1 rounded">
@@ -72,14 +72,14 @@
                         <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
                         </div>
-                        <button type="button" class="btn btn-lg btn-block btn-info text-white">Learn</button>
+                        <a  href="magoosh_course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
                      </div>
                   </div>
                </div>
                <div class="col-md-4 col-sm-12">
                   <div class="card mb-4 shadow-sm">
                      <div class="card-header text-white">
-                        <h4 class="my-0 font-weight-bold">Magoosh</h4>
+                        <h4 class="my-0 font-weight-bold">Manhattan</h4>
                      </div>
                      <div class="card-body">
                         <img src="img/Manhattan_copy.png" class="img-fluid mb-1 rounded">
@@ -88,7 +88,7 @@
                         <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
                         </div>
-                        <button type="button" class="btn btn-lg btn-block btn-info text-white">Learn</button>
+                        <a  href="#" class="btn btn-lg btn-block btn-info text-white">Learn</a>
                      </div>
                   </div>
                </div>
