@@ -786,7 +786,7 @@
                     $ModalQuestionThree->execute();
                     $resultModalThree = $ModalQuestionThree->fetchAll(PDO::FETCH_ASSOC); ?>
 
-                    <form action="barron_level_one.php" method="post">
+                    <form action="form/magoosh_level_one.php" method="post">
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
 						
 						<h5>Q: <b> <?php echo $random_question;  ?> ?</b></h5>
@@ -896,7 +896,7 @@
                     $level_two_ModalQuestionThree->execute();
                     $level_two_resultModalThree = $level_two_ModalQuestionThree->fetchAll(PDO::FETCH_ASSOC); ?>
 
-                    <form action="barron_level_two.php" method="post">
+                    <form action="form/magoosh_level_two.php" method="post">
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
 						
 						<h5>Q: <b> <?php echo $level_two_random_question;  ?> ?</b></h5>
@@ -1001,7 +1001,7 @@
                     $level_three_ModalQuestionThree->execute();
                     $level_three_resultModalThree = $level_three_ModalQuestionThree->fetchAll(PDO::FETCH_ASSOC); ?>
 
-                    <form action="barron_level_three.php" method="post">
+                    <form action="form/magoosh_level_three.php" method="post">
 
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
 						
@@ -1111,7 +1111,7 @@
                     $level_four_ModalQuestionThree->execute();
                     $level_four_resultModalThree = $level_four_ModalQuestionThree->fetchAll(PDO::FETCH_ASSOC); ?>
 
-                    <form action="barron_level_four.php" method="post">
+                    <form action="form/magoosh_level_four.php" method="post">
 
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
                         
@@ -1221,7 +1221,7 @@
                     $level_five_ModalQuestionThree->execute();
                     $level_five_resultModalThree = $level_five_ModalQuestionThree->fetchAll(PDO::FETCH_ASSOC); ?>
 
-                    <form action="barron_level_five.php" method="post">
+                    <form action="form/magoosh_level_five.php" method="post">
 
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
                         
