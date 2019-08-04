@@ -2,7 +2,7 @@
 		
 		ob_start();
     	session_start();
-    	include("../inc/config.php");
+    	include("inc/config.php");
 
 		/* Level Three Question Barron*/
         $level_three_ques_id='';
@@ -62,19 +62,19 @@
                         $level_three_sql->execute(array('Completed',$_POST['user_id']));
 
                         $_SESSION['success_message'] = 'You Passed Level Three Now!!';
-                        header('Location:../single_course.php');
+                        header('Location:single_course.php');
 
                         /*echo "You Passes";*/
 
 
                     }else{
                         $_SESSION['error_message'] = 'You Have not Completed Level Two Yet';
-                        header('Location:../single_course.php');
+                        header('Location:single_course.php');
                     }
                     // unset($_POST['answer']);
                   }else{
                     $_SESSION['error_message'] = 'Your ALL Answers are not correct';
-                    header('Location:../single_course.php');
+                    header('Location:single_course.php');
                     // unset($_POST['answer']);
                 }
             }        

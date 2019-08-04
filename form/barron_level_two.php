@@ -1,7 +1,7 @@
 <?php 
 	ob_start();
     session_start();
-   	include("../inc/config.php");
+   	include("inc/config.php");
 
    	/* Level Two Question Barron*/
     	$level_two_ques_id='';
@@ -64,21 +64,21 @@
                         $level_two_sql->execute(array('Completed',$_POST['user_id']));
                        
                         $_SESSION['success_message'] = 'You Passed Level Two Now!!';
-                  		header('Location:../single_course.php');
+                  		header('Location:single_course.php');
 
                   		/*echo "You Passed";*/
 
                     }else{
                     
                     	$_SESSION['error_message'] = 'You Have not Completed Level One Yet';
-                  		header('Location:../single_course.php');
+                  		header('Location:single_course.php');
                   		/*echo "You Failed level 1";*/
 
                     }
                   }else{
 
                     $_SESSION['error_message'] = 'Your Level Two Answers are not correct';
-                  	header('Location:../single_course.php');
+                  	header('Location:single_course.php');
                   	
                 }
             }        

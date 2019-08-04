@@ -1,7 +1,7 @@
 <?php 
 	ob_start();
     session_start();
-   	include("../inc/config.php");
+   	include("inc/config.php");
 
    	/* Level One Question Barron*/
     	$ques_id='';
@@ -61,20 +61,20 @@
                     $totalrow = $sql1->rowCount();              
                     if($totalrow) {
                         $_SESSION['error_message'] = 'Your Already Completed Level One';
-                  		header('Location:../single_course.php');
+                  		header('Location:single_course.php');
                     }else{
 
                         $sql = $pdo->prepare("INSERT INTO barron_word_settings (levelOne,user_id) VALUES (?,?)");
                         $sql->execute(array('Completed',$_POST['user_id']));
 
                         $_SESSION['success_message'] = 'You Passed Level One Now';
-    					header('Location: ../single_course.php');
+    					header('Location: single_course.php');
 
                     }
                     // unset($_POST['answer']);
                   }else{
                   	$_SESSION['error_message'] = 'Your answers are not correct';
-                  	header('Location:../single_course.php');
+                  	header('Location:single_course.php');
 
                 }
                 /* Level 1 Test End */
