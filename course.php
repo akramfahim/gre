@@ -88,7 +88,7 @@
                         <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
                         </div>
-                        <a  href="#" class="btn btn-lg btn-block btn-info text-white">Learn</a>
+                        <a  href="manhattan_course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
                      </div>
                   </div>
                </div>
