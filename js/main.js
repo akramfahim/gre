@@ -7,3 +7,10 @@
 /*if ( window.history.replaceState ) {
     window.history.replaceState( null, null, window.location.href );
 }*/
+
+$(document).ready(function(){
+    setTimeout(function(){
+        $("div.alert").remove();
+    }, 3000 ); // 5 secs
+
+});
