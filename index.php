@@ -58,7 +58,7 @@
                <div class="col-4">
                   <div class="card mb-4 shadow-sm">
                      <div class="card-header bg-myColor text-white">
-                        <h4 class="my-0 font-weight-bold">Manhattan</h4>
+                        <h4 class="my-0 font-weight-bold">Magoosh</h4>
                      </div>
                      <div class="card-body">
                         <img src="img/Magoosh.jpg" class="mb-1 rounded" height="100px" width="100px">
@@ -74,7 +74,7 @@
                <div class="col-4">
                   <div class="card mb-4 shadow-sm">
                      <div class="card-header bg-myColor text-white">
-                        <h4 class="my-0 font-weight-bold">Magoosh</h4>
+                        <h4 class="my-0 font-weight-bold">Manhattan</h4>
                      </div>
                      <div class="card-body">
                         <img src="img/Manhattan.png" class="mb-1 rounded" height="100px" width="100px">
