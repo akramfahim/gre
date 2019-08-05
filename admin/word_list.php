@@ -153,10 +153,15 @@
                   </thead>
                   <tbody>
                     <?php foreach ($barron_word_one as $word): ?>
+                      <?php $id = $word['id'];$table_name = 'level_one_word_barron'; ?>
                       <tr>
                         <td><?php echo $word['word_name']; ?></td>
                         <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                        <td>
+                           <?php 
+                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
+                           ?> 
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -174,10 +179,15 @@
                   </thead>
                   <tbody>
                     <?php foreach ($barron_word_two as $word): ?>
+                      <?php $id = $word['id'];$table_name = 'level_two_word_barron'; ?>
                       <tr>
                         <td><?php echo $word['word_name']; ?></td>
                         <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                        <td>
+                          <?php 
+                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
+                           ?> 
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -195,10 +205,15 @@
                   </thead>
                   <tbody>
                     <?php foreach ($barron_word_three as $word): ?>
+                      <?php $id = $word['id'];$table_name = 'level_three_word_barron'; ?>
                       <tr>
                         <td><?php echo $word['word_name']; ?></td>
                         <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                        <td>
+                          <?php 
+                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
+                           ?> 
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -216,10 +231,15 @@
                   </thead>
                   <tbody>
                     <?php foreach ($barron_word_four as $word): ?>
+                      <?php $id = $word['id'];$table_name = 'level_four_word_barron'; ?>
                       <tr>
                         <td><?php echo $word['word_name']; ?></td>
                         <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                        <td>
+                          <?php 
+                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
+                           ?> 
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -237,10 +257,15 @@
                   </thead>
                   <tbody>
                     <?php foreach ($barron_word_five as $word): ?>
+                      <?php $id = $word['id'];$table_name = 'level_five_word_barron'; ?>
                       <tr>
                         <td><?php echo $word['word_name']; ?></td>
                         <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                        <td>
+                          <?php 
+                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
+                           ?> 
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -263,10 +288,15 @@
                   </thead>
                   <tbody>
                     <?php foreach ($magoosh_word_one as $word): ?>
+                      <?php $id = $word['id'];$table_name = 'magoosh_level_one_word'; ?>
                       <tr>
                         <td><?php echo $word['word_name']; ?></td>
                         <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                        <td>
+                          <?php 
+                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
+                           ?> 
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -284,10 +314,15 @@
                   </thead>
                   <tbody>
                     <?php foreach ($magoosh_word_two as $word): ?>
+                      <?php $id = $word['id'];$table_name = 'magoosh_level_two_word'; ?>
                       <tr>
                         <td><?php echo $word['word_name']; ?></td>
                         <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                        <td>
+                          <?php 
+                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
+                           ?> 
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -305,10 +340,15 @@
                   </thead>
                   <tbody>
                     <?php foreach ($magoosh_word_three as $word): ?>
+                      <?php $id = $word['id'];$table_name = 'magoosh_level_three_word'; ?>
                       <tr>
                         <td><?php echo $word['word_name']; ?></td>
                         <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                        <td>
+                          <?php 
+                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
+                           ?> 
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -326,10 +366,15 @@
                   </thead>
                   <tbody>
                     <?php foreach ($magoosh_word_four as $word): ?>
+                      <?php $id = $word['id'];$table_name = 'magoosh_level_four_word'; ?>
                       <tr>
                         <td><?php echo $word['word_name']; ?></td>
                         <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                        <td>
+                          <?php 
+                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
+                           ?> 
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -347,10 +392,15 @@
                   </thead>
                   <tbody>
                     <?php foreach ($magoosh_word_five as $word): ?>
+                      <?php $id = $word['id'];$table_name = 'magoosh_level_five_word'; ?>
                       <tr>
                         <td><?php echo $word['word_name']; ?></td>
                         <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                        <td>
+                          <?php 
+                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
+                           ?> 
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -373,10 +423,15 @@
                   </thead>
                   <tbody>
                     <?php foreach ($manhattan_word_one as $word): ?>
+                      <?php $id = $word['id'];$table_name = 'manhattan_level_one_word'; ?>
                       <tr>
                         <td><?php echo $word['word_name']; ?></td>
                         <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                        <td>
+                          <?php 
+                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
+                           ?> 
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -394,10 +449,15 @@
                   </thead>
                   <tbody>
                     <?php foreach ($manhattan_word_two as $word): ?>
+                      <?php $id = $word['id'];$table_name = 'manhattan_level_two_word'; ?>
                       <tr>
                         <td><?php echo $word['word_name']; ?></td>
                         <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                        <td>
+                          <?php 
+                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
+                           ?> 
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -415,10 +475,15 @@
                   </thead>
                   <tbody>
                     <?php foreach ($manhattan_word_three as $word): ?>
+                      <?php $id = $word['id'];$table_name = 'manhattan_level_three_word'; ?>
                       <tr>
                         <td><?php echo $word['word_name']; ?></td>
                         <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                        <td>
+                          <?php 
+                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
+                           ?> 
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -436,10 +501,15 @@
                   </thead>
                   <tbody>
                     <?php foreach ($manhattan_word_four as $word): ?>
+                      <?php $id = $word['id'];$table_name = 'manhattan_level_four_word'; ?>
                       <tr>
                         <td><?php echo $word['word_name']; ?></td>
                         <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                        <td>
+                          <?php 
+                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
+                           ?> 
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -457,10 +527,15 @@
                   </thead>
                   <tbody>
                     <?php foreach ($manhattan_word_five as $word): ?>
+                      <?php $id = $word['id'];$table_name = 'manhattan_level_five_word'; ?>
                       <tr>
                         <td><?php echo $word['word_name']; ?></td>
                         <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td><a href="#" class="btn btn-primary">Edit</a></td>
+                        <td>
+                          <?php 
+                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
+                           ?> 
+                        </td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
