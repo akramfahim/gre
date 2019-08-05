@@ -131,9 +131,6 @@
           <a class="nav-link" href="word_list.php">Words List</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link btn btn-success" href="word_insert.php">Insert a new Word</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link btn btn-outline-danger" href="../signout.php">Sign Out</a>
         </li>
       </ul>
