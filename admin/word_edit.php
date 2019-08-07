@@ -17,9 +17,36 @@
 	$get_barron_level_five_word->execute();
 	$barron_word_five = $get_barron_level_five_word->fetchAll(PDO::FETCH_ASSOC);
 
+    $word_name = $barron_word_five[0]['word_name'];
+    $description = $barron_word_five[0]['description'];
+
 	/*print_r($barron_word_five);*/
 	/*echo $barron_word_five[0]['word_name']."<br>";
 	echo $barron_word_five[0]['description']."<br>";*/
+
+    if (isset($_POST['update'])) {
+        if (empty($_POST['word_name']) || empty($_POST['description'])) {
+            $error_msg = "Any field should not be empty";
+        }elseif ($_POST['word_name'] == $word_name || $_POST['description'] == $description) {
+            $error_msg = "You do not change Anything";
+        }else{
+            $new_word_name = $_POST['word_name'];
+            $new_description = $_POST['description'];
+
+            //$sql = "UPDATE ".$table_name." SET word_name=".$word_name." AND description= ".$description." WHERE id=".$id;
+
+            $update_stmt = $pdo->prepare("UPDATE ".$table_name." SET word_name='$new_word_name' AND description='$new_description.' WHERE id='$id'");
+            $done_update = $update_stmt->execute();
+            /*$sql = 'UPDATE '.$table_name.' WHERE id='.$id;
+            $update_stmt = $pdo->prepare($sql);
+            $done_update = $update_stmt->execute();*/
+            if ($done_update) {
+                $success_msg = "Your Word Successfully Updated";
+            }else{
+                $error_msg = "Word Cannot Be Updated";
+            }
+        }
+    }
  ?>
 
 <!DOCTYPE html>
@@ -63,9 +90,9 @@
                      </div>
                      <div class="card-body">
                      	<?php if ($error_msg) {?>
-                     		<div class="alert alert-danger"><h2><?php echo $error_msg; ?></h2></div>
+                     		<div class="alert alert-danger"><h4><?php echo $error_msg; ?></h4></div>
                      	<?php  }elseif ($success_msg) {?>
-                     		<div class="alert alert-success"><h2><?php echo $success_msg; ?></h2></div>
+                     		<div class="alert alert-success"><h4><?php echo $success_msg; ?></h4></div>
                      	<?php  } ?>
 
                      	<form method="POST" action="">
@@ -76,7 +103,7 @@
                      		
                      		<div class="form-group">
                      			<label for="comment"><h4>Description:</h4></label>
-                     			<textarea name="description" class="form-control" rows="5" id="description"><?php echo $barron_word_five[0]['description'] ?>
+                     			<textarea name="description" required="required" class="form-control" rows="5" id="description"><?php echo $barron_word_five[0]['description'] ?>
                      			</textarea>
                      		</div>
 
