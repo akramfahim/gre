@@ -21,6 +21,8 @@
     $level_three_pass = false;
     $level_three_check_message ='';
     $level_four_pass = false;
+
+
     $level_four_check_message ='';
     $level_four_pass = false;
 
@@ -35,23 +37,23 @@
 
 
         /* Level Check whether he or She Passed The Level or Not */
-        $level_sql = $pdo->prepare("SELECT * FROM manhattan_word_settings WHERE user_id=?");
+        $level_sql = $pdo->prepare("SELECT * FROM level_settings WHERE user_id=? And type='manhattan'");
         $level_sql->execute(array($user_id));
         $level_pass = $level_sql->fetchAll(PDO::FETCH_ASSOC);
         if (!empty($level_pass)) {
-                if ($level_pass[0]['levelOne'] == 'Completed') {
+                if ($level_pass[0]['level_One'] == 'Completed') {
                     $level_one_pass = true;
                     
-                    if ($level_pass[0]['levelTwo'] == 'Completed') {
+                    if ($level_pass[0]['level_Two'] == 'Completed') {
                     	$level_two_pass = true;
 
-                        if ($level_pass[0]['levelThree'] == 'Completed') {
+                        if ($level_pass[0]['level_Three'] == 'Completed') {
                             $level_three_pass = true;
 
-                            if ($level_pass[0]['levelFour'] == 'Completed') {
+                            if ($level_pass[0]['level_Four'] == 'Completed') {
                                 $level_four_pass = true;
 
-                                if ($level_pass[0]['levelFive'] == 'Completed') {
+                                if ($level_pass[0]['level_Five'] == 'Completed') {
                                     
                                     $level_five_pass = true;
                                     $user_status = $pdo->prepare("SELECT * FROM settings WHERE user_id=?");
@@ -122,7 +124,7 @@
 					</a>
 				</div>
 			</div>
-			<div class="col-9">
+				<div class="col-9">
 				<div class="tab-content" id="v-pills-tabContent">
 					<div class="tab-pane fade show active" id="v-pills-one" role="tabpanel" aria-labelledby="v-pills-one-tab">
 						
@@ -139,103 +141,47 @@
                                 unset($_SESSION['error_message']);
                             }
                         ?>
-						<!-- Horizontal tab -->
+						<!-- Horizontal tab level 1-->
 						<nav>
 							<div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-								<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">One</a>
+								<a class="nav-item nav-link active" id="nav-0-tab" data-toggle="tab" href="#nav-0" role="tab" aria-controls="nav-0" aria-selected="true">One</a>
 
-								<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Two</a>
+								<a class="nav-item nav-link" id="nav-1-tab" data-toggle="tab" href="#nav-1" role="tab" aria-controls="nav-1" aria-selected="false">Two</a>
 
-								<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Three</a>
+								<a class="nav-item nav-link" id="nav-2-tab" data-toggle="tab" href="#nav-2" role="tab" aria-controls="nav-2" aria-selected="false">Three</a>
 
-								<a class="nav-item nav-link" id="nav-four-tab" data-toggle="tab" href="#nav-four" role="tab" aria-controls="nav-contact" aria-selected="false">Four</a>
+								<a class="nav-item nav-link" id="nav-3-tab" data-toggle="tab" href="#nav-3" role="tab" aria-controls="nav-3" aria-selected="false">Four</a>
 
-								<a class="nav-item nav-link" id="nav-five-tab" data-toggle="tab" href="#nav-five" role="tab" aria-controls="nav-contact" aria-selected="false">Five</a>
+								<a class="nav-item nav-link" id="nav-4-tab" data-toggle="tab" href="#nav-4" role="tab" aria-controls="nav-4" aria-selected="false">Five</a>
 							</div>
 						</nav>
 						
 
 						<?php
                                 
-                                $statement = $pdo->prepare("SELECT * FROM manhattan_level_one_word where id BETWEEN 1 AND 5");
+                                $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='manhattan' AND level='one' limit 5");
                                 $statement->execute();
-                                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                                $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
                                 ?>
 
 						<div class="tab-content text-dark" id="nav-tabContent">
-							<div class="tab-pane fade show active h-75" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-
-                                 
-
-                                 <div class="container">
+							<?php
+								foreach ($results as $key => $result) {
+								?>	
+							<div class="tab-pane fade show h-75 <?php if($key==0) echo 'active'; ?>" id="nav-<?php echo $key ?>" role="tabpane<?php echo $key ?>" aria-labelledby="nav-<?php echo $key ?>-tab">
+                             <div class="container">
                                  	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-                                 		<h1 class="text-center text-white p3 mt-3">
-                                 			<?php echo $result[0]['word_name']; ?>		
+                                 		<h1 class="text-center text-white p3 mt-3">	
+                                 			<?php echo $result['word']; ?> 
                                  		</h1>
                                  		<h3 class="text-center">
-                                 			<?php echo $result[0]['description']; ?>
+                                 			<?php echo $result['description']; ?> 
                                  		</h3>
                                  	</div>
                                  </div>
-
 							</div>
-							<div class="tab-pane fade h-75" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-								
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $result[1]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $result[1]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-								
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $result[2]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $result[2]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-four" role="tabpanel" aria-labelledby="nav-contact-tab">
-
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $result[3]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $result[3]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-five" role="tabpanel" aria-labelledby="nav-contact-tab">
-
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $result[4]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $result[4]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
+						<?php } ?>
 						</div>
 						<!-- Horizontal tab Ends-->
 						<div class="row justify-content-center my-5">
@@ -258,103 +204,48 @@
 
                             <?php else: ?>
 						
-						<!-- Horizontal tab -->
+						<!-- Horizontal tab level 2-->
 						<nav>
 							<div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-								<a class="nav-item nav-link active" id="nav-six-tab" data-toggle="tab" href="#nav-six" role="tab" aria-controls="nav-six" aria-selected="true">One</a>
+								<a class="nav-item nav-link active" id="nav-levelTwo-0-tab" data-toggle="tab" href="#nav-levelTwo-0" role="tab" aria-controls="nav-0" aria-selected="true">One</a>
 
-								<a class="nav-item nav-link" id="nav-seven-tab" data-toggle="tab" href="#nav-seven" role="tab" aria-controls="nav-seven" aria-selected="false">Two</a>
+								<a class="nav-item nav-link" id="nav-levelTwo-1-tab" data-toggle="tab" href="#nav-levelTwo-1" role="tab" aria-controls="nav-1" aria-selected="false">Two</a>
 
-								<a class="nav-item nav-link" id="nav-eight-tab" data-toggle="tab" href="#nav-eight" role="tab" aria-controls="nav-eight" aria-selected="false">Three</a>
+								<a class="nav-item nav-link" id="nav-levelTwo-2-tab" data-toggle="tab" href="#nav-levelTwo-2" role="tab" aria-controls="nav-2" aria-selected="false">Three</a>
 
-								<a class="nav-item nav-link" id="nav-nine-tab" data-toggle="tab" href="#nav-nine" role="tab" aria-controls="nav-nine" aria-selected="false">Four</a>
+								<a class="nav-item nav-link" id="nav-levelTwo-3-tab" data-toggle="tab" href="#nav-levelTwo-3" role="tab" aria-controls="nav-3" aria-selected="false">Four</a>
 
-								<a class="nav-item nav-link" id="nav-ten-tab" data-toggle="tab" href="#nav-ten" role="tab" aria-controls="nav-ten" aria-selected="false">Five</a>
+								<a class="nav-item nav-link" id="nav-levelTwo-4-tab" data-toggle="tab" href="#nav-levelTwo-4" role="tab" aria-controls="nav-4" aria-selected="false">Five</a>
 							</div>
 						</nav>
 						
 
-						<?php
+				<?php
                                 
-                                $statementTwo = $pdo->prepare("SELECT * FROM manhattan_level_two_word where id BETWEEN 1 AND 5");
-                                $statementTwo->execute();
-                                $resultTwo = $statementTwo->fetchAll(PDO::FETCH_ASSOC);
-                                ?>
+                    $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='manhattan' AND level='two' limit 5");
+                    $statement->execute();
+                    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-						<div class="tab-content text-dark" id="nav-tabContent">
-							<div class="tab-pane fade show active h-75" id="nav-six" role="tabpanel" aria-labelledby="nav-six-tab">
+                  ?>
 
-                                 
-
-                                 <div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-                                 		<h1 class="text-center text-white p3 mt-3">
-                                 			<?php echo $resultTwo[0]['word_name']; ?>		
-                                 		</h1>
-                                 		<h3 class="text-center">
-                                 			<?php echo $resultTwo[0]['description']; ?>
-                                 		</h3>
-                                 	</div>
-                                 </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-seven" role="tabpanel" aria-labelledby="nav-seven-tab">
-								
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[1]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[1]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-eight" role="tabpanel" aria-labelledby="nav-eight-tab">
-								
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[2]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[2]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-nine" role="tabpanel" aria-labelledby="nav-nine-tab">
-
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[3]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[3]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-ten" role="tabpanel" aria-labelledby="nav-ten-tab">
-
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[4]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[4]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
+					<div class="tab-content text-dark" id="nav-tabContent">
+						<?php
+							foreach ($results as $key => $result) {
+							?>	
+						<div class="tab-pane fade show h-75 <?php if($key==0) echo 'active'; ?>" id="nav-levelTwo-<?php echo $key ?>" role="tabpane<?php echo $key ?>" aria-labelledby="nav-levelTwo-<?php echo $key ?>-tab">
+                         <div class="container">
+                             	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
+                             		<h1 class="text-center text-white p3 mt-3">	
+                             			<?php echo $result['word']; ?> 
+                             		</h1>
+                             		<h3 class="text-center">
+                             			<?php echo $result['description']; ?> 
+                             		</h3>
+                             	</div>
+                             </div>
 						</div>
+					<?php } ?>
+					</div>
 						<!-- Horizontal tab Ends-->
 						<div class="row justify-content-center my-5">
 							<button class="btn btn-outline-info font-weight-bold text-white p-3 mb-3" data-toggle="modal" data-target="#myModalTwo">
@@ -385,103 +276,48 @@
                             <?php endif; ?>
 
                             
-						<!-- Horizontal tab -->
+						<!-- Horizontal tab level 3-->
 						<nav>
 							<div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-								<a class="nav-item nav-link active" id="nav-eleven-tab" data-toggle="tab" href="#nav-eleven" role="tab" aria-controls="nav-eleven" aria-selected="true">One</a>
+								<a class="nav-item nav-link active" id="nav-levelThree-0-tab" data-toggle="tab" href="#nav-levelThree-0" role="tab" aria-controls="nav-0" aria-selected="true">One</a>
 
-								<a class="nav-item nav-link" id="nav-twelve-tab" data-toggle="tab" href="#nav-twelve" role="tab" aria-controls="nav-twelve" aria-selected="false">Two</a>
+								<a class="nav-item nav-link" id="nav-levelThree-1-tab" data-toggle="tab" href="#nav-levelThree-1" role="tab" aria-controls="nav-1" aria-selected="false">Two</a>
 
-								<a class="nav-item nav-link" id="nav-thirteen-tab" data-toggle="tab" href="#nav-thirteen" role="tab" aria-controls="nav-thirteen" aria-selected="false">Three</a>
+								<a class="nav-item nav-link" id="nav-levelThree-2-tab" data-toggle="tab" href="#nav-levelThree-2" role="tab" aria-controls="nav-2" aria-selected="false">Three</a>
 
-								<a class="nav-item nav-link" id="nav-fourteen-tab" data-toggle="tab" href="#nav-fourteen" role="tab" aria-controls="nav-fourteen" aria-selected="false">Four</a>
+								<a class="nav-item nav-link" id="nav-levelThree-3-tab" data-toggle="tab" href="#nav-levelThree-3" role="tab" aria-controls="nav-3" aria-selected="false">Four</a>
 
-								<a class="nav-item nav-link" id="nav-fifteen-tab" data-toggle="tab" href="#nav-fifteen" role="tab" aria-controls="nav-fifteen" aria-selected="false">Five</a>
+								<a class="nav-item nav-link" id="nav-levelThree-4-tab" data-toggle="tab" href="#nav-levelThree-4" role="tab" aria-controls="nav-4" aria-selected="false">Five</a>
 							</div>
 						</nav>
 						
 
-						<?php
+				<?php
                                 
-                                $level_three_statementTwo = $pdo->prepare("SELECT * FROM manhattan_level_three_word where id BETWEEN 1 AND 5");
-                                $level_three_statementTwo->execute();
-                                $resultTwo = $level_three_statementTwo->fetchAll(PDO::FETCH_ASSOC);
-                                ?>
+                    $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='manhattan' AND level='three' limit 5");
+                    $statement->execute();
+                    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-						<div class="tab-content text-dark" id="nav-tabContent">
-							<div class="tab-pane fade show active h-75" id="nav-eleven" role="tabpanel" aria-labelledby="nav-eleven-tab">
+                  ?>
 
-                                 
-
-                                 <div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-                                 		<h1 class="text-center text-white p3 mt-3">
-                                 			<?php echo $resultTwo[0]['word_name']; ?>		
-                                 		</h1>
-                                 		<h3 class="text-center">
-                                 			<?php echo $resultTwo[0]['description']; ?>
-                                 		</h3>
-                                 	</div>
-                                 </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-twelve" role="tabpanel" aria-labelledby="nav-twelve-tab">
-								
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[1]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[1]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-thirteen" role="tabpanel" aria-labelledby="nav-thirteen-tab">
-								
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[2]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[2]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-fourteen" role="tabpanel" aria-labelledby="nav-fourteen-tab">
-
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[3]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[3]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-fifteen" role="tabpanel" aria-labelledby="nav-fifteen-tab">
-
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[4]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[4]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
+					<div class="tab-content text-dark" id="nav-tabContent">
+						<?php
+							foreach ($results as $key => $result) {
+							?>	
+						<div class="tab-pane fade h-75 <?php if($key==0) echo 'active show'; ?>" id="nav-levelThree-<?php echo $key ?>" role="tabpane<?php echo $key ?>" aria-labelledby="nav-levelThree-<?php echo $key ?>-tab">
+                         <div class="container">
+                             	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
+                             		<h1 class="text-center text-white p3 mt-3">	
+                             			<?php echo $result['word']; ?> 
+                             		</h1>
+                             		<h3 class="text-center">
+                             			<?php echo $result['description']; ?> 
+                             		</h3>
+                             	</div>
+                             </div>
 						</div>
+					<?php } ?>
+					</div>
 						<!-- Horizontal tab Ends-->
 						<div class="row justify-content-center my-5">
 							<button class="btn btn-outline-info font-weight-bold text-white p-3 mb-3" data-toggle="modal" data-target="#myModalThree">
@@ -504,103 +340,48 @@
 							<?php else: ?>
 
                             
-						<!-- Horizontal tab -->
-						<nav>
+						<!-- Horizontal tab level 4-->
+					<nav>
 							<div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-								<a class="nav-item nav-link active" id="nav-sixteen-tab" data-toggle="tab" href="#nav-sixteen" role="tab" aria-controls="nav-sixteen" aria-selected="true">One</a>
+								<a class="nav-item nav-link active" id="nav-levelFour-0-tab" data-toggle="tab" href="#nav-levelFour-0" role="tab" aria-controls="nav-0" aria-selected="true">One</a>
 
-								<a class="nav-item nav-link" id="nav-seventeen-tab" data-toggle="tab" href="#nav-seventeen" role="tab" aria-controls="nav-seventeen" aria-selected="false">Two</a>
+								<a class="nav-item nav-link" id="nav-levelFour-1-tab" data-toggle="tab" href="#nav-levelFour-1" role="tab" aria-controls="nav-1" aria-selected="false">Two</a>
 
-								<a class="nav-item nav-link" id="nav-eighteen-tab" data-toggle="tab" href="#nav-eighteen" role="tab" aria-controls="nav-eighteen" aria-selected="false">Three</a>
+								<a class="nav-item nav-link" id="nav-levelFour-2-tab" data-toggle="tab" href="#nav-levelFour-2" role="tab" aria-controls="nav-2" aria-selected="false">Three</a>
 
-								<a class="nav-item nav-link" id="nav-nineteen-tab" data-toggle="tab" href="#nav-nineteen" role="tab" aria-controls="nav-nineteen" aria-selected="false">Four</a>
+								<a class="nav-item nav-link" id="nav-levelFour-3-tab" data-toggle="tab" href="#nav-levelFour-3" role="tab" aria-controls="nav-3" aria-selected="false">Four</a>
 
-								<a class="nav-item nav-link" id="nav-twenty-tab" data-toggle="tab" href="#nav-twenty" role="tab" aria-controls="nav-twenty" aria-selected="false">Five</a>
+								<a class="nav-item nav-link" id="nav-levelFour-4-tab" data-toggle="tab" href="#nav-levelFour-4" role="tab" aria-controls="nav-4" aria-selected="false">Five</a>
 							</div>
 						</nav>
 						
 
-						<?php
+				<?php
                                 
-                                $statementTwo = $pdo->prepare("SELECT * FROM manhattan_level_four_word where id BETWEEN 1 AND 5");
-                                $statementTwo->execute();
-                                $resultTwo = $statementTwo->fetchAll(PDO::FETCH_ASSOC);
-                                ?>
+                    $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='manhattan' AND level='four' limit 5");
+                    $statement->execute();
+                    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-						<div class="tab-content text-dark" id="nav-tabContent">
-							<div class="tab-pane fade show active h-75" id="nav-sixteen" role="tabpanel" aria-labelledby="nav-sixteen-tab">
+                  ?>
 
-                                 
-
-                                 <div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-                                 		<h1 class="text-center text-white p3 mt-3">
-                                 			<?php echo $resultTwo[0]['word_name']; ?>		
-                                 		</h1>
-                                 		<h3 class="text-center">
-                                 			<?php echo $resultTwo[0]['description']; ?>
-                                 		</h3>
-                                 	</div>
-                                 </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-seventeen" role="tabpanel" aria-labelledby="nav-seventeen-tab">
-								
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[1]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[1]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-eighteen" role="tabpanel" aria-labelledby="nav-eighteen-tab">
-								
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[2]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[2]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-nineteen" role="tabpanel" aria-labelledby="nav-nineteen-tab">
-
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[3]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[3]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-twenty" role="tabpanel" aria-labelledby="nav-twenty-tab">
-
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[4]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[4]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
+					<div class="tab-content text-dark" id="nav-tabContent">
+						<?php
+							foreach ($results as $key => $result) {
+							?>	
+						<div class="tab-pane fade h-75 <?php if($key==0) echo 'active show'; ?>" id="nav-levelFour-<?php echo $key ?>" role="tabpane<?php echo $key ?>" aria-labelledby="nav-levelFour-<?php echo $key ?>-tab">
+                         <div class="container">
+                             	<div class="col-12 col-md-10 col-sm-12 offset-md-1">
+                             		<h1 class="text-center text-white p3 mt-3">	
+                             			<?php echo $result['word']; ?> 
+                             		</h1>
+                             		<h3 class="text-center">
+                             			<?php echo $result['description']; ?> 
+                             		</h3>
+                             	</div>
+                             </div>
 						</div>
+					<?php } ?>
+					</div>
 						<!-- Horizontal tab Ends-->
 						<div class="row justify-content-center my-5">
 							<button class="btn btn-outline-info font-weight-bold text-white p-3 mb-3" data-toggle="modal" data-target="#myModalFour">
@@ -623,102 +404,47 @@
 							<?php else: ?>
                             
 						<!-- Horizontal tab -->
-						<nav>
+					<nav>
 							<div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
-								<a class="nav-item nav-link active" id="nav-tOne-tab" data-toggle="tab" href="#nav-tOne" role="tab" aria-controls="nav-tOne" aria-selected="true">One</a>
+								<a class="nav-item nav-link active" id="nav-levelThree-0-tab" data-toggle="tab" href="#nav-levelFive-0" role="tab" aria-controls="nav-0" aria-selected="true">One</a>
 
-								<a class="nav-item nav-link" id="nav-tTwo-tab" data-toggle="tab" href="#nav-tTwo" role="tab" aria-controls="nav-tTwo" aria-selected="false">Two</a>
+								<a class="nav-item nav-link" id="nav-levelFive-1-tab" data-toggle="tab" href="#nav-levelFive-1" role="tab" aria-controls="nav-1" aria-selected="false">Two</a>
 
-								<a class="nav-item nav-link" id="nav-tThree-tab" data-toggle="tab" href="#nav-tThree" role="tab" aria-controls="nav-tThree" aria-selected="false">Three</a>
+								<a class="nav-item nav-link" id="nav-levelFive-2-tab" data-toggle="tab" href="#nav-levelFive-2" role="tab" aria-controls="nav-2" aria-selected="false">Five</a>
 
-								<a class="nav-item nav-link" id="nav-tFour-tab" data-toggle="tab" href="#nav-tFour" role="tab" aria-controls="nav-tFour" aria-selected="false">Four</a>
+								<a class="nav-item nav-link" id="nav-levelFive-3-tab" data-toggle="tab" href="#nav-levelFive-3" role="tab" aria-controls="nav-3" aria-selected="false">Four</a>
 
-								<a class="nav-item nav-link" id="nav-tFive-tab" data-toggle="tab" href="#nav-tFive" role="tab" aria-controls="nav-tFive" aria-selected="false">Five</a>
+								<a class="nav-item nav-link" id="nav-levelFive-4-tab" data-toggle="tab" href="#nav-levelFive-4" role="tab" aria-controls="nav-4" aria-selected="false">Five</a>
 							</div>
 						</nav>
 						
 
-						<?php
+				<?php
                                 
-                                $statementTwo = $pdo->prepare("SELECT * FROM manhattan_level_five_word where id BETWEEN 1 AND 5");
-                                $statementTwo->execute();
-                                $resultTwo = $statementTwo->fetchAll(PDO::FETCH_ASSOC);
-                                ?>
+                    $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='manhattan' AND level='five' limit 5");
+                    $statement->execute();
+                    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-						<div class="tab-content text-dark" id="nav-tabContent">
-							<div class="tab-pane fade show active h-75" id="nav-tOne" role="tabpanel" aria-labelledby="nav-tOne-tab">
+                  ?>
 
-                                 
-
-                                 <div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-                                 		<h1 class="text-center text-white p3 mt-3">
-                                 			<?php echo $resultTwo[0]['word_name']; ?>		
-                                 		</h1>
-                                 		<h3 class="text-center">
-                                 			<?php echo $resultTwo[0]['description']; ?>
-                                 		</h3>
-                                 	</div>
-                                 </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-tTwo" role="tabpanel" aria-labelledby="nav-tTwo-tab">
-								
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[1]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[1]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-tThree" role="tabpanel" aria-labelledby="nav-tThree-tab">
-								
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[2]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[2]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-tFour" role="tabpanel" aria-labelledby="nav-tFour-tab">
-
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[3]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[3]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
-							<div class="tab-pane fade h-75" id="nav-tFive" role="tabpanel" aria-labelledby="nav-tFive-tab">
-
-								<div class="container">
-                                 	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
-										<h1 class="text-center text-white p3 mt-3">
-											<?php echo $resultTwo[4]['word_name']; ?>
-										</h1>
-	                               		<h3 class="text-center">
-	                                		<?php echo $resultTwo[4]['description']; ?>	
-	                                	</h3>
-	                                </div>
-	                            </div>
-
-							</div>
+					<div class="tab-content text-dark" id="nav-tabContent">
+						<?php
+							foreach ($results as $key => $result) {
+							?>	
+						<div class="tab-pane fade h-75 <?php if($key==0) echo 'active show'; ?>" id="nav-levelFive-<?php echo $key ?>" role="tabpane<?php echo $key ?>" aria-labelledby="nav-levelFive-<?php echo $key ?>-tab">
+                         <div class="container">
+                             	<div class="col-12 col-md-10 col-sm-12  offset-md-1">
+                             		<h1 class="text-center text-white p3 mt-3">	
+                             			<?php echo $result['word']; ?> 
+                             		</h1>
+                             		<h3 class="text-center">
+                             			<?php echo $result['description']; ?> 
+                             		</h3>
+                             	</div>
+                             </div>
 						</div>
+					<?php } ?>
+					</div>
 						<!-- Horizontal tab Ends-->
 						<div class="row justify-content-center my-5">
 							<button class="btn btn-outline-info font-weight-bold text-white p-3 mb-3" data-toggle="modal" data-target="#myModalFive">
@@ -749,7 +475,7 @@
       	<div class="modal-body">
 
 			<?php
-                    /* Level One Question Barron*/
+                    /* Level One Question manhattan*/
                     $ques_id='';
                     $correct_ans = '';
                     $correct_ans_two = '';
@@ -767,7 +493,7 @@
                     /* Get Random Second Question */
                     $ques_id_two = $resultOne[1]['id'];
                     $random_question_two =  $resultOne[1]['question'];
-                    $correct_ans_two = $resultOne[1]['answer'];
+                    $correct_ans_two = $resultOne[1]['answer']; 
 
                     /* Get Random Third Question */
                     $ques_id_three = $resultOne[2]['id'];

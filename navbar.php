@@ -35,7 +35,7 @@
                                <a class="nav-link text-white font-weight-bold" href="spell.php">SPELL</a>
                            </li>
                            <li class="nav-item">
-                               <a class="nav-link text-white font-weight-bold" href="test.php">TEST</a>
+                               <a class="nav-link text-white font-weight-bold" href="allTest.php">TEST</a>
                            </li>
                       <?php if ($loggedIn): ?>
                          <!--  if user Logged In Then Show this manu -->

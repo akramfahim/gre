@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2019 at 07:39 PM
--- Server version: 10.1.29-MariaDB
--- PHP Version: 7.2.0
+-- Generation Time: Aug 04, 2019 at 04:17 PM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -25,27 +23,455 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `level_settings`
+-- Table structure for table `barron_word_settings`
 --
 
-CREATE TABLE `level_settings` (
+CREATE TABLE `barron_word_settings` (
   `id` int(11) NOT NULL,
-  `level_One` varchar(191) NOT NULL,
-  `level_Two` varchar(191) NOT NULL,
-  `level_Three` varchar(191) NOT NULL,
-  `level_Four` varchar(191) NOT NULL,
-  `level_Five` varchar(191) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `type` varchar(191) NOT NULL
+  `levelOne` varchar(20) DEFAULT NULL,
+  `levelTwo` varchar(20) DEFAULT NULL,
+  `levelThree` varchar(20) DEFAULT NULL,
+  `levelFour` varchar(20) DEFAULT NULL,
+  `levelFive` varchar(20) DEFAULT NULL,
+  `user_id` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `level_settings`
+-- Dumping data for table `barron_word_settings`
 --
 
-INSERT INTO `level_settings` (`id`, `level_One`, `level_Two`, `level_Three`, `level_Four`, `level_Five`, `user_id`, `type`) VALUES
-(1, 'Completed', 'Completed', 'Completed', 'Completed', 'Completed', 24, 'barron'),
-(3, 'Completed', 'Completed', 'Completed', '', '', 25, 'barron');
+INSERT INTO `barron_word_settings` (`id`, `levelOne`, `levelTwo`, `levelThree`, `levelFour`, `levelFive`, `user_id`) VALUES
+(1, 'Completed', NULL, NULL, NULL, NULL, 8),
+(2, 'Completed', NULL, NULL, NULL, NULL, 1),
+(3, 'Completed', NULL, NULL, NULL, NULL, 2),
+(4, 'Completed', NULL, NULL, NULL, NULL, 11),
+(5, 'Completed', NULL, NULL, NULL, NULL, 10),
+(6, 'Completed', NULL, NULL, NULL, NULL, 19),
+(14, 'Completed', 'Completed', NULL, NULL, NULL, 21),
+(15, 'Completed', 'Completed', NULL, NULL, NULL, 20),
+(20, 'Completed', 'Completed', 'Completed', NULL, NULL, 22),
+(28, 'Completed', 'Completed', 'Completed', 'Completed', 'Completed', 24);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_five_question_barron`
+--
+
+CREATE TABLE `level_five_question_barron` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `answer` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level_five_question_barron`
+--
+
+INSERT INTO `level_five_question_barron` (`id`, `question`, `answer`) VALUES
+(1, 'What does Fidelity means', 'loyalty accuracy'),
+(2, 'Paradigm means', 'a model example or pattern'),
+(3, 'Suffice meaning', 'be enough'),
+(4, 'Vivacious stands for', 'lively high-spirited'),
+(5, 'Liberality indicates', 'free giving; generosity');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_five_question_option_barron`
+--
+
+CREATE TABLE `level_five_question_option_barron` (
+  `id` int(11) NOT NULL,
+  `option` varchar(255) NOT NULL,
+  `question_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level_five_question_option_barron`
+--
+
+INSERT INTO `level_five_question_option_barron` (`id`, `option`, `question_id`) VALUES
+(1, 'a model example or pattern', 1),
+(2, 'be enough', 1),
+(3, 'loyalty accuracy', 1),
+(4, 'free giving; generosity', 1),
+(5, 'loyalty accuracy', 2),
+(6, 'be enough', 2),
+(7, 'a model example or pattern', 2),
+(8, 'lively high-spirited', 2),
+(9, 'be enough', 3),
+(10, 'lively high-spirited', 3),
+(11, 'a model example or pattern', 3),
+(12, 'free giving; generosity', 3),
+(13, 'loyalty accuracy', 4),
+(14, 'be enough', 4),
+(15, 'lively high-spirited', 4),
+(16, 'free giving; generosity', 4),
+(17, 'a model example or pattern', 5),
+(18, 'free giving; generosity', 5),
+(19, 'lively high-spirited', 5),
+(20, 'loyalty accuracy', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_five_word_barron`
+--
+
+CREATE TABLE `level_five_word_barron` (
+  `id` int(11) NOT NULL,
+  `word_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level_five_word_barron`
+--
+
+INSERT INTO `level_five_word_barron` (`id`, `word_name`, `description`) VALUES
+(1, 'Fidelity', 'loyalty accuracy'),
+(2, 'Paradigm', 'a model example or pattern'),
+(3, 'Suffice', 'be enough'),
+(4, 'Vivacious', 'lively high-spirited'),
+(5, 'Liberality', 'free giving; generosity');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_four_question_barron`
+--
+
+CREATE TABLE `level_four_question_barron` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `answer` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level_four_question_barron`
+--
+
+INSERT INTO `level_four_question_barron` (`id`, `question`, `answer`) VALUES
+(1, 'Sluggard means', 'lazy slow-moving person'),
+(2, 'Reiterate stands for', 'say or do again several times'),
+(3, 'Eloquence meaning', 'fluent speaking skillful use of language'),
+(4, 'What does Steeply means', 'rising or falling sharply'),
+(5, 'Turmoil means', 'trouble disturbance');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_four_question_option_barron`
+--
+
+CREATE TABLE `level_four_question_option_barron` (
+  `id` int(11) NOT NULL,
+  `option` varchar(255) NOT NULL,
+  `question_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level_four_question_option_barron`
+--
+
+INSERT INTO `level_four_question_option_barron` (`id`, `option`, `question_id`) VALUES
+(1, 'say or do again several times', 1),
+(2, 'fluent speaking skillful use of language', 1),
+(3, 'lazy slow-moving person', 1),
+(4, 'trouble disturbance', 1),
+(5, 'say or do again several times', 2),
+(6, 'fluent speaking skillful use of language', 2),
+(7, 'lazy slow-moving person', 2),
+(8, 'rising or falling sharply', 2),
+(9, 'trouble disturbance', 3),
+(10, 'lazy slow-moving person', 3),
+(11, 'say or do again several times', 3),
+(12, 'fluent speaking skillful use of language', 3),
+(13, 'say or do again several times', 4),
+(14, 'rising or falling sharply', 4),
+(15, 'trouble disturbance', 4),
+(16, 'lazy slow-moving person', 4),
+(17, 'lazy slow-moving person', 5),
+(18, 'rising or falling sharply', 5),
+(19, 'say or do again several times', 5),
+(20, 'trouble disturbance', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_four_word_barron`
+--
+
+CREATE TABLE `level_four_word_barron` (
+  `id` int(11) NOT NULL,
+  `word_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level_four_word_barron`
+--
+
+INSERT INTO `level_four_word_barron` (`id`, `word_name`, `description`) VALUES
+(1, 'Sluggard', 'lazy slow-moving person'),
+(2, 'Reiterate', 'say or do again several times'),
+(3, 'Eloquence', 'fluent speaking skillful use of language'),
+(4, 'Steeply', 'rising or falling sharply'),
+(5, 'Turmoil', 'trouble disturbance');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_one_question`
+--
+
+CREATE TABLE `level_one_question` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `answer` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level_one_question`
+--
+
+INSERT INTO `level_one_question` (`id`, `question`, `answer`) VALUES
+(1, 'What is the Meaning of Aesthetic', 'artistic; dealing with or capable of appreciating the beautiful (of a person or building); CF. aesthete; CF. aesthetics'),
+(2, 'What is the meaning of Adulterate', 'make impure or of poorer quality by adding inferior or tainted(contaminated) substances'),
+(3, 'Affirmation means', 'positive assertion; confirmation; solemn pledge by one who refuses to take an oath; V. affirm; ADJ. affirmative; CF. affirmative action: positive discrimination'),
+(4, 'Adulation stands for', 'flattery; admiration that is more than is necessary or deserved'),
+(5, 'What does Abase mean  ', 'lower; degrade; humiliate; make humble; make (oneself) lose self-respect');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_one_question_option`
+--
+
+CREATE TABLE `level_one_question_option` (
+  `id` int(11) NOT NULL,
+  `option` varchar(255) NOT NULL,
+  `question_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level_one_question_option`
+--
+
+INSERT INTO `level_one_question_option` (`id`, `option`, `question_id`) VALUES
+(1, 'artistic; dealing with or capable of appreciating the beautiful (of a person or building); CF. aesthete; CF. aesthetics', 1),
+(2, 'flattery; admiration that is more than is necessary or deserved', 1),
+(3, 'positive assertion; confirmation; solemn pledge by one who refuses to take an oath; V. affirm; ADJ. affirmative; CF. affirmative action: positive discrimination', 1),
+(4, 'lower; degrade; humiliate; make humble; make (oneself) lose self-respect', 1),
+(5, 'flattery; admiration that is more than is necessary or deserved', 2),
+(6, 'artistic; dealing with or capable of appreciating the beautiful (of a person or building); CF. aesthete; CF. aesthetics', 2),
+(7, 'make impure or of poorer quality by adding inferior or tainted(contaminated) substances', 2),
+(8, 'positive assertion; confirmation; solemn pledge by one who refuses to take an oath; V. affirm; ADJ. affirmative; CF. affirmative action: positive discrimination', 2),
+(9, 'positive assertion; confirmation; solemn pledge by one who refuses to take an oath; V. affirm; ADJ. affirmative; CF. affirmative action: positive discrimination', 3),
+(10, 'artistic; dealing with or capable of appreciating the beautiful (of a person or building); CF. aesthete; CF. aesthetics', 3),
+(11, 'enough; abundant; spacious; large in size; Ex. ample opportunity/garden; N. amplitude: quality of being ample; abundance; largeness of space', 3),
+(12, 'environment; atmosphere; Ex. restraurant with a pleasant ambience; ADJ. ambient: completely surrounding; Ex. ambient temperature', 3),
+(13, 'artistic; dealing with or capable of appreciating the beautiful (of a person or building); CF. aesthete; CF. aesthetics', 4),
+(14, 'positive assertion; confirmation; solemn pledge by one who refuses to take an oath; V. affirm; ADJ. affirmative; CF. affirmative action: positive discrimination', 4),
+(15, 'lower; degrade; humiliate; make humble; make (oneself) lose self-respect', 4),
+(16, 'flattery; admiration that is more than is necessary or deserved', 4),
+(17, 'flattery; admiration that is more than is necessary or deserved', 5),
+(18, 'lower; degrade; humiliate; make humble; make (oneself) lose self-respect', 5),
+(19, 'make impure or of poorer quality by adding inferior or tainted(contaminated) substances', 5),
+(20, 'positive assertion; confirmation; solemn pledge by one who refuses to take an oath; V. affirm; ADJ. affirmative; CF. affirmative action: positive discrimination', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_one_word_barron`
+--
+
+CREATE TABLE `level_one_word_barron` (
+  `id` int(11) NOT NULL,
+  `word_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level_one_word_barron`
+--
+
+INSERT INTO `level_one_word_barron` (`id`, `word_name`, `description`) VALUES
+(1, 'Abase', 'lower; degrade; humiliate; make humble; make (oneself) lose self-respect'),
+(2, 'Adulation', 'flattery; admiration that is more than is necessary or deserved'),
+(3, 'Adulterate', 'make impure or of poorer quality by adding inferior or tainted(contaminated) substances'),
+(4, 'Aesthetic', 'artistic; dealing with or capable of appreciating the beautiful (of a person or building); CF. aesthete; CF. aesthetics'),
+(5, 'Affirmation', 'positive assertion; confirmation; solemn pledge by one who refuses to take an oath; V. affirm; ADJ. affirmative; CF. affirmative action: positive discrimination');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_three_question_barron`
+--
+
+CREATE TABLE `level_three_question_barron` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `answer` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level_three_question_barron`
+--
+
+INSERT INTO `level_three_question_barron` (`id`, `question`, `answer`) VALUES
+(1, 'What does Amalgamate means', 'mix; combine; unite societies'),
+(2, 'What is the meaning of Suffocate', 'cause or have difficulty in breathing'),
+(3, 'Drowsiness means ', 'feeling sleepy half asleep'),
+(4, 'Combustion meaning', 'process of burning'),
+(5, 'Sporadic means', 'happening from time to time');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_three_question_option_barron`
+--
+
+CREATE TABLE `level_three_question_option_barron` (
+  `id` int(11) NOT NULL,
+  `option` varchar(255) NOT NULL,
+  `question_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level_three_question_option_barron`
+--
+
+INSERT INTO `level_three_question_option_barron` (`id`, `option`, `question_id`) VALUES
+(6, 'mix; combine; unite societies', 1),
+(7, 'happening from time to time', 1),
+(8, 'cause or have difficulty in breathing', 1),
+(9, 'feeling sleepy half asleep', 1),
+(10, 'process of burning', 2),
+(11, 'cause or have difficulty in breathing', 2),
+(12, 'mix; combine; unite societies', 2),
+(13, 'happening from time to time', 2),
+(14, 'happening from time to time', 3),
+(15, 'process of burning', 3),
+(16, 'mix; combine; unite societies', 3),
+(17, 'feeling sleepy half asleep', 3),
+(18, 'process of burning', 4),
+(19, 'cause or have difficulty in breathing', 4),
+(20, 'mix; combine; unite societies', 4),
+(21, 'happening from time to time', 4),
+(22, 'process of burning', 5),
+(23, 'feeling sleepy half asleep', 5),
+(24, 'cause or have difficulty in breathing', 5),
+(25, 'happening from time to time', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_three_word_barron`
+--
+
+CREATE TABLE `level_three_word_barron` (
+  `id` int(11) NOT NULL,
+  `word_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level_three_word_barron`
+--
+
+INSERT INTO `level_three_word_barron` (`id`, `word_name`, `description`) VALUES
+(1, 'Amalgamate', 'mix; combine; unite societies'),
+(2, 'Drowsiness', 'feeling sleepy half asleep'),
+(3, 'Suffocate', 'cause or have difficulty in breathing'),
+(4, 'Sporadic', 'happening from time to time'),
+(5, 'Combustion', 'process of burning');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_two_question_barron`
+--
+
+CREATE TABLE `level_two_question_barron` (
+  `id` int(11) NOT NULL,
+  `question` varchar(255) NOT NULL,
+  `answer` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level_two_question_barron`
+--
+
+INSERT INTO `level_two_question_barron` (`id`, `question`, `answer`) VALUES
+(1, 'Introspection Means', 'examining one\'s own thoughts and feelings'),
+(2, 'What does Strive means ', 'To make great efforts, to struggle'),
+(3, 'Philanthropist stands for', 'one who loves mankind'),
+(4, 'What is the meaning of Precursors', 'A person or thing that precedes, as in a process or job'),
+(5, 'Ambiguous means', 'Doubtful; uncertain');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_two_question_option_barron`
+--
+
+CREATE TABLE `level_two_question_option_barron` (
+  `id` int(11) NOT NULL,
+  `option` varchar(255) NOT NULL,
+  `question_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level_two_question_option_barron`
+--
+
+INSERT INTO `level_two_question_option_barron` (`id`, `option`, `question_id`) VALUES
+(1, 'one who loves mankind', 1),
+(2, 'examining one\'s own thoughts and feelings', 1),
+(3, 'To make great efforts, to struggle', 1),
+(4, 'Doubtful; uncertain', 1),
+(5, 'one who loves mankind', 2),
+(6, 'examining one\'s own thoughts and feelings', 2),
+(7, 'To make great efforts, to struggle', 2),
+(8, 'A person or thing that precedes, as in a process or job', 2),
+(9, 'A person or thing that precedes, as in a process or job', 3),
+(10, 'Doubtful; uncertain', 3),
+(11, 'examining one\'s own thoughts and feelings', 3),
+(12, 'one who loves mankind', 3),
+(13, 'A person or thing that precedes, as in a process or job', 4),
+(14, 'one who loves mankind', 4),
+(15, 'To make great efforts, to struggle', 4),
+(16, 'Doubtful; uncertain', 4),
+(17, 'examining one\'s own thoughts and feelings', 5),
+(18, 'To make great efforts, to struggle', 5),
+(19, 'A person or thing that precedes, as in a process or job', 5),
+(20, 'Doubtful; uncertain', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `level_two_word_barron`
+--
+
+CREATE TABLE `level_two_word_barron` (
+  `id` int(11) NOT NULL,
+  `word_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `level_two_word_barron`
+--
+
+INSERT INTO `level_two_word_barron` (`id`, `word_name`, `description`) VALUES
+(1, 'Introspection', 'examining one\'s own thoughts and feelings'),
+(2, 'Philanthropist', 'one who loves mankind'),
+(3, 'Strive', 'To make great efforts, to struggle'),
+(4, 'Precursors', 'A person or thing that precedes, as in a process or job'),
+(5, 'Ambiguous', 'Doubtful; uncertain'),
+(6, 'Aggravate', 'Make worse; irritate');
 
 -- --------------------------------------------------------
 
@@ -111,6 +537,29 @@ INSERT INTO `magoosh_level_five_question_option` (`id`, `option`, `question_id`)
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `magoosh_level_five_word`
+--
+
+CREATE TABLE `magoosh_level_five_word` (
+  `id` int(11) NOT NULL,
+  `word_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `magoosh_level_five_word`
+--
+
+INSERT INTO `magoosh_level_five_word` (`id`, `word_name`, `description`) VALUES
+(1, 'Perjury', 'willful FALSE statement unlawful act'),
+(2, 'Pest', 'destructive thing or a person who is nuisance'),
+(3, 'Colloquial', 'involving or using conversation.'),
+(4, 'Paradigm', 'a model example or pattern'),
+(5, 'Tractable', 'easily controlled or guided');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `magoosh_level_four_question`
 --
 
@@ -168,6 +617,29 @@ INSERT INTO `magoosh_level_four_question_option` (`id`, `option`, `question_id`)
 (18, 'having both of two contrary meanings', 5),
 (19, 'sentence within another one something separated', 5),
 (20, 'a person with good judgement (e.g.. in art)', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `magoosh_level_four_word`
+--
+
+CREATE TABLE `magoosh_level_four_word` (
+  `id` int(11) NOT NULL,
+  `word_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `magoosh_level_four_word`
+--
+
+INSERT INTO `magoosh_level_four_word` (`id`, `word_name`, `description`) VALUES
+(1, 'Extralegal', 'outside the law'),
+(2, 'Ambivalent', 'having both of two contrary meanings'),
+(3, 'Endorse', 'write one\'s name on the back of'),
+(4, 'Connoisseur', 'a person with good judgement (e.g.. in art)'),
+(5, 'Parenthesis', 'sentence within another one something separated');
 
 -- --------------------------------------------------------
 
@@ -233,6 +705,29 @@ INSERT INTO `magoosh_level_one_question_option` (`id`, `option`, `question_id`) 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `magoosh_level_one_word`
+--
+
+CREATE TABLE `magoosh_level_one_word` (
+  `id` int(11) NOT NULL,
+  `word_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `magoosh_level_one_word`
+--
+
+INSERT INTO `magoosh_level_one_word` (`id`, `word_name`, `description`) VALUES
+(1, 'Abstruse', 'Difficult to understand; incomprehensible'),
+(2, 'Acrimony', 'Bitterness and ill will'),
+(3, 'Admonish(verb)', 'o warn strongly, even to the point of reprimanding'),
+(4, 'Auspicious(adjective)', ' Favorable, the opposite of sinister'),
+(5, 'banality(noun)', 'A trite or obvious remark');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `magoosh_level_three_question`
 --
 
@@ -294,6 +789,29 @@ INSERT INTO `magoosh_level_three_question_option` (`id`, `option`, `question_id`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `magoosh_level_three_word`
+--
+
+CREATE TABLE `magoosh_level_three_word` (
+  `id` int(11) NOT NULL,
+  `word_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `magoosh_level_three_word`
+--
+
+INSERT INTO `magoosh_level_three_word` (`id`, `word_name`, `description`) VALUES
+(1, 'mischievous', 'harmful; causing mischief'),
+(2, 'Misogynist', 'one who hates women/females'),
+(3, 'Pertain', 'belong as a part have reference'),
+(4, 'Inclined', 'directing the mind in a certain direction'),
+(5, 'Lambaste', 'attack verbally');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `magoosh_level_two_question`
 --
 
@@ -351,6 +869,29 @@ INSERT INTO `magoosh_level_two_question_option` (`id`, `option`, `question_id`) 
 (18, 'falsely making oneself appear to be good', 5),
 (19, 'puzzling person or thing', 5),
 (20, 'causing grief or pain; serious dire grave', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `magoosh_level_two_word`
+--
+
+CREATE TABLE `magoosh_level_two_word` (
+  `id` int(11) NOT NULL,
+  `word_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `magoosh_level_two_word`
+--
+
+INSERT INTO `magoosh_level_two_word` (`id`, `word_name`, `description`) VALUES
+(1, 'Grievous', 'causing grief or pain; serious dire grave'),
+(2, 'Hypocrisy', 'falsely making oneself appear to be good'),
+(3, 'Chisel', 'steel tool for shaping materials'),
+(4, 'Engulf', 'swallow up'),
+(5, 'Riddle', 'puzzling person or thing');
 
 -- --------------------------------------------------------
 
@@ -440,6 +981,29 @@ INSERT INTO `manhattan_level_five_question_option` (`id`, `option`, `question_id
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `manhattan_level_five_word`
+--
+
+CREATE TABLE `manhattan_level_five_word` (
+  `id` int(11) NOT NULL,
+  `word_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `manhattan_level_five_word`
+--
+
+INSERT INTO `manhattan_level_five_word` (`id`, `word_name`, `description`) VALUES
+(1, 'Foster', 'nurture; care for'),
+(2, 'Apartheid', 'brutal racial discrimination'),
+(3, 'Garrulous', 'too talkative'),
+(4, 'Edify', 'instruct; correct morally'),
+(5, 'Evasive', 'tending to evade');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `manhattan_level_four_question`
 --
 
@@ -497,6 +1061,29 @@ INSERT INTO `manhattan_level_four_question_option` (`id`, `option`, `question_id
 (18, 'a number of performance of music', 5),
 (19, 'noisy; restraint', 5),
 (20, 'coming back to consciousness', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `manhattan_level_four_word`
+--
+
+CREATE TABLE `manhattan_level_four_word` (
+  `id` int(11) NOT NULL,
+  `word_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `manhattan_level_four_word`
+--
+
+INSERT INTO `manhattan_level_four_word` (`id`, `word_name`, `description`) VALUES
+(1, 'Boisterous', 'noisy; restraint'),
+(2, 'Resuscitation', 'coming back to consciousness'),
+(3, 'Recitals', 'a number of performance of music'),
+(4, 'Treacherous', 'not to be trusted, perfidious'),
+(5, 'Indulgent', 'inclined to indulge');
 
 -- --------------------------------------------------------
 
@@ -562,6 +1149,29 @@ INSERT INTO `manhattan_level_one_question_option` (`id`, `option`, `question_id`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `manhattan_level_one_word`
+--
+
+CREATE TABLE `manhattan_level_one_word` (
+  `id` int(11) NOT NULL,
+  `word_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `manhattan_level_one_word`
+--
+
+INSERT INTO `manhattan_level_one_word` (`id`, `word_name`, `description`) VALUES
+(1, 'Spear', 'weapon with a metal point on a long shaft'),
+(2, 'Presentiment', 'anticipatory fear; premonition'),
+(3, 'Coagulation', 'change to a thick and solid state'),
+(4, 'Brass', 'yellow metal (mixing copper and zinc)'),
+(5, 'Malleable', 'yielding easily shaped; moldable; adapting');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `manhattan_level_three_question`
 --
 
@@ -619,6 +1229,29 @@ INSERT INTO `manhattan_level_three_question_option` (`id`, `option`, `question_i
 (18, 'of great importance (others depend on it)', 5),
 (19, 'refuse to accept/cause dislike', 5),
 (20, 'able to float; light-hearted', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `manhattan_level_three_word`
+--
+
+CREATE TABLE `manhattan_level_three_word` (
+  `id` int(11) NOT NULL,
+  `word_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `manhattan_level_three_word`
+--
+
+INSERT INTO `manhattan_level_three_word` (`id`, `word_name`, `description`) VALUES
+(1, 'chortle', 'loud chuckle of pleasure or amusement'),
+(2, 'Pivotal', 'of great importance (others depend on it)'),
+(3, 'Repel', 'refuse to accept/cause dislike'),
+(4, 'Enigma', 'something that is puzzling'),
+(5, 'Buoyant', 'able to float; light-hearted');
 
 -- --------------------------------------------------------
 
@@ -684,6 +1317,29 @@ INSERT INTO `manhattan_level_two_question_option` (`id`, `option`, `question_id`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `manhattan_level_two_word`
+--
+
+CREATE TABLE `manhattan_level_two_word` (
+  `id` int(11) NOT NULL,
+  `word_name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `manhattan_level_two_word`
+--
+
+INSERT INTO `manhattan_level_two_word` (`id`, `word_name`, `description`) VALUES
+(1, 'Woo', 'try to win'),
+(2, 'Cordial', 'warm and sincere'),
+(3, 'Beguile', 'mislead or delude; cheat; pass time'),
+(4, 'Sheath', 'cover for the blade of a weapon or a tool'),
+(5, 'Knit', 'draw together; unite firmly');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `manhattan_word_settings`
 --
 
@@ -707,55 +1363,6 @@ INSERT INTO `manhattan_word_settings` (`id`, `levelOne`, `levelTwo`, `levelThree
 -- --------------------------------------------------------
 
 --
--- Table structure for table `question`
---
-
-CREATE TABLE `question` (
-  `id` int(11) NOT NULL,
-  `question` varchar(191) NOT NULL,
-  `answer` varchar(191) NOT NULL,
-  `option1` varchar(191) NOT NULL,
-  `option2` varchar(191) NOT NULL,
-  `option3` varchar(191) NOT NULL,
-  `option4` varchar(191) NOT NULL,
-  `level` varchar(191) NOT NULL,
-  `type` varchar(191) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `question`
---
-
-INSERT INTO `question` (`id`, `question`, `answer`, `option1`, `option2`, `option3`, `option4`, `level`, `type`) VALUES
-(1, 'What is the Meaning of Aesthetic', 'artistic; dealing with or capable of appreciating the beautiful (of a person or building); CF. aesthete; CF. aesthetics', 'artistic; dealing with or capable of appreciating the beautiful (of a person or building); CF. aesthete; CF. aesthetics', 'positive assertion; confirmation; solemn pledge by one who refuses to take an oath; V. affirm; ADJ. affirmative; CF. affirmative action: positive discrimination', 'flattery; admiration that is more than is necessary or deserved', 'lower; degrade; humiliate; make humble; make (oneself) lose self-respect', 'one', 'barron'),
-(2, 'What is the meaning of Adulterate', 'make impure or of poorer quality by adding inferior or tainted(contaminated) substances', 'flattery; admiration that is more than is necessary or deserved', 'artistic; dealing with or capable of appreciating the beautiful (of a person or building); CF. aesthete; CF. aesthetics', 'make impure or of poorer quality by adding inferior or tainted(contaminated) substances', 'positive assertion; confirmation; solemn pledge by one who refuses to take an oath; V. affirm; ADJ. affirmative; CF. affirmative action: positive discrimination', 'one', 'barron'),
-(3, 'Affirmation means', 'positive assertion; confirmation; solemn pledge by one who refuses to take an oath; V. affirm; ADJ. affirmative; CF. affirmative action: positive discrimination', 'positive assertion; confirmation; solemn pledge by one who refuses to take an oath; V. affirm; ADJ. affirmative; CF. affirmative action: positive discrimination', 'artistic; dealing with or capable of appreciating the beautiful (of a person or building); CF. aesthete; CF. aesthetics', 'enough; abundant; spacious; large in size; Ex. ample opportunity/garden; N. amplitude: quality of being ample; abundance; largeness of space', 'environment; atmosphere; Ex. restraurant with a pleasant ambience; ADJ. ambient: completely surrounding; Ex. ambient temperature', 'one', 'barron'),
-(4, 'Adulation stands for', 'flattery; admiration that is more than is necessary or deserved', 'artistic; dealing with or capable of appreciating the beautiful (of a person or building); CF. aesthete; CF. aesthetics', 'positive assertion; confirmation; solemn pledge by one who refuses to take an oath; V. affirm; ADJ. affirmative; CF. affirmative action: positive discrimination', 'lower; degrade; humiliate; make humble; make (oneself) lose self-respect', 'flattery; admiration that is more than is necessary or deserved', 'one', 'barron'),
-(5, 'What does Abase mean  ', 'lower; degrade; humiliate; make humble; make (oneself) lose self-respect', 'flattery; admiration that is more than is necessary or deserved', 'lower; degrade; humiliate; make humble; make (oneself) lose self-respect', 'make impure or of poorer quality by adding inferior or tainted(contaminated) substances', 'positive assertion; confirmation; solemn pledge by one who refuses to take an oath; V. affirm; ADJ. affirmative; CF. affirmative action: positive discrimination', 'one', 'barron'),
-(6, 'Introspection Means', 'examining one\'s own thoughts and feelings', 'one who loves mankind', 'examining one\'s own thoughts and feelings', 'To make great efforts, to struggle', 'Doubtful; uncertain', 'two', 'barron'),
-(7, 'What does Strive means ', 'To make great efforts, to struggle', 'one who loves mankind', 'examining one\'s own thoughts and feelings', 'To make great efforts, to struggle', 'A person or thing that precedes, as in a process or job', 'two', 'barron'),
-(8, 'Philanthropist stands for', 'one who loves mankind', 'A person or thing that precedes, as in a process or job', 'one who loves mankind', 'Doubtful; uncertain', 'examining one\'s own thoughts and feelings', 'two', 'barron'),
-(9, 'What is the meaning of Precursors', 'A person or thing that precedes, as in a process or job', 'examining one\'s own thoughts and feelings', 'Doubtful; uncertain', 'A person or thing that precedes, as in a process or job', 'one who loves mankind', 'two', 'barron'),
-(10, 'Ambiguous means', 'Doubtful; uncertain', 'examining one\'s own thoughts and feelings', 'To make great efforts, to struggle', 'A person or thing that precedes, as in a process or job', 'Doubtful; uncertain', 'two', 'barron'),
-(11, 'What does Amalgamate means', 'mix; combine; unite societies', 'mix; combine; unite societies', 'happening from time to time', 'cause or have difficulty in breathing', 'feeling sleepy half asleep', 'three', 'barron'),
-(12, 'What is the meaning of Suffocate', 'cause or have difficulty in breathing', 'cause or have difficulty in breathing', 'mix; combine; unite societies', 'feeling sleepy half asleep', 'happening from time to time', 'three', 'barron'),
-(13, 'Drowsiness means ', 'feeling sleepy half asleep', 'happening from time to time', 'process of burning', 'mix; combine; unite societies', 'feeling sleepy half asleep', 'three', 'barron'),
-(14, 'Combustion meaning', 'process of burning', 'mix; combine; unite societies', 'happening from time to time', 'process of burning', 'feeling sleepy half asleep', 'three', 'barron'),
-(15, 'Sporadic means', 'happening from time to time', 'feeling sleepy half asleep', 'cause or have difficulty in breathing', 'process of burning', 'happening from time to time', 'three', 'barron'),
-(16, 'Sluggard means', 'lazy slow-moving person', 'say or do again several times', 'lazy slow-moving person', 'rising or falling sharply', 'fluent speaking skillful use of language', 'four', 'barron'),
-(17, 'Reiterate stands for', 'say or do again several times', 'fluent speaking skillful use of language', 'rising or falling sharply', 'say or do again several times', 'trouble disturbance', 'four', 'barron'),
-(18, 'Eloquence meaning', 'fluent speaking skillful use of language', 'lazy slow-moving person', 'fluent speaking skillful use of language', 'rising or falling sharply', 'trouble disturbance', 'four', 'barron'),
-(19, 'What does Steeply means', 'rising or falling sharply', 'rising or falling sharply', 'trouble disturbance', 'lazy slow-moving person', 'fluent speaking skillful use of language', 'four', 'barron'),
-(20, 'Turmoil means', 'trouble disturbance', 'rising or falling sharply', 'fluent speaking skillful use of language', 'trouble disturbance', 'lazy slow-moving person', 'four', 'barron'),
-(21, 'What does Fidelity means', 'loyalty accuracy', 'Paradigm means', 'loyalty accuracy', 'a model example or pattern', 'be enough', 'five', 'barron'),
-(22, 'Paradigm means', 'a model example or pattern', 'loyalty accuracy', 'be enough', 'a model example or pattern', 'free giving; generosity', 'five', 'barron'),
-(23, 'Suffice meaning', 'be enough', 'be enough', 'a model example or pattern', 'lively high-spirited', 'free giving; generosity', 'five', 'barron'),
-(24, 'Vivacious stands for', 'lively high-spirited', 'a model example or pattern', 'lively high-spirited', 'be enough', 'free giving; generosity', 'five', 'barron'),
-(25, 'Liberality indicates', 'free giving; generosity', 'a model example or pattern', 'free giving; generosity', 'lively high-spirited', 'loyalty accuracy', 'five', 'barron');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `settings`
 --
 
@@ -773,8 +1380,7 @@ CREATE TABLE `settings` (
 
 INSERT INTO `settings` (`id`, `barron`, `magoosh`, `manhattan`, `user_id`) VALUES
 (1, 'Completed', NULL, NULL, 24),
-(2, NULL, 'Completed', NULL, 1),
-(3, 'Completed', 'Completed', NULL, 25);
+(2, NULL, 'Completed', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -818,112 +1424,112 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `userType`) VALUES
 (21, 'Arham', 'arham@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 0),
 (22, 'Anika', 'anika@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 0),
 (23, 'masum', 'masum@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 0),
-(24, 'Mujakkir', 'mujakkir@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 0),
-(25, 'farhan', 'admin@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `word_table`
---
-
-CREATE TABLE `word_table` (
-  `id` int(11) NOT NULL,
-  `word` varchar(191) NOT NULL,
-  `description` varchar(191) NOT NULL,
-  `type` varchar(191) NOT NULL,
-  `level` varchar(191) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `word_table`
---
-
-INSERT INTO `word_table` (`id`, `word`, `description`, `type`, `level`) VALUES
-(1, 'Abase', 'lower; degrade; humiliate; make humble; make (oneself) lose self-respect', 'barron', 'one'),
-(2, 'Adulation', 'flattery; admiration that is more than is necessary or deserved', 'barron', 'one'),
-(3, 'Adulterate', 'make impure or of poorer quality by adding inferior or tainted(contaminated) substances', 'barron', 'one'),
-(4, 'Aesthetic', 'artistic; dealing with or capable of appreciating the beautiful (of a person or building); CF. aesthete; CF. aesthetics', 'barron', 'one'),
-(5, 'Affirmation', 'positive assertion; confirmation; solemn pledge by one who refuses to take an oath; V. affirm; ADJ. affirmative; CF. affirmative action: positive discrimination', 'barron', 'one'),
-(7, 'Introspection', 'examining one\'s own thoughts and feelings', 'barron', 'two'),
-(8, 'Philanthropist', 'one who loves mankind', 'barron', 'two'),
-(9, 'Strive', 'To make great efforts, to struggle', 'barron', 'two'),
-(10, 'Precursors', 'A person or thing that precedes, as in a process or job', 'barron', 'two'),
-(11, 'Ambiguous', 'Make worse; irritate', 'barron', 'two'),
-(12, 'Amalgamate', 'mix; combine; unite societies', 'barron', 'three'),
-(13, 'Drowsiness', 'feeling sleepy half asleep', 'barron', 'three'),
-(14, 'Suffocate', 'cause or have difficulty in breathing', 'barron', 'three'),
-(15, 'Sporadic', 'happening from time to time', 'barron', 'three'),
-(16, 'Combustion', 'process of burning', 'barron', 'three'),
-(17, 'Sluggard', 'lazy slow-moving person', 'barron', 'four'),
-(18, 'Reiterate', 'say or do again several times', 'barron', 'four'),
-(19, 'Eloquence', 'fluent speaking skillful use of language', 'barron', 'four'),
-(20, 'Steeply', 'rising or falling sharply', 'barron', 'four'),
-(21, 'Turmoil', 'trouble disturbance', 'barron', 'four'),
-(22, 'Fidelity', 'loyalty accuracy', 'barron', 'five'),
-(23, 'Paradigm', 'a model example or pattern', 'barron', 'five'),
-(24, 'Suffice', 'be enough', 'barron', 'five'),
-(25, 'Vivacious', 'lively high-spirited', 'barron', 'five'),
-(26, 'Liberality', 'free giving; generosity', 'barron', 'five'),
-(28, 'Abstruse', 'Difficult to understand; incomprehensible', 'magoosh', 'one'),
-(29, 'Acrimony', 'Bitterness and ill will', 'magoosh', 'one'),
-(30, 'Admonish(verb)', 'o warn strongly, even to the point of reprimanding', 'magoosh', 'one'),
-(31, 'Auspicious(adjective)', ' Favorable, the opposite of sinister', 'magoosh', 'one'),
-(32, 'banality(noun)', 'A trite or obvious remark', 'magoosh', 'one'),
-(33, 'Grievous', 'causing grief or pain; serious dire grave', 'magoosh', 'two'),
-(34, 'Hypocrisy', 'falsely making oneself appear to be good', 'magoosh', 'two'),
-(35, 'Chisel', 'steel tool for shaping materials', 'magoosh', 'two'),
-(36, 'Engulf', 'swallow up', 'magoosh', 'two'),
-(37, 'Riddle', 'puzzling person or thing', 'magoosh', 'two'),
-(38, 'mischievous', 'harmful; causing mischief', 'magoosh', 'three'),
-(39, 'Misogynist', 'one who hates women/females', 'magoosh', 'three'),
-(40, 'Pertain', 'belong as a part have reference', 'magoosh', 'three'),
-(41, 'Inclined', 'directing the mind in a certain direction', 'magoosh', 'three'),
-(42, 'Lambaste', 'attack verbally', 'magoosh', 'three'),
-(43, 'Extralegal', 'outside the law', 'magoosh', 'four'),
-(44, 'Ambivalent', 'having both of two contrary meanings', 'magoosh', 'four'),
-(45, 'Endorse', 'write one\'s name on the back of', 'magoosh', 'four'),
-(46, 'Connoisseur', 'a person with good judgement (e.g.. in art)', 'magoosh', 'four'),
-(47, 'Parenthesis', 'sentence within another one something separated', 'magoosh', 'four'),
-(48, 'Perjury', 'willful FALSE statement unlawful act', 'magoosh', 'five'),
-(49, 'Pest', 'destructive thing or a person who is nuisance', 'magoosh', 'five'),
-(50, 'Colloquial', 'involving or using conversation.', 'magoosh', 'five'),
-(51, 'Paradigm', 'a model example or pattern', 'magoosh', 'five'),
-(52, 'Tractable', 'easily controlled or guided', 'magoosh', 'five'),
-(53, 'Spear', 'weapon with a metal point on a long shaft', 'manhattan', 'one'),
-(54, 'Presentiment', 'anticipatory fear; premonition', 'manhattan', 'one'),
-(55, 'Coagulation', 'change to a thick and solid state', 'manhattan', 'one'),
-(56, 'Brass', 'yellow metal (mixing copper and zinc)', 'manhattan', 'one'),
-(57, 'Malleable', 'yielding easily shaped; moldable; adapting', 'manhattan', 'one'),
-(58, 'Woo', 'try to win', 'manhattan', 'two'),
-(59, 'Cordial', 'warm and sincere', 'manhattan', 'two'),
-(60, 'Beguile', 'mislead or delude; cheat; pass time', 'manhattan', 'two'),
-(61, 'Sheath', 'cover for the blade of a weapon or a tool', 'manhattan', 'two'),
-(62, 'Knit', 'draw together; unite firmly', 'manhattan', 'two'),
-(63, 'chortle', 'loud chuckle of pleasure or amusement', 'manhattan', 'three'),
-(64, 'Pivotal', 'of great importance (others depend on it)', 'manhattan', 'three'),
-(65, 'Repel', 'refuse to accept/cause dislike', 'manhattan', 'three'),
-(66, 'Enigma', 'something that is puzzling', 'manhattan', 'three'),
-(67, 'Buoyant', 'able to float; light-hearted', 'manhattan', 'three'),
-(68, 'Boisterous', 'noisy; restraint', 'manhattan', 'four'),
-(69, 'Resuscitation', 'coming back to consciousness', 'manhattan', 'four'),
-(70, 'Recitals', 'a number of performance of music', 'manhattan', 'four'),
-(71, 'Treacherous', 'not to be trusted, perfidious', 'manhattan', 'four'),
-(72, 'Indulgent', 'inclined to indulge', 'manhattan', 'four'),
-(73, 'Foster', 'nurture; care for', 'manhattan', 'five'),
-(74, 'Apartheid', 'brutal racial discrimination', 'manhattan', 'five'),
-(75, 'Garrulous', 'too talkative', 'manhattan', 'five'),
-(76, 'Edify', 'instruct; correct morally', 'manhattan', 'five'),
-(77, 'Evasive', 'tending to evade', 'manhattan', 'five');
+(24, 'Mujakkir', 'mujakkir@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 0);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `level_settings`
+-- Indexes for table `barron_word_settings`
 --
-ALTER TABLE `level_settings`
+ALTER TABLE `barron_word_settings`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `level_five_question_barron`
+--
+ALTER TABLE `level_five_question_barron`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `level_five_question_option_barron`
+--
+ALTER TABLE `level_five_question_option_barron`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `question_id` (`question_id`);
+
+--
+-- Indexes for table `level_five_word_barron`
+--
+ALTER TABLE `level_five_word_barron`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `level_four_question_barron`
+--
+ALTER TABLE `level_four_question_barron`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `level_four_question_option_barron`
+--
+ALTER TABLE `level_four_question_option_barron`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `question_id` (`question_id`);
+
+--
+-- Indexes for table `level_four_word_barron`
+--
+ALTER TABLE `level_four_word_barron`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `level_one_question`
+--
+ALTER TABLE `level_one_question`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `level_one_question_option`
+--
+ALTER TABLE `level_one_question_option`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `question_id` (`question_id`);
+
+--
+-- Indexes for table `level_one_word_barron`
+--
+ALTER TABLE `level_one_word_barron`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `level_three_question_barron`
+--
+ALTER TABLE `level_three_question_barron`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `level_three_question_option_barron`
+--
+ALTER TABLE `level_three_question_option_barron`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `question_id` (`question_id`);
+
+--
+-- Indexes for table `level_three_word_barron`
+--
+ALTER TABLE `level_three_word_barron`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `level_two_question_barron`
+--
+ALTER TABLE `level_two_question_barron`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `level_two_question_option_barron`
+--
+ALTER TABLE `level_two_question_option_barron`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `question_id` (`question_id`);
+
+--
+-- Indexes for table `level_two_word_barron`
+--
+ALTER TABLE `level_two_word_barron`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -940,6 +1546,12 @@ ALTER TABLE `magoosh_level_five_question_option`
   ADD KEY `question_id` (`question_id`);
 
 --
+-- Indexes for table `magoosh_level_five_word`
+--
+ALTER TABLE `magoosh_level_five_word`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `magoosh_level_four_question`
 --
 ALTER TABLE `magoosh_level_four_question`
@@ -951,6 +1563,12 @@ ALTER TABLE `magoosh_level_four_question`
 ALTER TABLE `magoosh_level_four_question_option`
   ADD PRIMARY KEY (`id`),
   ADD KEY `question_id` (`question_id`);
+
+--
+-- Indexes for table `magoosh_level_four_word`
+--
+ALTER TABLE `magoosh_level_four_word`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `magoosh_level_one_question`
@@ -966,6 +1584,12 @@ ALTER TABLE `magoosh_level_one_question_option`
   ADD KEY `question_id` (`question_id`);
 
 --
+-- Indexes for table `magoosh_level_one_word`
+--
+ALTER TABLE `magoosh_level_one_word`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `magoosh_level_three_question`
 --
 ALTER TABLE `magoosh_level_three_question`
@@ -979,6 +1603,12 @@ ALTER TABLE `magoosh_level_three_question_option`
   ADD KEY `question_id` (`question_id`);
 
 --
+-- Indexes for table `magoosh_level_three_word`
+--
+ALTER TABLE `magoosh_level_three_word`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `magoosh_level_two_question`
 --
 ALTER TABLE `magoosh_level_two_question`
@@ -990,6 +1620,12 @@ ALTER TABLE `magoosh_level_two_question`
 ALTER TABLE `magoosh_level_two_question_option`
   ADD PRIMARY KEY (`id`),
   ADD KEY `question_id` (`question_id`);
+
+--
+-- Indexes for table `magoosh_level_two_word`
+--
+ALTER TABLE `magoosh_level_two_word`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `magoosh_word_settings`
@@ -1012,6 +1648,12 @@ ALTER TABLE `manhattan_level_five_question_option`
   ADD KEY `question_id` (`question_id`);
 
 --
+-- Indexes for table `manhattan_level_five_word`
+--
+ALTER TABLE `manhattan_level_five_word`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `manhattan_level_four_question`
 --
 ALTER TABLE `manhattan_level_four_question`
@@ -1023,6 +1665,12 @@ ALTER TABLE `manhattan_level_four_question`
 ALTER TABLE `manhattan_level_four_question_option`
   ADD PRIMARY KEY (`id`),
   ADD KEY `question_id` (`question_id`);
+
+--
+-- Indexes for table `manhattan_level_four_word`
+--
+ALTER TABLE `manhattan_level_four_word`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `manhattan_level_one_question`
@@ -1038,6 +1686,12 @@ ALTER TABLE `manhattan_level_one_question_option`
   ADD KEY `question_id` (`question_id`);
 
 --
+-- Indexes for table `manhattan_level_one_word`
+--
+ALTER TABLE `manhattan_level_one_word`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `manhattan_level_three_question`
 --
 ALTER TABLE `manhattan_level_three_question`
@@ -1049,6 +1703,12 @@ ALTER TABLE `manhattan_level_three_question`
 ALTER TABLE `manhattan_level_three_question_option`
   ADD PRIMARY KEY (`id`),
   ADD KEY `question_id` (`question_id`);
+
+--
+-- Indexes for table `manhattan_level_three_word`
+--
+ALTER TABLE `manhattan_level_three_word`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `manhattan_level_two_question`
@@ -1064,17 +1724,17 @@ ALTER TABLE `manhattan_level_two_question_option`
   ADD KEY `question_id` (`question_id`);
 
 --
+-- Indexes for table `manhattan_level_two_word`
+--
+ALTER TABLE `manhattan_level_two_word`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `manhattan_word_settings`
 --
 ALTER TABLE `manhattan_word_settings`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `question`
---
-ALTER TABLE `question`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `settings`
@@ -1090,180 +1750,298 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `word_table`
---
-ALTER TABLE `word_table`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `level_settings`
+-- AUTO_INCREMENT for table `barron_word_settings`
 --
-ALTER TABLE `level_settings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+ALTER TABLE `barron_word_settings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+--
+-- AUTO_INCREMENT for table `level_five_question_barron`
+--
+ALTER TABLE `level_five_question_barron`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `level_five_question_option_barron`
+--
+ALTER TABLE `level_five_question_option_barron`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `level_five_word_barron`
+--
+ALTER TABLE `level_five_word_barron`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `level_four_question_barron`
+--
+ALTER TABLE `level_four_question_barron`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `level_four_question_option_barron`
+--
+ALTER TABLE `level_four_question_option_barron`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `level_four_word_barron`
+--
+ALTER TABLE `level_four_word_barron`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `level_one_question`
+--
+ALTER TABLE `level_one_question`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `level_one_question_option`
+--
+ALTER TABLE `level_one_question_option`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `level_one_word_barron`
+--
+ALTER TABLE `level_one_word_barron`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `level_three_question_barron`
+--
+ALTER TABLE `level_three_question_barron`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `level_three_question_option_barron`
+--
+ALTER TABLE `level_three_question_option_barron`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+--
+-- AUTO_INCREMENT for table `level_three_word_barron`
+--
+ALTER TABLE `level_three_word_barron`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `level_two_question_barron`
+--
+ALTER TABLE `level_two_question_barron`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `level_two_question_option_barron`
+--
+ALTER TABLE `level_two_question_option_barron`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `level_two_word_barron`
+--
+ALTER TABLE `level_two_word_barron`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `magoosh_level_five_question`
 --
 ALTER TABLE `magoosh_level_five_question`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `magoosh_level_five_question_option`
 --
 ALTER TABLE `magoosh_level_five_question_option`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
+--
+-- AUTO_INCREMENT for table `magoosh_level_five_word`
+--
+ALTER TABLE `magoosh_level_five_word`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `magoosh_level_four_question`
 --
 ALTER TABLE `magoosh_level_four_question`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `magoosh_level_four_question_option`
 --
 ALTER TABLE `magoosh_level_four_question_option`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
+--
+-- AUTO_INCREMENT for table `magoosh_level_four_word`
+--
+ALTER TABLE `magoosh_level_four_word`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `magoosh_level_one_question`
 --
 ALTER TABLE `magoosh_level_one_question`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `magoosh_level_one_question_option`
 --
 ALTER TABLE `magoosh_level_one_question_option`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
+--
+-- AUTO_INCREMENT for table `magoosh_level_one_word`
+--
+ALTER TABLE `magoosh_level_one_word`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `magoosh_level_three_question`
 --
 ALTER TABLE `magoosh_level_three_question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `magoosh_level_three_question_option`
 --
 ALTER TABLE `magoosh_level_three_question_option`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
+--
+-- AUTO_INCREMENT for table `magoosh_level_three_word`
+--
+ALTER TABLE `magoosh_level_three_word`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `magoosh_level_two_question`
 --
 ALTER TABLE `magoosh_level_two_question`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `magoosh_level_two_question_option`
 --
 ALTER TABLE `magoosh_level_two_question_option`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
+--
+-- AUTO_INCREMENT for table `magoosh_level_two_word`
+--
+ALTER TABLE `magoosh_level_two_word`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `magoosh_word_settings`
 --
 ALTER TABLE `magoosh_word_settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `manhattan_level_five_question`
 --
 ALTER TABLE `manhattan_level_five_question`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `manhattan_level_five_question_option`
 --
 ALTER TABLE `manhattan_level_five_question_option`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
+--
+-- AUTO_INCREMENT for table `manhattan_level_five_word`
+--
+ALTER TABLE `manhattan_level_five_word`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `manhattan_level_four_question`
 --
 ALTER TABLE `manhattan_level_four_question`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `manhattan_level_four_question_option`
 --
 ALTER TABLE `manhattan_level_four_question_option`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
+--
+-- AUTO_INCREMENT for table `manhattan_level_four_word`
+--
+ALTER TABLE `manhattan_level_four_word`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `manhattan_level_one_question`
 --
 ALTER TABLE `manhattan_level_one_question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `manhattan_level_one_question_option`
 --
 ALTER TABLE `manhattan_level_one_question_option`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
+--
+-- AUTO_INCREMENT for table `manhattan_level_one_word`
+--
+ALTER TABLE `manhattan_level_one_word`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `manhattan_level_three_question`
 --
 ALTER TABLE `manhattan_level_three_question`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `manhattan_level_three_question_option`
 --
 ALTER TABLE `manhattan_level_three_question_option`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
+--
+-- AUTO_INCREMENT for table `manhattan_level_three_word`
+--
+ALTER TABLE `manhattan_level_three_word`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `manhattan_level_two_question`
 --
 ALTER TABLE `manhattan_level_two_question`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `manhattan_level_two_question_option`
 --
 ALTER TABLE `manhattan_level_two_question_option`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
+--
+-- AUTO_INCREMENT for table `manhattan_level_two_word`
+--
+ALTER TABLE `manhattan_level_two_word`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `manhattan_word_settings`
 --
 ALTER TABLE `manhattan_word_settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `question`
---
-ALTER TABLE `question`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
 --
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
---
--- AUTO_INCREMENT for table `word_table`
---
-ALTER TABLE `word_table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `barron_word_settings`
+--
+ALTER TABLE `barron_word_settings`
+  ADD CONSTRAINT `barron_word_settings_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `level_five_question_option_barron`
+--
+ALTER TABLE `level_five_question_option_barron`
+  ADD CONSTRAINT `level_five_question_option_barron_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `level_five_question_barron` (`id`);
+
+--
+-- Constraints for table `level_four_question_option_barron`
+--
+ALTER TABLE `level_four_question_option_barron`
+  ADD CONSTRAINT `level_four_question_option_barron_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `level_four_question_barron` (`id`);
+
+--
+-- Constraints for table `level_one_question_option`
+--
+ALTER TABLE `level_one_question_option`
+  ADD CONSTRAINT `level_one_question_option_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `level_one_question` (`id`);
+
+--
+-- Constraints for table `level_three_question_option_barron`
+--
+ALTER TABLE `level_three_question_option_barron`
+  ADD CONSTRAINT `level_three_question_option_barron_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `level_three_question_barron` (`id`);
+
+--
+-- Constraints for table `level_two_question_option_barron`
+--
+ALTER TABLE `level_two_question_option_barron`
+  ADD CONSTRAINT `level_two_question_option_barron_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `level_two_question_barron` (`id`);
 
 --
 -- Constraints for table `magoosh_level_five_question_option`
@@ -1330,7 +2108,6 @@ ALTER TABLE `manhattan_level_two_question_option`
 --
 ALTER TABLE `settings`
   ADD CONSTRAINT `settings_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
