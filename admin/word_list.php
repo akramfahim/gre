@@ -14,68 +14,10 @@
       $loggedIn = true;
   }
 
-  /* Geting Barron All level Words */
-  $get_barron_level_one_word = $pdo->prepare('SELECT * FROM level_one_word_barron');
-  $get_barron_level_one_word->execute();
-  $barron_word_one = $get_barron_level_one_word->fetchAll(PDO::FETCH_ASSOC);
+  $get_barron_words = $pdo->prepare("SELECT * FROM word_table WHERE type=?");
+  $get_barron_words->execute(array('barron'));
+  $barron_words = $get_barron_words->fetchAll(PDO::FETCH_ASSOC);
 
-  $get_barron_level_two_word = $pdo->prepare('SELECT * FROM level_two_word_barron');
-  $get_barron_level_two_word->execute();
-  $barron_word_two = $get_barron_level_two_word->fetchAll(PDO::FETCH_ASSOC);
-
-  $get_barron_level_three_word = $pdo->prepare('SELECT * FROM level_three_word_barron');
-  $get_barron_level_three_word->execute();
-  $barron_word_three = $get_barron_level_three_word->fetchAll(PDO::FETCH_ASSOC);
-
-  $get_barron_level_four_word = $pdo->prepare('SELECT * FROM level_four_word_barron');
-  $get_barron_level_four_word->execute();
-  $barron_word_four = $get_barron_level_four_word->fetchAll(PDO::FETCH_ASSOC);
-
-  $get_barron_level_five_word = $pdo->prepare('SELECT * FROM level_five_word_barron');
-  $get_barron_level_five_word->execute();
-  $barron_word_five = $get_barron_level_five_word->fetchAll(PDO::FETCH_ASSOC);
-
-  /* Geting Magoosh All level Words */
-  $get_magoosh_level_one_word = $pdo->prepare('SELECT * FROM magoosh_level_one_word');
-  $get_magoosh_level_one_word->execute();
-  $magoosh_word_one = $get_magoosh_level_one_word->fetchAll(PDO::FETCH_ASSOC);
-
-  $get_magoosh_level_two_word = $pdo->prepare('SELECT * FROM magoosh_level_two_word');
-  $get_magoosh_level_two_word->execute();
-  $magoosh_word_two = $get_magoosh_level_two_word->fetchAll(PDO::FETCH_ASSOC);
-
-  $get_magoosh_level_three_word = $pdo->prepare('SELECT * FROM magoosh_level_three_word');
-  $get_magoosh_level_three_word->execute();
-  $magoosh_word_three = $get_magoosh_level_three_word->fetchAll(PDO::FETCH_ASSOC);
-
-  $get_magoosh_level_four_word = $pdo->prepare('SELECT * FROM magoosh_level_four_word');
-  $get_magoosh_level_four_word->execute();
-  $magoosh_word_four = $get_magoosh_level_four_word->fetchAll(PDO::FETCH_ASSOC);
-
-  $get_magoosh_level_five_word = $pdo->prepare('SELECT * FROM magoosh_level_five_word');
-  $get_magoosh_level_five_word->execute();
-  $magoosh_word_five = $get_magoosh_level_five_word->fetchAll(PDO::FETCH_ASSOC);
-
-  /* Geting Manhattan All level Words */
-  $get_manhattan_level_one_word = $pdo->prepare('SELECT * FROM manhattan_level_one_word');
-  $get_manhattan_level_one_word->execute();
-  $manhattan_word_one = $get_manhattan_level_one_word->fetchAll(PDO::FETCH_ASSOC);
-
-  $get_manhattan_level_two_word = $pdo->prepare('SELECT * FROM manhattan_level_two_word');
-  $get_manhattan_level_two_word->execute();
-  $manhattan_word_two = $get_manhattan_level_two_word->fetchAll(PDO::FETCH_ASSOC);
-
-  $get_manhattan_level_three_word = $pdo->prepare('SELECT * FROM manhattan_level_three_word');
-  $get_manhattan_level_three_word->execute();
-  $manhattan_word_three = $get_manhattan_level_three_word->fetchAll(PDO::FETCH_ASSOC);
-
-  $get_manhattan_level_four_word = $pdo->prepare('SELECT * FROM manhattan_level_four_word');
-  $get_manhattan_level_four_word->execute();
-  $manhattan_word_four = $get_manhattan_level_four_word->fetchAll(PDO::FETCH_ASSOC);
-
-  $get_manhattan_level_five_word = $pdo->prepare('SELECT * FROM manhattan_level_five_word');
-  $get_manhattan_level_five_word->execute();
-  $manhattan_word_five = $get_manhattan_level_five_word->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,6 +56,9 @@
           <a class="nav-link" href="#">Words List</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="question_list.php">Question List</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link btn btn-outline-danger" href="../signout.php">Sign Out</a>
         </li>
       </ul>
@@ -133,139 +78,28 @@
                 <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Manhattan Words</a>
               </div>
             </nav>
-            
-
 
             <div class="tab-content text-dark" id="nav-tabContent">
               <div class="tab-pane fade show active h-75" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <h1 class="text-center text-success">Barron Words</h1>
                 <hr>
                 
-                <h3 class="text-center bg-light p-3 my-2">Level One</h3>
-
                 <table class="table table-dark table-striped text-center">
-                  <thead>
+                  <thead class="thead-light">
                     <tr>
-                      <th>Word</th>
-                      <th>Description</th>
-                      <th>Action</th>
+                      <th scope="col">Word</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Level</th>
+                      <th scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach ($barron_word_one as $word): ?>
-                      <?php $id = $word['id'];$table_name = 'level_one_word_barron'; ?>
+                    <?php foreach ($barron_words as $barron_word): ?>
                       <tr>
-                        <td><?php echo $word['word_name']; ?></td>
-                        <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td>
-                           <?php 
-                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
-                           ?> 
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-
-                <h3 class="text-center bg-light p-3  my-2">Level Two</h3><hr>
-
-                <table class="table table-dark table-striped text-center">
-                  <thead>
-                    <tr>
-                      <th>Word</th>
-                      <th>Description</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($barron_word_two as $word): ?>
-                      <?php $id = $word['id'];$table_name = 'level_two_word_barron'; ?>
-                      <tr>
-                        <td><?php echo $word['word_name']; ?></td>
-                        <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td>
-                          <?php 
-                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
-                           ?> 
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-
-                <h3 class="text-center bg-light p-3  my-2">Level Three</h3><hr>
-
-                <table class="table table-dark table-striped text-center">
-                  <thead>
-                    <tr>
-                      <th>Word</th>
-                      <th>Description</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($barron_word_three as $word): ?>
-                      <?php $id = $word['id'];$table_name = 'level_three_word_barron'; ?>
-                      <tr>
-                        <td><?php echo $word['word_name']; ?></td>
-                        <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td>
-                          <?php 
-                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
-                           ?> 
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-
-                <h3 class="text-center bg-light p-3  my-2">Level Four</h3><hr>
-
-                <table class="table table-dark table-striped text-center">
-                  <thead>
-                    <tr>
-                      <th>Word</th>
-                      <th>Description</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($barron_word_four as $word): ?>
-                      <?php $id = $word['id'];$table_name = 'level_four_word_barron'; ?>
-                      <tr>
-                        <td><?php echo $word['word_name']; ?></td>
-                        <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td>
-                          <?php 
-                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
-                           ?> 
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-
-                <h3 class="text-center bg-light p-3  my-2">Level Five</h3><hr>
-
-                <table class="table table-dark table-striped text-center">
-                  <thead>
-                    <tr>
-                      <th>Word</th>
-                      <th>Description</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($barron_word_five as $word): ?>
-                      <?php $id = $word['id'];$table_name = 'level_five_word_barron'; ?>
-                      <tr>
-                        <td><?php echo $word['word_name']; ?></td>
-                        <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td>
-                          <?php 
-                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
-                           ?> 
-                        </td>
+                        <td><?php echo $barron_word['word']; ?></td>
+                        <td><?php echo $barron_word['description']; ?></td>
+                        <td><button class="btn btn-info"><?php echo  strtoupper($barron_word['level']); ?></button></td>
+                        <td><a href="word_edit.php?id=<?php echo $barron_word['id'] ?>" class="btn btn-primary">UPDATE</a></td>
                       </tr>
                     <?php endforeach ?>
                   </tbody>
@@ -276,271 +110,11 @@
                 <h1 class="text-center text-success">Magoosh Words</h1>
                 <hr>
                 
-                <h3 class="text-center bg-light p-3  my-2">Level One</h3>
-
-                <table class="table table-dark table-striped text-center">
-                  <thead>
-                    <tr>
-                      <th>Word</th>
-                      <th>Description</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($magoosh_word_one as $word): ?>
-                      <?php $id = $word['id'];$table_name = 'magoosh_level_one_word'; ?>
-                      <tr>
-                        <td><?php echo $word['word_name']; ?></td>
-                        <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td>
-                          <?php 
-                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
-                           ?> 
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-
-                <h3 class="text-center bg-light p-3  my-2">Level Two</h3><hr>
-
-                <table class="table table-dark table-striped text-center">
-                  <thead>
-                    <tr>
-                      <th>Word</th>
-                      <th>Description</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($magoosh_word_two as $word): ?>
-                      <?php $id = $word['id'];$table_name = 'magoosh_level_two_word'; ?>
-                      <tr>
-                        <td><?php echo $word['word_name']; ?></td>
-                        <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td>
-                          <?php 
-                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
-                           ?> 
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-
-                <h3 class="text-center bg-light p-3  my-2">Level Three</h3><hr>
-
-                <table class="table table-dark table-striped text-center">
-                  <thead>
-                    <tr>
-                      <th>Word</th>
-                      <th>Description</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($magoosh_word_three as $word): ?>
-                      <?php $id = $word['id'];$table_name = 'magoosh_level_three_word'; ?>
-                      <tr>
-                        <td><?php echo $word['word_name']; ?></td>
-                        <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td>
-                          <?php 
-                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
-                           ?> 
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-
-                <h3 class="text-center bg-light p-3  my-2">Level Four</h3><hr>
-
-                <table class="table table-dark table-striped text-center">
-                  <thead>
-                    <tr>
-                      <th>Word</th>
-                      <th>Description</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($magoosh_word_four as $word): ?>
-                      <?php $id = $word['id'];$table_name = 'magoosh_level_four_word'; ?>
-                      <tr>
-                        <td><?php echo $word['word_name']; ?></td>
-                        <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td>
-                          <?php 
-                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
-                           ?> 
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-
-                <h3 class="text-center bg-light p-3  my-2">Level Five</h3><hr>
-
-                <table class="table table-dark table-striped text-center">
-                  <thead>
-                    <tr>
-                      <th>Word</th>
-                      <th>Description</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($magoosh_word_five as $word): ?>
-                      <?php $id = $word['id'];$table_name = 'magoosh_level_five_word'; ?>
-                      <tr>
-                        <td><?php echo $word['word_name']; ?></td>
-                        <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td>
-                          <?php 
-                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
-                           ?> 
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-
               </div>
               <div class="tab-pane fade h-75" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <h1 class="text-center text-success">Manhattan Words</h1>
                 <hr>
                 
-                <h3 class="text-center bg-light p-3  my-2">Level One</h3>
-
-                <table class="table table-dark table-striped text-center">
-                  <thead>
-                    <tr>
-                      <th>Word</th>
-                      <th>Description</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($manhattan_word_one as $word): ?>
-                      <?php $id = $word['id'];$table_name = 'manhattan_level_one_word'; ?>
-                      <tr>
-                        <td><?php echo $word['word_name']; ?></td>
-                        <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td>
-                          <?php 
-                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
-                           ?> 
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-
-                <h3 class="text-center bg-light p-3  my-2">Level Two</h3><hr>
-
-                <table class="table table-dark table-striped text-center">
-                  <thead>
-                    <tr>
-                      <th>Word</th>
-                      <th>Description</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($manhattan_word_two as $word): ?>
-                      <?php $id = $word['id'];$table_name = 'manhattan_level_two_word'; ?>
-                      <tr>
-                        <td><?php echo $word['word_name']; ?></td>
-                        <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td>
-                          <?php 
-                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
-                           ?> 
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-
-                <h3 class="text-center bg-light p-3  my-2">Level Three</h3><hr>
-
-                <table class="table table-dark table-striped text-center">
-                  <thead>
-                    <tr>
-                      <th>Word</th>
-                      <th>Description</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($manhattan_word_three as $word): ?>
-                      <?php $id = $word['id'];$table_name = 'manhattan_level_three_word'; ?>
-                      <tr>
-                        <td><?php echo $word['word_name']; ?></td>
-                        <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td>
-                          <?php 
-                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
-                           ?> 
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-
-                <h3 class="text-center bg-light p-3  my-2">Level Four</h3><hr>
-
-                <table class="table table-dark table-striped text-center">
-                  <thead>
-                    <tr>
-                      <th>Word</th>
-                      <th>Description</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($manhattan_word_four as $word): ?>
-                      <?php $id = $word['id'];$table_name = 'manhattan_level_four_word'; ?>
-                      <tr>
-                        <td><?php echo $word['word_name']; ?></td>
-                        <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td>
-                          <?php 
-                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
-                           ?> 
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-
-                <h3 class="text-center bg-light p-3  my-2">Level Five</h3><hr>
-
-                <table class="table table-dark table-striped text-center">
-                  <thead>
-                    <tr>
-                      <th>Word</th>
-                      <th>Description</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($manhattan_word_five as $word): ?>
-                      <?php $id = $word['id'];$table_name = 'manhattan_level_five_word'; ?>
-                      <tr>
-                        <td><?php echo $word['word_name']; ?></td>
-                        <td class="px-5"><?php echo $word['description']; ?></td>
-                        <td>
-                          <?php 
-                            echo '<a href="word_edit.php?table_name=' . $table_name .'&id='.$id.'" class="btn btn-primary">Edit</a>';
-                           ?> 
-                        </td>
-                      </tr>
-                    <?php endforeach ?>
-                  </tbody>
-                </table>
-
               </div>
             </div>
             <!-- Horizontal tab Ends-->
