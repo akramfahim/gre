@@ -9,34 +9,34 @@
 	$success_msg ='';
 	$error_msg = '';
 
-	$table_name = $_GET['table_name'];
 	$id = $_GET['id'];
 
 
-	$get_barron_level_five_word = $pdo->prepare('SELECT * FROM '.$table_name.' WHERE id='.$id);
-	$get_barron_level_five_word->execute();
-	$barron_word_five = $get_barron_level_five_word->fetchAll(PDO::FETCH_ASSOC);
+	$get_word = $pdo->prepare('SELECT * FROM word_table WHERE id='.$id);
+	$get_word->execute();
+	$single_word = $get_word->fetchAll(PDO::FETCH_ASSOC);
 
-    $word_name = $barron_word_five[0]['word_name'];
-    $description = $barron_word_five[0]['description'];
+    $word = $single_word[0]['word'];
+    $description = $single_word[0]['description'];
 
 	/*print_r($barron_word_five);*/
 	/*echo $barron_word_five[0]['word_name']."<br>";
 	echo $barron_word_five[0]['description']."<br>";*/
 
     if (isset($_POST['update'])) {
-        if (empty($_POST['word_name']) || empty($_POST['description'])) {
+        if (empty($_POST['word']) || empty($_POST['description'])) {
             $error_msg = "Any field should not be empty";
-        }elseif ($_POST['word_name'] == $word_name || $_POST['description'] == $description) {
+        }elseif ($_POST['word'] == $word || $_POST['description'] == $description) {
             $error_msg = "You do not change Anything";
         }else{
-            $new_word_name = $_POST['word_name'];
+            $new_word = $_POST['word'];
             $new_description = $_POST['description'];
 
             //$sql = "UPDATE ".$table_name." SET word_name=".$word_name." AND description= ".$description." WHERE id=".$id;
 
-            $update_stmt = $pdo->prepare("UPDATE ".$table_name." SET word_name='$new_word_name' AND description='$new_description.' WHERE id='$id'");
-            $done_update = $update_stmt->execute();
+            $update_stmt = $pdo->prepare("UPDATE word_table SET word = ? , description = ? WHERE id = ?");
+            $done_update = $update_stmt->execute(array($new_word,$new_description,$id));
+
             /*$sql = 'UPDATE '.$table_name.' WHERE id='.$id;
             $update_stmt = $pdo->prepare($sql);
             $done_update = $update_stmt->execute();*/
@@ -60,7 +60,7 @@
 </head>
 <body class="bg-dark">
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">Admin Panel | Gre</a>
+		<a class="navbar-brand" href="index.php">Admin Panel | Gre</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -73,6 +73,9 @@
 				<li class="nav-item">
 					<a class="nav-link" href="word_list.php">Words List</a>
 				</li>
+                <li class="nav-item">
+                    <a class="nav-link" href="question_list.php">Question List</a>
+                </li>
 
 				<li class="nav-item">
 					<a class="nav-link btn btn-outline-danger" href="../signout.php">Sign Out</a>
@@ -97,13 +100,13 @@
 
                      	<form method="POST" action="">
                      		<div class="form-group">
-                     			<label for="word_name"><h4>Word :</h4></label>
-                     			<input type="text" name="word_name" class="form-control" id="word_name" aria-describedby="emailHelp" required="required" value="<?php echo $barron_word_five[0]['word_name'] ?>">
+                     			<label for="word"><h4>Word :</h4></label>
+                     			<input type="text" name="word" class="form-control" id="word" aria-describedby="emailHelp" required="required" value="<?php echo $single_word[0]['word'] ?>">
                      		</div>
                      		
                      		<div class="form-group">
                      			<label for="comment"><h4>Description:</h4></label>
-                     			<textarea name="description" required="required" class="form-control" rows="5" id="description"><?php echo $barron_word_five[0]['description'] ?>
+                     			<textarea name="description" required="required" class="form-control" rows="5" id="description"><?php echo $single_word[0]['description'] ?>
                      			</textarea>
                      		</div>
 
