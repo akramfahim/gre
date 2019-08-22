@@ -7,9 +7,9 @@
         $loggedIn = false;
         header('location: signin.php');
         exit;
-    	}else{
-       		$loggedIn = true;
-    	}
+      }else{
+          $loggedIn = true;
+      }
 
    if (isset($_POST['submit'])) {
         $user_id = $_POST['user_id'];
@@ -22,35 +22,30 @@
 
         
         /* Get Correct ans of specific question */
-        $stmt_one = $pdo->prepare("SELECT answer,question from question where id=?");
+        $stmt_one = $pdo->prepare("SELECT word from word_table where id=?");
         $stmt_one->execute(array($ques_id));
         $resultOne = $stmt_one->fetch();
-        $correct_ans = $resultOne['answer'];
-        $question1 = $resultOne['question'];
+        $correct_ans = $resultOne['word'];
 
-        $stmt_two = $pdo->prepare("SELECT answer,question from question where id=?");
+        $stmt_two = $pdo->prepare("SELECT word from word_table where id=?");
         $stmt_two->execute(array($ques_id_two));
         $resultTwo = $stmt_two->fetch();
-        $correct_ans_two = $resultTwo['answer'];
-        $question2 = $resultTwo['question'];
+        $correct_ans_two = $resultTwo['word'];
 
-        $stmt_three = $pdo->prepare("SELECT answer,question from question where id=?");
+        $stmt_three = $pdo->prepare("SELECT word from word_table where id=?");
         $stmt_three->execute(array($ques_id_three));
         $resultThree = $stmt_three->fetch();
-        $correct_ans_three = $resultThree['answer'];
-        $question3 = $resultThree['question'];
+        $correct_ans_three = $resultThree['word'];
 
-         $stmt_four = $pdo->prepare("SELECT answer,question from question where id=?");
+         $stmt_four = $pdo->prepare("SELECT word from word_table where id=?");
         $stmt_four->execute(array($ques_id_four));
         $resultfour = $stmt_four->fetch();
-        $correct_ans_four = $resultfour['answer'];
-        $question4 = $resultfour['question'];
+        $correct_ans_four = $resultfour['word'];
 
-        $stmt_five = $pdo->prepare("SELECT answer,question from question where id=?");
+        $stmt_five = $pdo->prepare("SELECT word from word_table where id=?");
         $stmt_five->execute(array($ques_id_five));
         $resultfive = $stmt_five->fetch();
-         $correct_ans_five = $resultfive['answer'];
-        $question5 = $resultfive['question'];
+         $correct_ans_five = $resultfive['word'];
 
 
 
@@ -77,7 +72,7 @@
          	  $score++;
          }
           $status = $pdo->prepare("INSERT INTO exam (user_id,score,type) VALUES (?,?,?)");
-          $status->execute(array($user_id,$score,"mcq"));
+          $status->execute(array($user_id,$score,"rearrange"));
 
      }
  ?>
@@ -102,41 +97,35 @@
  			<table class="table">
 	  <thead>
 	    <tr>
-	      <th class="w-25">Question</th>
+	      <th class="w-25">Word</th>
 	      <th>Your Answer</th>
-	      <th>Correct Answer</th>
 	    </tr>
 	  </thead>
 	  <tbody>
 	    <tr>
-	      <td><?php echo $question1; ?></td>
-	      <td class="font-weight-bold text-<?php echo $answer == $correct_ans ? 'success' : 'danger'; ?>"><?php echo $answer; ?></td>
 	      <td><?php echo $correct_ans; ?></td>
+	      <td class="font-weight-bold text-<?php echo $answer == $correct_ans ? 'success' : 'danger'; ?>"><?php echo $answer; ?></td>
 	    </tr>
 	    <tr>
-	      <td><?php echo $question2; ?></td>
+	      <td><?php echo $correct_ans_two; ?></td>
 	      <td class="font-weight-bold text-<?php echo $answer2 == $correct_ans_two ? 'success' : 'danger'; ?>"><?php echo $answer2; ?></td>
-	      <td><?php echo $correct_ans_two;  ?></td>
 	    </tr>
 	    <tr>
-	      <td><?php echo $question3; ?></td>
-	      <td class="font-weight-bold text-<?php echo $answer3 == $correct_ans_three ? 'success' : 'danger'; ?>"><?php echo $answer3; ?></td>
 	      <td><?php echo $correct_ans_three; ?></td>
+	      <td class="font-weight-bold text-<?php echo $answer3 == $correct_ans_three ? 'success' : 'danger'; ?>"><?php echo $answer3; ?></td>
 	    </tr>
 	    <tr>
-	      <td ><?php echo $question4; ?></td>
+	      <td ><?php echo $correct_ans_four; ?></td>
 	      <td class="font-weight-bold text-<?php echo $answer4 == $correct_ans_four ? 'success' : 'danger'; ?>"><?php echo $answer4; ?></td>
-	      <td><?php echo  $correct_ans_four; ?></td>
 	    </tr>
 	    <tr>
-	      <td><?php echo $question5; ?></td>
-	      <td class="font-weight-bold text-<?php echo $answer5 == $correct_ans_five ? 'success' : 'danger'; ?>"><?php echo $answer5; ?></td>
 	      <td><?php echo $correct_ans_five; ?></td>
+	      <td class="font-weight-bold text-<?php echo $answer5 == $correct_ans_five ? 'success' : 'danger'; ?>"><?php echo $answer5; ?></td>
 	    </tr>
 	</tbody>
 	</table>
  		</div>
- 		    <div class="card-footer">
+    <div class="card-footer">
       <a href="../allTest.php" class="btn btn-primary">Back</a>
     </div>
  	</div>

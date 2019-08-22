@@ -3,18 +3,19 @@
    
    ob_start();
       session_start();
-           if(!isset($_SESSION['user'])) {
-        $loggedIn = false;
-        header('location: signin.php');
-        exit;
-    	}else{
-       		$loggedIn = true;
-    	}
       include("inc/config.php");
       include("inc/CSRF_Protect.php");
       $csrf = new CSRF_Protect();
       require 'navbar.php';
         $user_id = $_SESSION['user']['id'];
+
+    if(!isset($_SESSION['user'])) {
+        $loggedIn = false;
+        header('location: signin.php');
+        exit;
+      }else{
+          $loggedIn = true;
+      }
 
       ?>
 
@@ -22,7 +23,7 @@
 	<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-myColor rounded shadow-sm">
     <img class="mr-3" src="img/mcq.jpg" alt="" width="48" height="48">
     <div class="lh-100">
-      <h6 class="mb-0 text-white lh-100">MCQ EXAM</h6>
+      <h6 class="mb-0 text-white lh-100">Rearrange Word</h6>
       <small class="font-weight-bold fs-1 text-white"><?php echo date('m/d/Y'); ?></small>
     </div>
   </div>
@@ -35,13 +36,13 @@
 		          $level_pass = $level_sql->fetchAll(PDO::FETCH_ASSOC);
 		          
 		          if ($level_pass[0]['manhattan'] == 'Completed') {
-  	                  $statement = $pdo->prepare("SELECT * FROM `question` ORDER BY RAND() limit 5");
+  	                  $statement = $pdo->prepare("SELECT * FROM `word_table` ORDER BY RAND() limit 5");
 		          }
 		          else if ($level_pass[0]['magoosh'] == 'Completed'){
-		          	 $statement = $pdo->prepare("SELECT * FROM `question` where type='barron' OR type='magoosh' ORDER BY RAND() limit 5");
+		          	 $statement = $pdo->prepare("SELECT * FROM `word_table` where type='barron' OR type='magoosh' ORDER BY RAND() limit 5");
 		          }
 		           else if ($level_pass[0]['barron'] == 'Completed'){
-		          	 $statement = $pdo->prepare("SELECT * FROM `question` where type='barron' ORDER BY RAND() limit 5");
+		          	 $statement = $pdo->prepare("SELECT * FROM `word_table` where type='barron' ORDER BY RAND() limit 5");
 		          }
 
                   $statement->execute();
@@ -51,29 +52,15 @@
                   
                   ?>
 			
-             <form action="form/mcq.php" method="post">
+             <form action="form/rearrange.php" method="post">
                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
                <?php foreach ($results as $key => $row3) { ?>
 
-               <h6>Q: <b> <?php echo $row3['question'];  ?> ?</b></h6>
+               <h6>Q: <b> <?php echo str_shuffle($row3['word']);  ?> ?</b></h6>
                <hr>
                <input type="hidden" name="question_id<?php echo $key; ?>" value="<?php echo $row3['id']; ?>">
-               <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option1'] ?>">
-               <?php echo $row3['option1'] ?>
+               <input type="text" class="form-check-group" name="answer<?php echo $key; ?>" required="required">
                <br>
-
-               <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option2'] ?>">
-               <?php echo $row3['option2'] ?>
-               <br>
-
-               <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option3'] ?>">
-               <?php echo $row3['option3'] ?>
-               <br>
-
-               <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option4'] ?>">
-               <?php echo $row3['option4'] ?>
-               <br>
-
                <hr/>
                <?php } ?>
                  <button class="btn btn-success btn-block" type="submit" name="submit"> Submit </button>

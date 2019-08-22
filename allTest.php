@@ -3,6 +3,13 @@
    
    ob_start();
       session_start();
+           if(!isset($_SESSION['user'])) {
+        $loggedIn = false;
+        header('location: signin.php');
+        exit;
+      }else{
+            $loggedIn = true;
+      }
       include("inc/config.php");
       include("inc/CSRF_Protect.php");
       $csrf = new CSRF_Protect();
@@ -34,7 +41,7 @@
                         <img src="img/re.jpg" class="mb-1 rounded" height="100px" width="100px">
                         <p>Test test test Rearrange</p>
                         <h5 class="card-title pricing-card-title">Word Learned</h5>
-                        <a href="magoosh_course.php" class="btn btn-lg btn-block btn-dark text-white">Learn</a>
+                        <a href="rearrange.php" class="btn btn-lg btn-block btn-dark text-white">Learn</a>
                      </div>
                   </div>
                </div>
