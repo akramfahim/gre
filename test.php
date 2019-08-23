@@ -78,5 +78,13 @@
 
 <?php
    include "footer.php";
+
+   $text ="hello";
+
+$len=strlen($text);
+$number = rand(1,$len);
+
+$text[$number] = '_';
+echo $text;
 ?>
       

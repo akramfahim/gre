@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2019 at 07:39 PM
+-- Generation Time: Aug 23, 2019 at 11:17 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -21,6 +21,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `gre`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exam`
+--
+
+CREATE TABLE `exam` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `score` int(191) NOT NULL,
+  `type` varchar(11) NOT NULL,
+  `date` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `exam`
+--
+
+INSERT INTO `exam` (`id`, `user_id`, `score`, `type`, `date`) VALUES
+(10, 25, 1, 'mcq', '2019-08-22 18:48:57.561920'),
+(11, 25, 0, 'rearrange', '2019-08-22 18:49:28.661625'),
+(12, 25, 0, 'fill', '2019-08-23 08:15:20.704697');
 
 -- --------------------------------------------------------
 
@@ -45,7 +68,7 @@ CREATE TABLE `level_settings` (
 
 INSERT INTO `level_settings` (`id`, `level_One`, `level_Two`, `level_Three`, `level_Four`, `level_Five`, `user_id`, `type`) VALUES
 (1, 'Completed', 'Completed', 'Completed', 'Completed', 'Completed', 24, 'barron'),
-(3, 'Completed', 'Completed', 'Completed', '', '', 25, 'barron');
+(3, 'Completed', 'Completed', 'Completed', 'Completed', 'Completed', 25, 'barron');
 
 -- --------------------------------------------------------
 
@@ -867,9 +890,9 @@ INSERT INTO `word_table` (`id`, `word`, `description`, `type`, `level`) VALUES
 (26, 'Liberality', 'free giving; generosity', 'barron', 'five'),
 (28, 'Abstruse', 'Difficult to understand; incomprehensible', 'magoosh', 'one'),
 (29, 'Acrimony', 'Bitterness and ill will', 'magoosh', 'one'),
-(30, 'Admonish(verb)', 'o warn strongly, even to the point of reprimanding', 'magoosh', 'one'),
-(31, 'Auspicious(adjective)', ' Favorable, the opposite of sinister', 'magoosh', 'one'),
-(32, 'banality(noun)', 'A trite or obvious remark', 'magoosh', 'one'),
+(30, 'Admonish', 'o warn strongly, even to the point of reprimanding', 'magoosh', 'one'),
+(31, 'Auspicious', ' Favorable, the opposite of sinister', 'magoosh', 'one'),
+(32, 'banality', 'A trite or obvious remark', 'magoosh', 'one'),
 (33, 'Grievous', 'causing grief or pain; serious dire grave', 'magoosh', 'two'),
 (34, 'Hypocrisy', 'falsely making oneself appear to be good', 'magoosh', 'two'),
 (35, 'Chisel', 'steel tool for shaping materials', 'magoosh', 'two'),
@@ -919,6 +942,12 @@ INSERT INTO `word_table` (`id`, `word`, `description`, `type`, `level`) VALUES
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `exam`
+--
+ALTER TABLE `exam`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `level_settings`
@@ -1098,6 +1127,12 @@ ALTER TABLE `word_table`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `exam`
+--
+ALTER TABLE `exam`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `level_settings`

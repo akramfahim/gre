@@ -547,80 +547,43 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
          </div>
          <!-- Modal body -->
-         <div class="modal-body">
+          <div class="modal-body">
             <?php
-               /* Level Three Question Barron*/
-                   $level_four_ques_id='';
-                   $level_four_ques_id_two='';
-                   $level_four_ques_id_three='';
+               /* Level Two Question Barron*/
                
-                   $level_four_statementOne = $pdo->prepare("SELECT * FROM level_four_question_barron ORDER BY RAND() limit 3");
-                   $level_four_statementOne->execute();
-                   $level_four_resultOne = $level_four_statementOne->fetchAll(PDO::FETCH_ASSOC);
-               
-                   /* Get Random First Question */
-                   $level_four_ques_id = $level_four_resultOne[0]['id'];
-                   $level_four_random_question =  $level_four_resultOne[0]['question'];
-               
-                   /* Get Random Second Question */
-                   $level_four_ques_id_two = $level_four_resultOne[1]['id'];
-                   $level_four_random_question_two =  $level_four_resultOne[1]['question'];
-               
-                   /* Get Random Third Question */
-                   $level_four_ques_id_three = $level_four_resultOne[2]['id'];
-                   $level_four_random_question_three =  $level_four_resultOne[2]['question'];
-               
-                       $level_four_ModalQuestionOne = $pdo->prepare("SELECT * FROM level_four_question_option_barron where level_four_question_option_barron.question_id = ".$level_four_ques_id." limit 4");
-                       $level_four_ModalQuestionOne->execute();
-                       $level_four_resultModalOne = $level_four_ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC); 
-               
-                       $level_four_ModalQuestionTwo = $pdo->prepare("SELECT * FROM level_four_question_option_barron where level_four_question_option_barron.question_id = ".$level_four_ques_id_two." limit 4");
-                       $level_four_ModalQuestionTwo->execute();
-                       $level_four_resultModalTwo = $level_four_ModalQuestionTwo->fetchAll(PDO::FETCH_ASSOC); 
-               
-                       $level_four_ModalQuestionThree = $pdo->prepare("SELECT * FROM level_four_question_option_barron where level_four_question_option_barron.question_id = ".$level_four_ques_id_three." limit 4");
-                       $level_four_ModalQuestionThree->execute();
-                       $level_four_resultModalThree = $level_four_ModalQuestionThree->fetchAll(PDO::FETCH_ASSOC); ?>
-            <form action="form/barron_level_four.php" method="post">
+               $ModalQuestionOne = $pdo->prepare("SELECT * FROM question where type='barron' AND level='four' ORDER BY RAND() limit 3");
+               $ModalQuestionOne->execute();
+               $resultModalOne = $ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC); ?>
+
+              <form action="form/barron_level_four.php" method="post">
                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
-               <h5>Q: <b> <?php echo $level_four_random_question;  ?> ?</b></h5>
+               <?php foreach ($resultModalOne as $key => $row3) { ?>
+
+               <h5>Q: <b> <?php echo $row3['question'];  ?> ?</b></h5>
                <hr>
-               <input type="hidden" name="level_four_ques_id" value="<?php echo $level_four_ques_id ?>">
-               <?php foreach ($level_four_resultModalOne as $row3) {
-                  ?>
-               <input type="radio" class="form-check-group" name="level_four_answer" required="required" value="<?php echo $row3['option'] ?>">
-               <?php echo $row3['option'] ?>
+               <input type="hidden" name="question_id<?php echo $key; ?>" value="<?php echo $row3['id']; ?>">
+               <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option1'] ?>">
+               <?php echo $row3['option1'] ?>
                <br>
-               <?php
-                  }
-                  ?>
+
+               <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option2'] ?>">
+               <?php echo $row3['option2'] ?>
                <br>
-               <hr>
-               <h5>Q: <b> <?php echo $level_four_random_question_two;  ?> ?</b></h5>
-               <hr>
-               <input type="hidden" name="level_four_ques_id_two" value="<?php echo $level_four_ques_id_two ?>">
-               <?php foreach ($level_four_resultModalTwo as $row3) {
-                  ?>
-               <input type="radio" class="form-check-group" name="level_four_answer2" required="required" value="<?php echo $row3['option'] ?>">
-               <?php echo $row3['option'] ?>
+
+               <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option3'] ?>">
+               <?php echo $row3['option3'] ?>
                <br>
-               <?php
-                  }
-                  ?>
+
+               <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option4'] ?>">
+               <?php echo $row3['option4'] ?>
                <br>
-               <hr>
-               <h5>Q: <b> <?php echo $level_four_random_question_three;  ?> ?</b></h5>
-               <hr>
-               <input type="hidden" name="level_four_ques_id_three" value="<?php echo $level_four_ques_id_three ?>">
-               <?php foreach ($level_four_resultModalThree as $row3) {
-                  ?>
-               <input type="radio" class="form-check-group" name="level_four_answer3" required="required" value="<?php echo $row3['option'] ?>">
-               <?php echo $row3['option'] ?>
-               <br>
-               <?php
-                  }
-                  ?>
+
+               <hr/>
+               <?php } ?>
          </div>
+<!--          <div class="modal-body">
+            
+         </div> -->
          <!-- Modal footer -->
          <div class="modal-footer">
          <button class="btn btn-success btn-block" type="submit" name="level_four_submit"> Submit </button>
@@ -642,77 +605,37 @@
          <!-- Modal body -->
          <div class="modal-body">
             <?php
-               /* Level Three Question Barron*/
-                   $level_five_ques_id='';
-                   $level_five_ques_id_two='';
-                   $level_five_ques_id_three='';
+               /* Level Two Question Barron*/
                
-                   $level_five_statementOne = $pdo->prepare("SELECT * FROM level_five_question_barron ORDER BY RAND() limit 3");
-                   $level_five_statementOne->execute();
-                   $level_five_resultOne = $level_five_statementOne->fetchAll(PDO::FETCH_ASSOC);
-               
-                   /* Get Random First Question */
-                   $level_five_ques_id = $level_five_resultOne[0]['id'];
-                   $level_five_random_question =  $level_five_resultOne[0]['question'];
-               
-                   /* Get Random Second Question */
-                   $level_five_ques_id_two = $level_five_resultOne[1]['id'];
-                   $level_five_random_question_two =  $level_five_resultOne[1]['question'];
-               
-                   /* Get Random Third Question */
-                   $level_five_ques_id_three = $level_five_resultOne[2]['id'];
-                   $level_five_random_question_three =  $level_five_resultOne[2]['question'];
-               
-                       $level_five_ModalQuestionOne = $pdo->prepare("SELECT * FROM level_five_question_option_barron where level_five_question_option_barron.question_id = ".$level_five_ques_id." limit 4");
-                       $level_five_ModalQuestionOne->execute();
-                       $level_five_resultModalOne = $level_five_ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC); 
-               
-                       $level_five_ModalQuestionTwo = $pdo->prepare("SELECT * FROM level_five_question_option_barron where level_five_question_option_barron.question_id = ".$level_five_ques_id_two." limit 4");
-                       $level_five_ModalQuestionTwo->execute();
-                       $level_five_resultModalTwo = $level_five_ModalQuestionTwo->fetchAll(PDO::FETCH_ASSOC); 
-               
-                       $level_five_ModalQuestionThree = $pdo->prepare("SELECT * FROM level_five_question_option_barron where level_five_question_option_barron.question_id = ".$level_five_ques_id_three." limit 4");
-                       $level_five_ModalQuestionThree->execute();
-                       $level_five_resultModalThree = $level_five_ModalQuestionThree->fetchAll(PDO::FETCH_ASSOC); ?>
-            <form action="form/barron_level_five.php" method="post">
+               $ModalQuestionOne = $pdo->prepare("SELECT * FROM question where type='barron' AND level='five' ORDER BY RAND() limit 3");
+               $ModalQuestionOne->execute();
+               $resultModalOne = $ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC); ?>
+
+              <form action="form/barron_level_five.php" method="post">
                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
-               <h5>Q: <b> <?php echo $level_five_random_question;  ?> ?</b></h5>
+               <?php foreach ($resultModalOne as $key => $row3) { ?>
+
+               <h5>Q: <b> <?php echo $row3['question'];  ?> ?</b></h5>
                <hr>
-               <input type="hidden" name="level_five_ques_id" value="<?php echo $level_five_ques_id ?>">
-               <?php foreach ($level_five_resultModalOne as $row3) {
-                  ?>
-               <input type="radio" class="form-check-group" name="level_five_answer" required="required" value="<?php echo $row3['option'] ?>">
-               <?php echo $row3['option'] ?>
+               <input type="hidden" name="question_id<?php echo $key; ?>" value="<?php echo $row3['id']; ?>">
+               <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option1'] ?>">
+               <?php echo $row3['option1'] ?>
                <br>
-               <?php
-                  }
-                  ?>
+
+               <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option2'] ?>">
+               <?php echo $row3['option2'] ?>
                <br>
-               <hr>
-               <h5>Q: <b> <?php echo $level_five_random_question_two;  ?> ?</b></h5>
-               <hr>
-               <input type="hidden" name="level_five_ques_id_two" value="<?php echo $level_five_ques_id_two ?>">
-               <?php foreach ($level_five_resultModalTwo as $row3) {
-                  ?>
-               <input type="radio" class="form-check-group" name="level_five_answer2" required="required" value="<?php echo $row3['option'] ?>">
-               <?php echo $row3['option'] ?>
+
+               <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option3'] ?>">
+               <?php echo $row3['option3'] ?>
                <br>
-               <?php
-                  }
-                  ?>
+
+               <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option4'] ?>">
+               <?php echo $row3['option4'] ?>
                <br>
-               <hr>
-               <h5>Q: <b> <?php echo $level_five_random_question_three;  ?> ?</b></h5>
-               <hr>
-               <input type="hidden" name="level_five_ques_id_three" value="<?php echo $level_five_ques_id_three ?>">
-               <?php foreach ($level_five_resultModalThree as $row3) {
-                  ?>
-               <input type="radio" class="form-check-group" name="level_five_answer3" required="required" value="<?php echo $row3['option'] ?>">
-               <?php echo $row3['option'] ?>
-               <br>
-               <?php
-                  }
-                  ?>
+
+               <hr/>
+               <?php } ?>
          </div>
          <!-- Modal footer -->
          <div class="modal-footer">

@@ -54,7 +54,7 @@
                         <img src="img/fill.jpg" class="mb-1 rounded" height="100px" width="100px">
                        <p>Test test test Fill in the blanks</p>
                         <h5 class="card-title pricing-card-title">Word Learned</h5>
-                        <a href="manhattan_course.php" class="btn btn-lg btn-block btn-dark text-white">Learn</a>
+                        <a href="fill.php" class="btn btn-lg btn-block btn-dark text-white">Learn</a>
                      </div>
                   </div>
                </div>
