@@ -143,7 +143,7 @@
                   </div>
                </nav>
                <?php
-                  $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='magoosh' AND level='one' limit 5");
+                  $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='barron' AND level='one' limit 5");
                   $statement->execute();
                   $results = $statement->fetchAll(PDO::FETCH_ASSOC);
                   
@@ -191,7 +191,7 @@
                   </div>
                </nav>
                <?php
-                  $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='magoosh' AND level='two' limit 5");
+                  $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='barron' AND level='two' limit 5");
                   $statement->execute();
                   $results = $statement->fetchAll(PDO::FETCH_ASSOC);
                   
@@ -245,7 +245,7 @@
                   </div>
                </nav>
                <?php
-                  $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='magoosh' AND level='three' limit 5");
+                  $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='barron' AND level='three' limit 5");
                   $statement->execute();
                   $results = $statement->fetchAll(PDO::FETCH_ASSOC);
                   
@@ -294,7 +294,7 @@
                   </div>
                </nav>
                <?php
-                  $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='magoosh' AND level='four' limit 5");
+                  $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='barron' AND level='four' limit 5");
                   $statement->execute();
                   $results = $statement->fetchAll(PDO::FETCH_ASSOC);
                   
@@ -343,7 +343,7 @@
                   </div>
                </nav>
                <?php
-                  $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='magoosh' AND level='five' limit 5");
+                  $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='barron' AND level='five' limit 5");
                   $statement->execute();
                   $results = $statement->fetchAll(PDO::FETCH_ASSOC);
                   
