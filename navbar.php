@@ -39,9 +39,13 @@
                            </li>
                       <?php if ($loggedIn): ?>
                          <!--  if user Logged In Then Show this manu -->
+                          <li class="nav-item">
+                               <a class="nav-link text-white font-weight-bold" href="myScore.php">MY SCORE</a>
+                           </li>
                            <li class="nav-item">
                                <a class="nav-link text-white font-weight-bold btn btn-outline-success" href="signout.php">SIGNOUT</a>
                            </li>
+                           
 
 
                         <?php else: ?>
