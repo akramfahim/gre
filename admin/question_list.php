@@ -42,7 +42,7 @@
 </head>
 <body class="bg-dark">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Admin Panel | Gre</a>
+    <a class="navbar-brand" href="index.php">Admin Panel | Gre</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
