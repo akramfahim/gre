@@ -16,7 +16,8 @@
       require 'navbar.php';
         $user_id = $_SESSION['user']['id'];
 
-      ?>
+    $err_msg = "";
+?>
 
 <div class="container">
 	<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-myColor rounded shadow-sm">
@@ -40,16 +41,22 @@
 		          else if ($level_pass[0]['magoosh'] == 'Completed'){
 		          	 $statement = $pdo->prepare("SELECT * FROM `question` where type='barron' OR type='magoosh' ORDER BY RAND() limit 5");
 		          }
-		           else if ($level_pass[0]['barron'] == 'Completed'){
+		          else if ($level_pass[0]['barron'] == 'Completed'){
 		          	 $statement = $pdo->prepare("SELECT * FROM `question` where type='barron' ORDER BY RAND() limit 5");
 		          }
+              else{
+                $err_msg = "To Give the Test You Have To Complete Barron Level First";
+              }
 
-                  $statement->execute();
-                  $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+              $statement->execute();
+              $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-                  	
-                  
-                  ?>
+        ?>  
+            <?php if ($err_msg): ?>
+              <div class="alert alert-danger">
+                <h3><?php echo $err_msg; ?></h3>
+              </div>
+            <?php endif ?>
 			
              <form action="form/mcq.php" method="post">
                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
