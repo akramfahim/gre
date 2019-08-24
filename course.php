@@ -18,7 +18,30 @@
         exit;
     }
 
-?>       
+    $err_msg = "";
+    $barron_level = false;
+    $magoosh_level = false;
+
+    $user_id = $_SESSION['user']['id'];
+
+
+
+    $level_sql = $pdo->prepare("SELECT * FROM settings WHERE user_id=?");
+    $level_sql->execute(array($user_id));
+    $level_pass = $level_sql->fetchAll(PDO::FETCH_ASSOC);
+
+    if (empty($level_pass)) {
+      //$err_msg = "To Give the Test You Have to Completed Barron Level Atleast";
+      $barron_level = false;
+    }
+    else if ($level_pass[0]['barron'] == 'Completed') {
+      $barron_level = true;
+    }
+    else if ( $level_pass[0]['barron'] == 'Completed' && $level_pass[0]['magoosh'] == 'Completed'){
+     $magoosh_level = true;
+    }
+
+   ?>       
 <?php require 'navbar.php'; ?>
         
 <!-- Content start -->              
@@ -52,11 +75,11 @@
                      <div class="card-body">
                         <img src="img/barron_copy.png" class="img-fluid mb-1 rounded">
                         <p>Barron's 800 Essential Word List - GRE</p>
-                        <h5 class="card-title pricing-card-title">Word Learned</h5>
+                        <h5 class="card-title pricing-card-title">Word Availability</h5>
                         <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
                         </div>
-                        <a  href="single_course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
+                        <a  href="single_course.php" class="btn btn-lg btn-block btn-info text-white">Start Course</a>
                      </div>
                   </div>
                </div>
@@ -67,12 +90,20 @@
                      </div>
                      <div class="card-body">
                         <img src="img/Magoosh_copy.jpg" class="img-fluid mb-1 rounded">
-                        <p>Barron's 800 Essential Word List - GRE</p>
-                        <h5 class="card-title pricing-card-title">Word Learned</h5>
-                        <div class="progress mb-3">
-                           <div class="progress-bar bg-info" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
-                        </div>
-                        <a  href="magoosh_course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
+                        <p>Magoosh's 800 Essential Word List - GRE</p>
+                        <h5 class="card-title pricing-card-title">Word Availability</h5>
+                        <?php if ($barron_level): ?>
+                          <div class="progress mb-3">
+                           <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
+                         </div>
+                         <a  href="magoosh_course.php" class="btn btn-lg btn-block btn-info text-white">Start Course</a>
+                        <?php else: ?>
+                          <div class="progress mb-3">
+                           <div class="progress-bar bg-info text-danger" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+                         </div>
+                         <a  href="#" class="btn btn-lg btn-block btn-danger text-white">Complete Barron First</a>
+                          
+                        <?php endif ?>
                      </div>
                   </div>
                </div>
@@ -83,12 +114,20 @@
                      </div>
                      <div class="card-body">
                         <img src="img/Manhattan_copy.png" class="img-fluid mb-1 rounded">
-                        <p>Barron's 800 Essential Word List - GRE</p>
-                        <h5 class="card-title pricing-card-title">Word Learned</h5>
-                        <div class="progress mb-3">
-                           <div class="progress-bar bg-info" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
-                        </div>
-                        <a  href="manhattan_course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
+                        <p>Manhattan's 800 Essential Word List - GRE</p>
+                        <h5 class="card-title pricing-card-title">Word Availability</h5>
+                        <?php if ($barron_level && $magoosh_level): ?>
+                          <div class="progress mb-3">
+                           <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
+                         </div>
+                         <a  href="magoosh_course.php" class="btn btn-lg btn-block btn-info text-white">Start Course</a>
+                        <?php else: ?>
+                          <div class="progress mb-3">
+                           <div class="progress-bar bg-info text-danger" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+                         </div>
+                         <a  href="#" class="btn btn-lg btn-block btn-danger text-white">Complete Barron & Magoosh</a>
+                          
+                        <?php endif ?>
                      </div>
                   </div>
                </div>
