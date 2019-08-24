@@ -98,7 +98,7 @@
                       <?php if($magoosh_level){ ?>
                        <img src="img/completed.jpg" class="img-fluid mb-1 rounded">
                         <?php } else { ?>
-                        <img  src="img/Magoosh_copy.png" class="img-fluid mb-1 rounded">
+                        <img  src="img/Magoosh_copy.jpg" class="img-fluid mb-1 rounded">
                            <?php } ?>
                         <p>Magoosh's Essential Word List - GRE</p>
                         <h5 class="card-title pricing-card-title">Word Availability</h5>
