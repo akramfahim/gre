@@ -34,12 +34,14 @@
       //$err_msg = "To Give the Test You Have to Completed Barron Level Atleast";
       $barron_level = false;
     }
+    else if ( $level_pass[0]['barron'] == 'Completed' && $level_pass[0]['magoosh'] == 'Completed'){
+     $magoosh_level = true;
+       $barron_level = true;
+    }
     else if ($level_pass[0]['barron'] == 'Completed') {
       $barron_level = true;
     }
-    else if ( $level_pass[0]['barron'] == 'Completed' && $level_pass[0]['magoosh'] == 'Completed'){
-     $magoosh_level = true;
-    }
+    
 
    ?>       
 <?php require 'navbar.php'; ?>
@@ -63,7 +65,7 @@
         </div>
         <div class="col-md-10 col-sm-12">
             <div class="pricing-header py-3 mx-auto text-center">
-                <h1 class="display-4 text-dark font-weight-bold">All Courses</h1>
+                <h1 class="display-4 text-dark font-weight-bold">All Courses <?php echo $magoosh_level; ?></h1>
             </div>
             <div class="container-fluid"> <!-- Start OF SECOND CONTAINER FLUID -->
             <div class="row card-deck mb-3 text-center">
@@ -74,11 +76,11 @@
                      </div>
                      <div class="card-body">
                         <img src="img/barron_copy.png" class="img-fluid mb-1 rounded">
-                        <p>Barron's 800 Essential Word List - GRE</p>
+                        <p>Barron's Essential Word List - GRE</p>
                         <h5 class="card-title pricing-card-title">Word Availability</h5>
-                        <div class="progress mb-3">
+                       <!--  <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
-                        </div>
+                        </div> -->
                         <a  href="single_course.php" class="btn btn-lg btn-block btn-info text-white">Start Course</a>
                      </div>
                   </div>
@@ -90,17 +92,17 @@
                      </div>
                      <div class="card-body">
                         <img src="img/Magoosh_copy.jpg" class="img-fluid mb-1 rounded">
-                        <p>Magoosh's 800 Essential Word List - GRE</p>
+                        <p>Magoosh's Essential Word List - GRE</p>
                         <h5 class="card-title pricing-card-title">Word Availability</h5>
                         <?php if ($barron_level): ?>
-                          <div class="progress mb-3">
+                         <!--  <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
-                         </div>
+                         </div> -->
                          <a  href="magoosh_course.php" class="btn btn-lg btn-block btn-info text-white">Start Course</a>
                         <?php else: ?>
-                          <div class="progress mb-3">
+                          <!-- <div class="progress mb-3">
                            <div class="progress-bar bg-info text-danger" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
-                         </div>
+                         </div> -->
                          <a  href="#" class="btn btn-lg btn-block btn-danger text-white">Complete Barron First</a>
                           
                         <?php endif ?>
@@ -114,18 +116,18 @@
                      </div>
                      <div class="card-body">
                         <img src="img/Manhattan_copy.png" class="img-fluid mb-1 rounded">
-                        <p>Manhattan's 800 Essential Word List - GRE</p>
+                        <p>Manhattan's Essential Word List - GRE</p>
                         <h5 class="card-title pricing-card-title">Word Availability</h5>
-                        <?php if ($barron_level && $magoosh_level): ?>
-                          <div class="progress mb-3">
+                        <?php if ( $magoosh_level && $barron_level): ?>
+                         <!--  <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
-                         </div>
+                         </div> -->
                          <a  href="magoosh_course.php" class="btn btn-lg btn-block btn-info text-white">Start Course</a>
                         <?php else: ?>
-                          <div class="progress mb-3">
+                         <!--  <div class="progress mb-3">
                            <div class="progress-bar bg-info text-danger" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
-                         </div>
-                         <a  href="#" class="btn btn-lg btn-block btn-danger text-white">Complete Barron & Magoosh</a>
+                         </div> -->
+                         <a  href="#" class="btn btn-lg btn-block btn-danger text-white">Complete Magoosh First</a>
                           
                         <?php endif ?>
                      </div>

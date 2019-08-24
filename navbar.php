@@ -25,19 +25,12 @@
          <a class="nav-link text-white font-weight-bold" href="course.php">COURSE</a>
        </li>
      <?php endif ?>
-     <li class="nav-item">
-       <a class="nav-link text-white font-weight-bold" href="learn.php">LEARN</a>
-     </li>
-     <li class="nav-item">
-       <a class="nav-link text-white font-weight-bold" href="write.php">WRITE</a>
-     </li>
-     <li class="nav-item">
-       <a class="nav-link text-white font-weight-bold" href="spell.php">SPELL</a>
-     </li>
-     <li class="nav-item">
+
+     
+     <?php if ($loggedIn): ?>
+      <li class="nav-item">
        <a class="nav-link text-white font-weight-bold" href="allTest.php">TEST</a>
      </li>
-     <?php if ($loggedIn): ?>
        <!--  if user Logged In Then Show this manu -->
        <li class="nav-item">
          <a class="nav-link text-white font-weight-bold" href="myScore.php">MY SCORE</a>

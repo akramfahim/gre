@@ -46,11 +46,11 @@
                      </div>
                      <div class="card-body">
                         <img src="img/barron.png" class="mb-1 rounded" height="100px" width="100px">
-                        <p>Barron's 800 Essential Word List - GRE</p>
+                        <p>Barron's Essential Word List - GRE</p>
                         <h5 class="card-title pricing-card-title">Word Learned</h5>
-                        <div class="progress mb-3">
+               <!--          <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
-                        </div>
+                        </div> -->
                         <a  href="course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
                      </div>
                   </div>
@@ -62,11 +62,11 @@
                      </div>
                      <div class="card-body">
                         <img src="img/Magoosh.jpg" class="mb-1 rounded" height="100px" width="100px">
-                        <p>Barron's 800 Essential Word List - GRE</p>
+                        <p>Magoosh's Essential Word List - GRE</p>
                         <h5 class="card-title pricing-card-title">Word Learned</h5>
-                        <div class="progress mb-3">
+                  <!--       <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
-                        </div>
+                        </div> -->
                         <a  href="course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
                      </div>
                   </div>
@@ -78,11 +78,11 @@
                      </div>
                      <div class="card-body">
                         <img src="img/Manhattan.png" class="mb-1 rounded" height="100px" width="100px">
-                        <p>Barron's 800 Essential Word List - GRE</p>
+                        <p>Manhattan's Essential Word List - GRE</p>
                         <h5 class="card-title pricing-card-title">Word Learned</h5>
-                        <div class="progress mb-3">
+                     <!--    <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
-                        </div>
+                        </div> -->
                         <a  href="course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
                      </div>
                   </div>
