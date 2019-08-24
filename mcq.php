@@ -31,34 +31,45 @@
 		<div class="card-body">
 			 <?php
 
-			      $level_sql = $pdo->prepare("SELECT * FROM settings WHERE user_id=?");
+			       $level_sql = $pdo->prepare("SELECT * FROM settings WHERE user_id=?");
 		          $level_sql->execute(array($user_id));
 		          $level_pass = $level_sql->fetchAll(PDO::FETCH_ASSOC);
 		          
-		          if ($level_pass[0]['manhattan'] == 'Completed') {
+		          if (empty($level_pass)) {
+                $err_msg = "To Give the Test You Have to Completed Barron Level Atleast";
+              }
+              else if ($level_pass[0]['manhattan'] == 'Completed') {
+
   	                  $statement = $pdo->prepare("SELECT * FROM `question` ORDER BY RAND() limit 5");
+                      $statement->execute();
+                      $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 		          }
 		          else if ($level_pass[0]['magoosh'] == 'Completed'){
+
 		          	 $statement = $pdo->prepare("SELECT * FROM `question` where type='barron' OR type='magoosh' ORDER BY RAND() limit 5");
+                 $statement->execute();
+                  $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
 		          }
 		          else if ($level_pass[0]['barron'] == 'Completed'){
-		          	 $statement = $pdo->prepare("SELECT * FROM `question` where type='barron' ORDER BY RAND() limit 5");
-		          }
-              else{
-                $err_msg = "To Give the Test You Have To Complete Barron Level First";
-              }
 
-              $statement->execute();
-              $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+		          	 $statement = $pdo->prepare("SELECT * FROM `question` where type='barron' ORDER BY RAND() limit 5");
+                 $statement->execute();
+                $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+		          }
 
         ?>  
+            <?php if ($err_msg): ?>
+              
+            <?php endif ?>
+
             <?php if ($err_msg): ?>
               <div class="alert alert-danger">
                 <h3><?php echo $err_msg; ?></h3>
               </div>
-            <?php endif ?>
-			
-             <form action="form/mcq.php" method="post">
+            <?php else: ?>
+              <form action="form/mcq.php" method="post">
                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
                <?php foreach ($results as $key => $row3) { ?>
 
@@ -84,6 +95,9 @@
                <hr/>
                <?php } ?>
                  <button class="btn btn-success btn-block" type="submit" name="submit"> Submit </button>
+            <?php endif ?>
+			
+             
 
 		</div>
 	</div>
