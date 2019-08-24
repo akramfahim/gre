@@ -34,7 +34,7 @@
                     <img src="img/avatar.png" class="img-fluid mb-1 rounded-circle">
                     <h4 class="card-text"><?php echo $_SESSION['user']['username']; ?></h4>
                     <h6 class="card-text"><?php echo $_SESSION['user']['email']; ?></h6>
-                    <a href="signout.php" class="btn btn-block btn-outline-danger">Signout</a>
+                    <a href="myScore.php" class="btn btn-block btn-outline-danger">My Score</a>
                 </div>
             </div>
         </div>
