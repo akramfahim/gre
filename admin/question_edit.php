@@ -25,7 +25,7 @@
 
             $error_msg = "Any field should not be empty";
 
-        }elseif ($_POST['question'] == $question || $_POST['answer'] == $answer) {
+        }elseif ($_POST['question'] == $question && $_POST['answer'] == $answer) {
             
             $error_msg = "You do not change Anything";
 
@@ -57,7 +57,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Login | Admin Panel</title>
+  <title>Dashboard | Admin Panel</title>
 
   <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
