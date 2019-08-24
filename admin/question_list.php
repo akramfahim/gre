@@ -18,6 +18,15 @@
   $get_barron_question->execute(array('barron'));
   $barron_questions = $get_barron_question->fetchAll(PDO::FETCH_ASSOC);
 
+  $get_magoosh_question = $pdo->prepare("SELECT * FROM question WHERE type=?");
+  $get_magoosh_question->execute(array('magoosh'));
+  $magoosh_questions = $get_magoosh_question->fetchAll(PDO::FETCH_ASSOC);
+
+  $get_manhattan_question = $pdo->prepare("SELECT * FROM question WHERE type=?");
+  $get_manhattan_question->execute(array('manhattan'));
+  $manhattan_questions = $get_manhattan_question->fetchAll(PDO::FETCH_ASSOC);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,6 +93,7 @@
                 <h1 class="text-center text-success">Barron Question</h1>
                 <hr>
                 
+                
                 <table class="table table-dark table-striped text-center">
                   <thead class="thead-light">
                     <tr>
@@ -107,14 +117,56 @@
 
               </div>
               <div class="tab-pane fade h-75" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <h1 class="text-center text-success">Magoosh Words</h1>
+                <h1 class="text-center text-success">Magoosh Questions</h1>
                 <hr>
                 
+                <table class="table table-dark table-striped text-center">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Question</th>
+                      <th scope="col">Answer</th>
+                      <th scope="col">Level</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($magoosh_questions as $magoosh_question): ?>
+                      <tr>
+                        <td><?php echo $magoosh_question['question']; ?></td>
+                        <td><?php echo $magoosh_question['answer']; ?></td>
+                        <td><button class="btn btn-info"><?php echo  strtoupper($magoosh_question['level']); ?></button></td>
+                        <td><a href="question_edit.php?id=<?php echo $magoosh_question['id'] ?>" class="btn btn-primary">UPDATE</a></td>
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                </table>
+
               </div>
               <div class="tab-pane fade h-75" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                <h1 class="text-center text-success">Manhattan Words</h1>
+                <h1 class="text-center text-success">Manhattan Questions</h1>
                 <hr>
                 
+                <table class="table table-dark table-striped text-center">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Question</th>
+                      <th scope="col">Answer</th>
+                      <th scope="col">Level</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($manhattan_questions as $manhattan_question): ?>
+                      <tr>
+                        <td><?php echo $manhattan_question['question']; ?></td>
+                        <td><?php echo $manhattan_question['answer']; ?></td>
+                        <td><button class="btn btn-info"><?php echo  strtoupper($manhattan_question['level']); ?></button></td>
+                        <td><a href="question_edit.php?id=<?php echo $manhattan_question['id'] ?>" class="btn btn-primary">UPDATE</a></td>
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                </table>
+
               </div>
             </div>
             <!-- Horizontal tab Ends-->
