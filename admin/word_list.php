@@ -8,7 +8,7 @@
   $loggedIn = true;
   if(!isset($_SESSION['admin'])) {
     $loggedIn = false;
-    header('location: ../index.php');
+    header('location: login.php');
     exit;
   }else{
       $loggedIn = true;
