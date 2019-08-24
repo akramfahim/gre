@@ -65,7 +65,7 @@
         </div>
         <div class="col-md-10 col-sm-12">
             <div class="pricing-header py-3 mx-auto text-center">
-                <h1 class="display-4 text-dark font-weight-bold">All Courses <?php echo $magoosh_level; ?></h1>
+                <h1 class="display-4 text-dark font-weight-bold">All Courses</h1>
             </div>
             <div class="container-fluid"> <!-- Start OF SECOND CONTAINER FLUID -->
             <div class="row card-deck mb-3 text-center">
@@ -75,7 +75,11 @@
                         <h4 class="my-0 font-weight-bold">Barron</h4>
                      </div>
                      <div class="card-body">
-                        <img src="img/barron_copy.png" class="img-fluid mb-1 rounded">
+                       <?php if($barron_level){ ?>
+                       <img src="img/completed.jpg" class="img-fluid mb-1 rounded">
+                        <?php } else { ?>
+                        <img  src="img/barron_copy.png" class="img-fluid mb-1 rounded">
+                           <?php } ?>
                         <p>Barron's Essential Word List - GRE</p>
                         <h5 class="card-title pricing-card-title">Word Availability</h5>
                        <!--  <div class="progress mb-3">
@@ -91,7 +95,11 @@
                         <h4 class="my-0 font-weight-bold">Magoosh</h4>
                      </div>
                      <div class="card-body">
-                        <img src="img/Magoosh_copy.jpg" class="img-fluid mb-1 rounded">
+                      <?php if($magoosh_level){ ?>
+                       <img src="img/completed.jpg" class="img-fluid mb-1 rounded">
+                        <?php } else { ?>
+                        <img  src="img/Magoosh_copy.png" class="img-fluid mb-1 rounded">
+                           <?php } ?>
                         <p>Magoosh's Essential Word List - GRE</p>
                         <h5 class="card-title pricing-card-title">Word Availability</h5>
                         <?php if ($barron_level): ?>
@@ -115,10 +123,14 @@
                         <h4 class="my-0 font-weight-bold">Manhattan</h4>
                      </div>
                      <div class="card-body">
-                        <img src="img/Manhattan_copy.png" class="img-fluid mb-1 rounded">
+                      <?php if($level_pass[0]['manhattan']== "Completed"){ ?>
+                       <img src="img/completed.jpg" class="img-fluid mb-1 rounded">
+                        <?php } else { ?>
+                        <img  src="img/Manhattan_copy.png" class="img-fluid mb-1 rounded">
+                           <?php } ?>
                         <p>Manhattan's Essential Word List - GRE</p>
                         <h5 class="card-title pricing-card-title">Word Availability</h5>
-                        <?php if ( $magoosh_level && $barron_level): ?>
+                        <?php if ($magoosh_level && $barron_level): ?>
                          <!--  <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
                          </div> -->

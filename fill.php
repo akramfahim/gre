@@ -40,20 +40,20 @@
               }
               else if ($level_pass[0]['manhattan'] == 'Completed') {
 
-                      $statement = $pdo->prepare("SELECT * FROM `question` ORDER BY RAND() limit 5");
+                      $statement = $pdo->prepare("SELECT * FROM `word_table` ORDER BY RAND() limit 5");
                       $statement->execute();
                       $results = $statement->fetchAll(PDO::FETCH_ASSOC);
               }
               else if ($level_pass[0]['magoosh'] == 'Completed'){
 
-                 $statement = $pdo->prepare("SELECT * FROM `question` where type='barron' OR type='magoosh' ORDER BY RAND() limit 5");
+                 $statement = $pdo->prepare("SELECT * FROM `word_table` where type='barron' OR type='magoosh' ORDER BY RAND() limit 5");
                  $statement->execute();
                   $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
               }
               else if ($level_pass[0]['barron'] == 'Completed'){
 
-                 $statement = $pdo->prepare("SELECT * FROM `question` where type='barron' ORDER BY RAND() limit 5");
+                 $statement = $pdo->prepare("SELECT * FROM `word_table` where type='barron' ORDER BY RAND() limit 5");
                  $statement->execute();
                 $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -61,7 +61,7 @@
 
         ?> 
 
-        <?php if ($err_msg): ?>
+       <?php if (isset($err_msg)): ?>
               <div class="alert alert-danger">
                 <h3><?php echo $err_msg; ?></h3>
               </div>

@@ -40,20 +40,20 @@
               }
               else if ($level_pass[0]['manhattan'] == 'Completed') {
 
-                      $statement = $pdo->prepare("SELECT * FROM `question` ORDER BY RAND() limit 5");
+                      $statement = $pdo->prepare("SELECT * FROM `word_table` ORDER BY RAND() limit 5");
                       $statement->execute();
                       $results = $statement->fetchAll(PDO::FETCH_ASSOC);
               }
               else if ($level_pass[0]['magoosh'] == 'Completed'){
 
-                 $statement = $pdo->prepare("SELECT * FROM `question` where type='barron' OR type='magoosh' ORDER BY RAND() limit 5");
+                 $statement = $pdo->prepare("SELECT * FROM `word_table` where type='barron' OR type='magoosh' ORDER BY RAND() limit 5");
                  $statement->execute();
                   $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
               }
               else if ($level_pass[0]['barron'] == 'Completed'){
 
-                 $statement = $pdo->prepare("SELECT * FROM `question` where type='barron' ORDER BY RAND() limit 5");
+                 $statement = $pdo->prepare("SELECT * FROM `word_table` where type='barron' ORDER BY RAND() limit 5");
                  $statement->execute();
                 $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -61,7 +61,7 @@
 
         ?> 
 
-        <?php if ($err_msg): ?>
+        <?php if (isset($err_msg)): ?>
               <div class="alert alert-danger">
                 <h3><?php echo $err_msg; ?></h3>
               </div>
@@ -70,7 +70,7 @@
                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
                <?php foreach ($results as $key => $row3) { ?>
 
-               <h6>Q: <b> <?php echo str_shuffle($row3['word']);  ?> ?</b></h6>
+               <h6>Q: <b> <?php $word=strtolower($row3['word']); echo str_shuffle($word);  ?> ?</b></h6>
                <hr>
                <input type="hidden" name="question_id<?php echo $key; ?>" value="<?php echo $row3['id']; ?>">
                <input type="text" class="form-check-group" name="answer<?php echo $key; ?>" required="required">
