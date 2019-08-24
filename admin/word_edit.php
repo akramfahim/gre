@@ -6,6 +6,15 @@
 	include("../inc/CSRF_Protect.php");
 	$csrf = new CSRF_Protect();
 
+    $loggedIn = true;
+    if(!isset($_SESSION['admin'])) {
+        $loggedIn = false;
+        header('location: login.php');
+        exit;
+    }else{
+      $loggedIn = true;
+    }
+
 	$success_msg ='';
 	$error_msg = '';
 
