@@ -18,6 +18,14 @@
   $get_barron_words->execute(array('barron'));
   $barron_words = $get_barron_words->fetchAll(PDO::FETCH_ASSOC);
 
+  $get_magoosh_words = $pdo->prepare("SELECT * FROM word_table WHERE type=?");
+  $get_magoosh_words->execute(array('magoosh'));
+  $magoosh_words = $get_magoosh_words->fetchAll(PDO::FETCH_ASSOC);
+
+  $get_manhattan_words = $pdo->prepare("SELECT * FROM word_table WHERE type=?");
+  $get_manhattan_words->execute(array('manhattan'));
+  $manhattan_words = $get_manhattan_words->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -109,12 +117,54 @@
               <div class="tab-pane fade h-75" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <h1 class="text-center text-success">Magoosh Words</h1>
                 <hr>
+
+                <table class="table table-dark table-striped text-center">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Word</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Level</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($magoosh_words as $magoosh_word): ?>
+                      <tr>
+                        <td><?php echo $magoosh_word['word']; ?></td>
+                        <td><?php echo $magoosh_word['description']; ?></td>
+                        <td><button class="btn btn-info"><?php echo  strtoupper($magoosh_word['level']); ?></button></td>
+                        <td><a href="word_edit.php?id=<?php echo $magoosh_word['id'] ?>" class="btn btn-primary">UPDATE</a></td>
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                </table>
                 
               </div>
               <div class="tab-pane fade h-75" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                 <h1 class="text-center text-success">Manhattan Words</h1>
                 <hr>
                 
+                <table class="table table-dark table-striped text-center">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Word</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Level</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($manhattan_words as $manhattan_word): ?>
+                      <tr>
+                        <td><?php echo $manhattan_word['word']; ?></td>
+                        <td><?php echo $manhattan_word['description']; ?></td>
+                        <td><button class="btn btn-info"><?php echo  strtoupper($manhattan_word['level']); ?></button></td>
+                        <td><a href="word_edit.php?id=<?php echo $manhattan_word['id'] ?>" class="btn btn-primary">UPDATE</a></td>
+                      </tr>
+                    <?php endforeach ?>
+                  </tbody>
+                </table>
+
               </div>
             </div>
             <!-- Horizontal tab Ends-->
