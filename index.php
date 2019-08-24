@@ -28,7 +28,7 @@
                <div class="col-md-8 px-0">
                   <h5 class="display-4 font-weight-bold">GRE</h5>
                   <p class="lead my-3">Test takers preparing to take the GRE (Graduate Record Exam) must command a high-level vocabulary to achieve a high score. This course includes the definitions of 333 words often appearing on the GRE.</p>
-                  <button class="btn btn-outline-info text-white font-weight-bold btn-lg">Start Learning</button>
+                  <a href="course.php" class="btn btn-outline-info text-white font-weight-bold btn-lg">Start Learning</a>
                </div>
             </div>
          </div>
@@ -51,7 +51,7 @@
                         <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
                         </div>
-                        <a  href="single_course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
+                        <a  href="course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
                      </div>
                   </div>
                </div>
@@ -67,7 +67,7 @@
                         <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
                         </div>
-                        <a  href="magoosh_course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
+                        <a  href="course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
                      </div>
                   </div>
                </div>
@@ -83,7 +83,7 @@
                         <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 30%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
                         </div>
-                        <a  href="manhattan_course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
+                        <a  href="course.php" class="btn btn-lg btn-block btn-info text-white">Learn</a>
                      </div>
                   </div>
                </div>
