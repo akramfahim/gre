@@ -60,9 +60,6 @@
 		          }
 
         ?>  
-            <?php if ($err_msg): ?>
-              
-            <?php endif ?>
 
             <?php if ($err_msg): ?>
               <div class="alert alert-danger">
@@ -95,6 +92,7 @@
                <hr/>
                <?php } ?>
                  <button class="btn btn-success btn-block" type="submit" name="submit"> Submit </button>
+              </form>
             <?php endif ?>
 			
              
