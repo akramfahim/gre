@@ -123,7 +123,7 @@
                         <h4 class="my-0 font-weight-bold">Manhattan</h4>
                      </div>
                      <div class="card-body">
-                      <?php if($level_pass[0]['manhattan']== "Completed"){ ?>
+                      <?php if($magoosh_level){ ?>
                        <img src="img/completed.jpg" class="img-fluid mb-1 rounded">
                         <?php } else { ?>
                         <img  src="img/Manhattan_copy.png" class="img-fluid mb-1 rounded">
