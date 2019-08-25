@@ -59,7 +59,7 @@
             <table class="table table-dark">
             	<thead class="thead-light">
             		<tr>
-            			<th scope="col">Exam Type</th>
+                        <th scope="col">Exam Type</th>
             			<th scope="col">Date</th>
             			<th scope="col">Total Score</th>
             		</tr>
