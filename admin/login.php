@@ -49,41 +49,50 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Login | Admin Panel</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Login | Admin Panel</title>
 
-  <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
 </head>
-<body>
-  <div class="container">
-    <div class="row mt-5">
-      <div class="col-md-6 offset-md-3 bg-light py-5">
-		
-		<?php if (isset($error_message)): ?>
-			<div class="alert alert-danger">
-				<h3 class="text-center"><?php echo $error_message; ?></h3>
-			</div>
-		<?php endif ?>
 
-        <h1 class="text-center">Admin Login</h1>
-        <hr>
-        <form method="POST" action="">
-          <div class="form-group">
-            <label for="email"><h4>Email address :</h4></label>
-            <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required="required">
-          </div>
-          <div class="form-group">
-            <label for="password"><h4>Password :</h4></label>
-            <input type="password" name="password" class="form-control" id="password" placeholder="Password" required="required">
-          </div>
-          <button type="submit" name="login" class="btn btn-info btn-lg btn-block my-3">Login</button>
-      </div>
+<body>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-6 offset-md-3 bg-light py-5">
+
+                <?php if (isset($error_message)): ?>
+                <div class="alert alert-danger">
+                    <h3 class="text-center"><?php echo $error_message; ?></h3>
+                </div>
+                <?php endif ?>
+
+                <h1 class="text-center">Admin Login</h1>
+                <hr>
+                <form method="POST" action="">
+                    <div class="form-group">
+                        <label for="email">
+                            <h4>Email address :</h4>
+                        </label>
+                        <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp"
+                            placeholder="Enter email" required="required">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">
+                            <h4>Password :</h4>
+                        </label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password"
+                            required="required">
+                    </div>
+                    <button type="submit" name="login" class="btn btn-info btn-lg btn-block my-3">Login</button>
+            </div>
+        </div>
     </div>
-  </div>
-  
-  <script type="text/javascript" src="../js/jquery.min.js"></script>
-  <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
 </body>
+
 </html>

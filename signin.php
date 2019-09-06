@@ -48,38 +48,45 @@
 
   require 'navbar.php';    
  ?>
-  
-  <div class="container-fluid mt-n2" style="height:100vh; background-image: url('img/learnn.jpg'); background-size: cover">
-    
+
+<div class="container-fluid mt-n2"
+    style="height:100vh; background-image: url('img/learnn.jpg'); background-size: cover">
+
     <?php if($error_message): ?>
     <div class="row pt-2">
-      <div class="col-md-4 offset-md-4">
-        <div class="alert alert-danger" role="alert">
-          <b><?php echo $error_message; ?></b>
+        <div class="col-md-4 offset-md-4">
+            <div class="alert alert-danger" role="alert">
+                <b><?php echo $error_message; ?></b>
+            </div>
         </div>
-      </div>
     </div>
     <?php endif; ?>
 
     <div class="row pt-3">
-      <div class="col-md-4 offset-md-4 signin-form">
-        <h1 class="text-center">Sign In</h1>
-        <hr>
-        <form method="POST" action="">
-          <div class="form-group">
-            <label for="email"><h4>Email address :</h4></label>
-            <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required="required">
-          </div>
-          <div class="form-group">
-            <label for="password"><h4>Password :</h4></label>
-            <input type="password" name="password" class="form-control" id="password" placeholder="Password" required="required">
-          </div>
-          <button type="submit" name="signin" class="btn btn-info btn-lg btn-block my-3">Submit</button>
-        </form>
-        <p class="text-right">- Haven't a Account ? <a href="signup.php">Signup Here</a></p>
-      </div>
+        <div class="col-md-4 offset-md-4 signin-form">
+            <h1 class="text-center">Sign In</h1>
+            <hr>
+            <form method="POST" action="">
+                <div class="form-group">
+                    <label for="email">
+                        <h4>Email address :</h4>
+                    </label>
+                    <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp"
+                        placeholder="Enter email" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="password">
+                        <h4>Password :</h4>
+                    </label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Password"
+                        required="required">
+                </div>
+                <button type="submit" name="signin" class="btn btn-info btn-lg btn-block my-3">Submit</button>
+            </form>
+            <p class="text-right">- Haven't a Account ? <a href="signup.php">Signup Here</a></p>
+        </div>
     </div>
-  </div>
+</div>
 
 <?php 
   require 'footer.php';

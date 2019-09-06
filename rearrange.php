@@ -20,16 +20,16 @@
       ?>
 
 <div class="container">
-	<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-myColor rounded shadow-sm">
-    <img class="mr-3" src="img/mcq.jpg" alt="" width="48" height="48">
-    <div class="lh-100">
-      <h6 class="mb-0 text-white lh-100">Rearrange Word</h6>
-      <small class="font-weight-bold fs-1 text-white"><?php echo date('m/d/Y'); ?></small>
+    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-myColor rounded shadow-sm">
+        <img class="mr-3" src="img/mcq.jpg" alt="" width="48" height="48">
+        <div class="lh-100">
+            <h6 class="mb-0 text-white lh-100">Rearrange Word</h6>
+            <small class="font-weight-bold fs-1 text-white"><?php echo date('m/d/Y'); ?></small>
+        </div>
     </div>
-  </div>
-	<div class="card">
-		<div class="card-body">
-			 <?php
+    <div class="card">
+        <div class="card-body">
+            <?php
 
              $level_sql = $pdo->prepare("SELECT * FROM settings WHERE user_id=?");
               $level_sql->execute(array($user_id));
@@ -59,28 +59,28 @@
 
               }
 
-        ?> 
+        ?>
 
-        <?php if (isset($err_msg)): ?>
-              <div class="alert alert-danger">
+            <?php if (isset($err_msg)): ?>
+            <div class="alert alert-danger">
                 <h3><?php echo $err_msg; ?></h3>
-              </div>
+            </div>
             <?php else: ?>
-              <form action="form/rearrange.php" method="post">
-               <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
-               <?php foreach ($results as $key => $row3) { ?>
+            <form action="form/rearrange.php" method="post">
+                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
+                <?php foreach ($results as $key => $row3) { ?>
 
-               <h6>Q: <b> <?php $word=strtolower($row3['word']); echo str_shuffle($word);  ?> ?</b></h6>
-               <hr>
-               <input type="hidden" name="question_id<?php echo $key; ?>" value="<?php echo $row3['id']; ?>">
-               <input type="text" class="form-check-group" name="answer<?php echo $key; ?>" required="required">
-               <br>
-               <hr/>
-               <?php } ?>
-                 <button class="btn btn-success btn-block" type="submit" name="submit"> Submit </button>
-              </form>
+                <h6>Q: <b> <?php $word=strtolower($row3['word']); echo str_shuffle($word);  ?> ?</b></h6>
+                <hr>
+                <input type="hidden" name="question_id<?php echo $key; ?>" value="<?php echo $row3['id']; ?>">
+                <input type="text" class="form-check-group" name="answer<?php echo $key; ?>" required="required">
+                <br>
+                <hr />
+                <?php } ?>
+                <button class="btn btn-success btn-block" type="submit" name="submit"> Submit </button>
+            </form>
             <?php endif ?>
-		
-		</div>
-	</div>
+
+        </div>
+    </div>
 </div>

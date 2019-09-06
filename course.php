@@ -1,54 +1,49 @@
-<?php 
-  
-  require "header.php";
-  ob_start();
-    session_start();
-    include("inc/config.php");
-    include("inc/CSRF_Protect.php");
-    $csrf = new CSRF_Protect();
+<?php
 
-    $loggedIn= false;
+require "header.php";
+ob_start();
+session_start();
+include "inc/config.php";
+include "inc/CSRF_Protect.php";
+$csrf = new CSRF_Protect();
 
-    // Check if the user is logged in or not
-    if(isset($_SESSION['user'])) {
-        $loggedIn = true;
-    }else{
-        $loggedIn = false;
-        header('location:signin.php');
-        exit;
-    }
+$loggedIn = false;
 
-    $err_msg = "";
+// Check if the user is logged in or not
+if (isset($_SESSION['user'])) {
+    $loggedIn = true;
+} else {
+    $loggedIn = false;
+    header('location:signin.php');
+    exit;
+}
+
+$err_msg = "";
+$barron_level = false;
+$magoosh_level = false;
+
+$user_id = $_SESSION['user']['id'];
+
+$level_sql = $pdo->prepare("SELECT * FROM settings WHERE user_id=?");
+$level_sql->execute(array($user_id));
+$level_pass = $level_sql->fetchAll(PDO::FETCH_ASSOC);
+
+if (empty($level_pass)) {
+    //$err_msg = "To Give the Test You Have to Completed Barron Level Atleast";
     $barron_level = false;
-    $magoosh_level = false;
+} else if ($level_pass[0]['barron'] == 'Completed' && $level_pass[0]['magoosh'] == 'Completed') {
+    $magoosh_level = true;
+    $barron_level = true;
+} else if ($level_pass[0]['barron'] == 'Completed') {
+    $barron_level = true;
+}
 
-    $user_id = $_SESSION['user']['id'];
+?>
+<?php require 'navbar.php';?>
 
-
-
-    $level_sql = $pdo->prepare("SELECT * FROM settings WHERE user_id=?");
-    $level_sql->execute(array($user_id));
-    $level_pass = $level_sql->fetchAll(PDO::FETCH_ASSOC);
-
-    if (empty($level_pass)) {
-      //$err_msg = "To Give the Test You Have to Completed Barron Level Atleast";
-      $barron_level = false;
-    }
-    else if ( $level_pass[0]['barron'] == 'Completed' && $level_pass[0]['magoosh'] == 'Completed'){
-     $magoosh_level = true;
-       $barron_level = true;
-    }
-    else if ($level_pass[0]['barron'] == 'Completed') {
-      $barron_level = true;
-    }
-    
-
-   ?>       
-<?php require 'navbar.php'; ?>
-        
-<!-- Content start -->              
+<!-- Content start -->
 <section class="container-fluid">
-    
+
     <div class="row">
         <div class="col-md-2 col-sm-12 mx-auto">
             <div class="card my-5">
@@ -67,86 +62,91 @@
             <div class="pricing-header py-3 mx-auto text-center">
                 <h1 class="display-4 text-dark font-weight-bold">All Courses</h1>
             </div>
-            <div class="container-fluid"> <!-- Start OF SECOND CONTAINER FLUID -->
-            <div class="row card-deck mb-3 text-center">
-               <div class="col-md-4 col-sm-12">
-                  <div class="card mb-4 shadow-sm">
-                     <div class="card-header text-white">
-                        <h4 class="my-0 font-weight-bold">Barron</h4>
-                     </div>
-                     <div class="card-body">
-                       <?php if($barron_level){ ?>
-                       <img src="img/completed.jpg" class="img-fluid mb-1 rounded">
-                        <?php } else { ?>
-                        <img  src="img/barron_copy.png" class="img-fluid mb-1 rounded">
-                           <?php } ?>
-                        <p>Barron's Essential Word List - GRE</p>
-                        <h5 class="card-title pricing-card-title">Word Availability</h5>
-                       <!--  <div class="progress mb-3">
+            <div class="container-fluid">
+                <!-- Start OF SECOND CONTAINER FLUID -->
+                <div class="row card-deck mb-3 text-center">
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-header text-white">
+                                <h4 class="my-0 font-weight-bold">Barron</h4>
+                            </div>
+                            <div class="card-body">
+                                <?php if ($barron_level) {?>
+                                <img src="img/completed.jpg" class="img-fluid mb-1 rounded">
+                                <?php } else {?>
+                                <img src="img/barron_copy.png" class="img-fluid mb-1 rounded">
+                                <?php }?>
+                                <p>Barron's Essential Word List - GRE</p>
+                                <h5 class="card-title pricing-card-title">Word Availability</h5>
+                                <!--  <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
                         </div> -->
-                        <a  href="single_course.php" class="btn btn-lg btn-block btn-info text-white">Start Course</a>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-4 col-sm-12">
-                  <div class="card mb-4 shadow-sm">
-                     <div class="card-header text-white">
-                        <h4 class="my-0 font-weight-bold">Magoosh</h4>
-                     </div>
-                     <div class="card-body">
-                      <?php if($magoosh_level){ ?>
-                       <img src="img/completed.jpg" class="img-fluid mb-1 rounded">
-                        <?php } else { ?>
-                        <img  src="img/Magoosh_copy.jpg" class="img-fluid mb-1 rounded">
-                           <?php } ?>
-                        <p>Magoosh's Essential Word List - GRE</p>
-                        <h5 class="card-title pricing-card-title">Word Availability</h5>
-                        <?php if ($barron_level): ?>
-                         <!--  <div class="progress mb-3">
+                                <a href="single_course.php" class="btn btn-lg btn-block btn-info text-white">Start
+                                    Course</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-header text-white">
+                                <h4 class="my-0 font-weight-bold">Magoosh</h4>
+                            </div>
+                            <div class="card-body">
+                                <?php if ($magoosh_level) {?>
+                                <img src="img/completed.jpg" class="img-fluid mb-1 rounded">
+                                <?php } else {?>
+                                <img src="img/Magoosh_copy.jpg" class="img-fluid mb-1 rounded">
+                                <?php }?>
+                                <p>Magoosh's Essential Word List - GRE</p>
+                                <h5 class="card-title pricing-card-title">Word Availability</h5>
+                                <?php if ($barron_level): ?>
+                                <!--  <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
                          </div> -->
-                         <a  href="magoosh_course.php" class="btn btn-lg btn-block btn-info text-white">Start Course</a>
-                        <?php else: ?>
-                          <!-- <div class="progress mb-3">
+                                <a href="magoosh_course.php" class="btn btn-lg btn-block btn-info text-white">Start
+                                    Course</a>
+                                <?php else: ?>
+                                <!-- <div class="progress mb-3">
                            <div class="progress-bar bg-info text-danger" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
                          </div> -->
-                         <a  href="#" class="btn btn-lg btn-block btn-danger text-white">Complete Barron First</a>
-                          
-                        <?php endif ?>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-4 col-sm-12">
-                  <div class="card mb-4 shadow-sm">
-                     <div class="card-header text-white">
-                        <h4 class="my-0 font-weight-bold">Manhattan</h4>
-                     </div>
-                     <div class="card-body">
-                      <?php if($magoosh_level){ ?>
-                       <img src="img/completed.jpg" class="img-fluid mb-1 rounded">
-                        <?php } else { ?>
-                        <img  src="img/Manhattan_copy.png" class="img-fluid mb-1 rounded">
-                           <?php } ?>
-                        <p>Manhattan's Essential Word List - GRE</p>
-                        <h5 class="card-title pricing-card-title">Word Availability</h5>
-                        <?php if ($magoosh_level && $barron_level): ?>
-                         <!--  <div class="progress mb-3">
+                                <a href="#" class="btn btn-lg btn-block btn-danger text-white">Complete Barron First</a>
+
+                                <?php endif?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-header text-white">
+                                <h4 class="my-0 font-weight-bold">Manhattan</h4>
+                            </div>
+                            <div class="card-body">
+                                <?php if ($magoosh_level) {?>
+                                <img src="img/completed.jpg" class="img-fluid mb-1 rounded">
+                                <?php } else {?>
+                                <img src="img/Manhattan_copy.png" class="img-fluid mb-1 rounded">
+                                <?php }?>
+                                <p>Manhattan's Essential Word List - GRE</p>
+                                <h5 class="card-title pricing-card-title">Word Availability</h5>
+                                <?php if ($magoosh_level && $barron_level): ?>
+                                <!--  <div class="progress mb-3">
                            <div class="progress-bar bg-info" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">100%</div>
                          </div> -->
-                         <a  href="magoosh_course.php" class="btn btn-lg btn-block btn-info text-white">Start Course</a>
-                        <?php else: ?>
-                         <!--  <div class="progress mb-3">
+                                <a href="manhattan_course.php" class="btn btn-lg btn-block btn-info text-white">Start
+                                    Course</a>
+                                <?php else: ?>
+                                <!--  <div class="progress mb-3">
                            <div class="progress-bar bg-info text-danger" role="progressbar" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
                          </div> -->
-                         <a  href="#" class="btn btn-lg btn-block btn-danger text-white">Complete Magoosh First</a>
-                          
-                        <?php endif ?>
-                     </div>
-                  </div>
-               </div>
-            </div>
-          </div>  <!-- END OF SECOND CONTAINER FLUID -->
+                                <a href="#" class="btn btn-lg btn-block btn-danger text-white">Complete Magoosh
+                                    First</a>
+
+                                <?php endif?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- END OF SECOND CONTAINER FLUID -->
         </div>
     </div>
 </section>

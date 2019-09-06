@@ -1,96 +1,96 @@
-<?php 
-   require 'header.php';
-   
-   ob_start();
-      session_start();
-      include("inc/config.php");
-      include("inc/CSRF_Protect.php");
-      $csrf = new CSRF_Protect();
-      $error_message = '';
-      $success_message = '';
-      $error_message1 = '';
-      $success_message1 = '';
-      $loggedIn= true;
-   
-      $user_id = $_SESSION['user']['id'];
-   
-      $level_one_pass = false;
-      $level_one_check_message ='';
-      $level_two_pass = false;
-      $level_two_check_message ='';
-      $level_three_pass = false;
-      $level_three_check_message ='';
-      $level_four_pass = false;
-      $level_four_check_message ='';
-      $level_four_pass = false;
-   
-      // Check if the user is logged in or not
-      if(!isset($_SESSION['user'])) {
-          $loggedIn = false;
-          header('location: signin.php');
-          exit;
-      	}else{
-         		$loggedIn = true;
-      	}
-   
-          /* Level Check whether he or She Passed The Level or Not */
-          $level_sql = $pdo->prepare("SELECT * FROM level_settings WHERE user_id=? And type='barron'");
-          $level_sql->execute(array($user_id));
-          $level_pass = $level_sql->fetchAll(PDO::FETCH_ASSOC);
-          if (!empty($level_pass)) {
-                  if ($level_pass[0]['level_One'] == 'Completed') {
-                      $level_one_pass = true;
-   
-                      if ($level_pass[0]['level_Two'] == 'Completed') {
-                      	$level_two_pass = true;
-   
-                          if ($level_pass[0]['level_Three'] == 'Completed') {
-                              $level_three_pass = true;
-   
-                              if ($level_pass[0]['level_Four'] == 'Completed') {
-                                  $level_four_pass = true;
-   
-                                  if ($level_pass[0]['level_Five'] == 'Completed') {
-   
-                                      $level_five_pass = true;
-                      $user_status = $pdo->prepare("SELECT * FROM settings WHERE user_id=?");
-                                      $user_status->execute(array($user_id));
-                                      $totalrow = $user_status->rowCount();              
-                                      if($totalrow){
-                                          $_SESSION['error_message'] = 'Your Already Completed This Level';
-                                      }else{
-   
-                                          $status = $pdo->prepare("INSERT INTO settings (barron,user_id) VALUES (?,?)");
-                                          $status->execute(array("Completed",$user_id));
-   
-                                      }
-   
-                                  } else {
-                                      $level_five_pass = false; 
-                                  } 
-                              } else {
-                                  $level_four_pass = false;
-                                  $level_four_check_message = "Please Complete Level Four";
-                              }
-   
-                          }else{
-                              $level_three_pass = false;
-                              $level_three_check_message = "Please Complete Level Three";
-                          }
-   
-                      } else {
-                      	$level_two_pass = false;
-                      	$level_two_check_message = "You Have not Completed Level Two Words Yet";
-                      }
-   
-                  }else{
-                  	$level_one_pass = false;
-                      $level_one_check_message="You Have not completed Level One Words Yet";
-                  }
-          }
-   
-   require 'navbar.php';
-   ?>
+<?php
+require 'header.php';
+
+ob_start();
+session_start();
+include "inc/config.php";
+include "inc/CSRF_Protect.php";
+$csrf = new CSRF_Protect();
+$error_message = '';
+$success_message = '';
+$error_message1 = '';
+$success_message1 = '';
+$loggedIn = true;
+
+$user_id = $_SESSION['user']['id'];
+
+$level_one_pass = false;
+$level_one_check_message = '';
+$level_two_pass = false;
+$level_two_check_message = '';
+$level_three_pass = false;
+$level_three_check_message = '';
+$level_four_pass = false;
+$level_four_check_message = '';
+$level_four_pass = false;
+
+// Check if the user is logged in or not
+if (!isset($_SESSION['user'])) {
+    $loggedIn = false;
+    header('location: signin.php');
+    exit;
+} else {
+    $loggedIn = true;
+}
+
+/* Level Check whether he or She Passed The Level or Not */
+$level_sql = $pdo->prepare("SELECT * FROM level_settings WHERE user_id=? And type='barron'");
+$level_sql->execute(array($user_id));
+$level_pass = $level_sql->fetchAll(PDO::FETCH_ASSOC);
+if (!empty($level_pass)) {
+    if ($level_pass[0]['level_One'] == 'Completed') {
+        $level_one_pass = true;
+
+        if ($level_pass[0]['level_Two'] == 'Completed') {
+            $level_two_pass = true;
+
+            if ($level_pass[0]['level_Three'] == 'Completed') {
+                $level_three_pass = true;
+
+                if ($level_pass[0]['level_Four'] == 'Completed') {
+                    $level_four_pass = true;
+
+                    if ($level_pass[0]['level_Five'] == 'Completed') {
+
+                        $level_five_pass = true;
+                        $user_status = $pdo->prepare("SELECT * FROM settings WHERE user_id=?");
+                        $user_status->execute(array($user_id));
+                        $totalrow = $user_status->rowCount();
+                        if ($totalrow) {
+                            $_SESSION['error_message'] = 'Your Already Completed This Level';
+                        } else {
+
+                            $status = $pdo->prepare("INSERT INTO settings (barron,user_id) VALUES (?,?)");
+                            $status->execute(array("Completed", $user_id));
+
+                        }
+
+                    } else {
+                        $level_five_pass = false;
+                    }
+                } else {
+                    $level_four_pass = false;
+                    $level_four_check_message = "Please Complete Level Four";
+                }
+
+            } else {
+                $level_three_pass = false;
+                $level_three_check_message = "Please Complete Level Three";
+            }
+
+        } else {
+            $level_two_pass = false;
+            $level_two_check_message = "You Have not Completed Level Two Words Yet";
+        }
+
+    } else {
+        $level_one_pass = false;
+        $level_one_check_message = "You Have not completed Level One Words Yet";
+    }
+}
+
+require 'navbar.php';
+?>
 <div class="container-fluid my-3" style="height: 100vh">
    <div class="heading_section my-3">
       <h2 class="text-center">Barron Word Practice</h2>
@@ -121,17 +121,17 @@
          <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-one" role="tabpanel" aria-labelledby="v-pills-one-tab">
                <h1 class="text-center p-3">Level One Words</h1>
-               <?php 
-                  if (!empty($_SESSION['success_message'])) {
-                      echo '<div class="alert alert-success"><h3 class="text-center text-white"> '.$_SESSION['success_message'].'</h3></div>';
-                      unset($_SESSION['success_message']);
-                  }
-                  
-                  if (!empty($_SESSION['error_message'])) {
-                      echo '<div class="alert alert-danger"><h3 class="text-center text-white"> '.$_SESSION['error_message'].'</h3></div>';
-                      unset($_SESSION['error_message']);
-                  }
-                  ?>
+               <?php
+if (!empty($_SESSION['success_message'])) {
+    echo '<div class="alert alert-success"><h3 class="text-center text-white"> ' . $_SESSION['success_message'] . '</h3></div>';
+    unset($_SESSION['success_message']);
+}
+
+if (!empty($_SESSION['error_message'])) {
+    echo '<div class="alert alert-danger"><h3 class="text-center text-white"> ' . $_SESSION['error_message'] . '</h3></div>';
+    unset($_SESSION['error_message']);
+}
+?>
                <!-- Horizontal tab level 1-->
                <nav>
                   <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
@@ -143,28 +143,31 @@
                   </div>
                </nav>
                <?php
-                  $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='barron' AND level='one' limit 5");
-                  $statement->execute();
-                  $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-                  
-                  ?>
+$statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='barron' AND level='one' limit 5");
+$statement->execute();
+$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+?>
                <div class="tab-content text-dark" id="nav-tabContent">
                   <?php
-                     foreach ($results as $key => $result) {
-                     ?>
-                  <div class="tab-pane fade show h-75 <?php if($key==0) echo 'active'; ?>" id="nav-<?php echo $key ?>" role="tabpane<?php echo $key ?>" aria-labelledby="nav-<?php echo $key ?>-tab">
+foreach ($results as $key => $result) {
+    ?>
+                  <div class="tab-pane fade show h-75 <?php if ($key == 0) {
+        echo 'active';
+    }
+    ?>" id="nav-<?php echo $key ?>" role="tabpane<?php echo $key ?>" aria-labelledby="nav-<?php echo $key ?>-tab">
                      <div class="container">
                         <div class="col-12 col-md-10 col-sm-12  offset-md-1">
-                           <h1 class="text-center text-white p3 mt-3">	
-                              <?php echo $result['word']; ?> 
+                           <h1 class="text-center text-white p3 mt-3">
+                              <?php echo $result['word']; ?>
                            </h1>
                            <h3 class="text-center">
-                              <?php echo $result['description']; ?> 
+                              <?php echo $result['description']; ?>
                            </h3>
                         </div>
                      </div>
                   </div>
-                  <?php } ?>
+                  <?php }?>
                </div>
                <!-- Horizontal tab Ends-->
                <div class="row justify-content-center my-5">
@@ -175,7 +178,7 @@
             </div>
             <div class="tab-pane fade" id="v-pills-two" role="tabpanel" aria-labelledby="v-pills-two-tab">
                <h1 class="text-center p-3">Level Two Words</h1>
-               <?php if (!$level_one_pass) :?>
+               <?php if (!$level_one_pass): ?>
                <div class="alert alert-danger text-center text-white p-5">
                   <h1>You Have not Completed Level 1 Yet</h1>
                </div>
@@ -191,28 +194,31 @@
                   </div>
                </nav>
                <?php
-                  $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='barron' AND level='two' limit 5");
-                  $statement->execute();
-                  $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-                  
-                  ?>
+$statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='barron' AND level='two' limit 5");
+$statement->execute();
+$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+?>
                <div class="tab-content text-dark" id="nav-tabContent">
                   <?php
-                     foreach ($results as $key => $result) {
-                     ?>
-                  <div class="tab-pane fade show h-75 <?php if($key==0) echo 'active'; ?>" id="nav-levelTwo-<?php echo $key ?>" role="tabpane<?php echo $key ?>" aria-labelledby="nav-levelTwo-<?php echo $key ?>-tab">
+foreach ($results as $key => $result) {
+    ?>
+                  <div class="tab-pane fade show h-75 <?php if ($key == 0) {
+        echo 'active';
+    }
+    ?>" id="nav-levelTwo-<?php echo $key ?>" role="tabpane<?php echo $key ?>" aria-labelledby="nav-levelTwo-<?php echo $key ?>-tab">
                      <div class="container">
                         <div class="col-12 col-md-10 col-sm-12  offset-md-1">
-                           <h1 class="text-center text-white p3 mt-3">	
-                              <?php echo $result['word']; ?> 
+                           <h1 class="text-center text-white p3 mt-3">
+                              <?php echo $result['word']; ?>
                            </h1>
                            <h3 class="text-center">
-                              <?php echo $result['description']; ?> 
+                              <?php echo $result['description']; ?>
                            </h3>
                         </div>
                      </div>
                   </div>
-                  <?php } ?>
+                  <?php }?>
                </div>
                <!-- Horizontal tab Ends-->
                <div class="row justify-content-center my-5">
@@ -220,20 +226,20 @@
                   TAKE LEVEL 2 TEST
                   </button>
                </div>
-               <?php endif; ?>
+               <?php endif;?>
             </div>
             <div class="tab-pane fade" id="v-pills-three" role="tabpanel" aria-labelledby="v-pills-three-tab">
                <h1 class="text-center p-3">Level Three Words</h1>
-               <?php if (!$level_two_pass) :?>
+               <?php if (!$level_two_pass): ?>
                <div class="alert alert-danger text-center text-white p-5">
                   <h1>You Have not Completed Level 2 Yet</h1>
                </div>
                <?php else: ?>
-               <?php if( (isset($error_message)) && ($error_message!='') ): ?>
+               <?php if ((isset($error_message)) && ($error_message != '')): ?>
                <div class="alert alert-danger text-center">
                   <h3><?php echo $error_message; ?></h3>
                </div>
-               <?php endif; ?>
+               <?php endif;?>
                <!-- Horizontal tab level 3-->
                <nav>
                   <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
@@ -245,28 +251,31 @@
                   </div>
                </nav>
                <?php
-                  $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='barron' AND level='three' limit 5");
-                  $statement->execute();
-                  $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-                  
-                  ?>
+$statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='barron' AND level='three' limit 5");
+$statement->execute();
+$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+?>
                <div class="tab-content text-dark" id="nav-tabContent">
                   <?php
-                     foreach ($results as $key => $result) {
-                     ?>
-                  <div class="tab-pane fade h-75 <?php if($key==0) echo 'active show'; ?>" id="nav-levelThree-<?php echo $key ?>" role="tabpane<?php echo $key ?>" aria-labelledby="nav-levelThree-<?php echo $key ?>-tab">
+foreach ($results as $key => $result) {
+    ?>
+                  <div class="tab-pane fade h-75 <?php if ($key == 0) {
+        echo 'active show';
+    }
+    ?>" id="nav-levelThree-<?php echo $key ?>" role="tabpane<?php echo $key ?>" aria-labelledby="nav-levelThree-<?php echo $key ?>-tab">
                      <div class="container">
                         <div class="col-12 col-md-10 col-sm-12  offset-md-1">
-                           <h1 class="text-center text-white p3 mt-3">	
-                              <?php echo $result['word']; ?> 
+                           <h1 class="text-center text-white p3 mt-3">
+                              <?php echo $result['word']; ?>
                            </h1>
                            <h3 class="text-center">
-                              <?php echo $result['description']; ?> 
+                              <?php echo $result['description']; ?>
                            </h3>
                         </div>
                      </div>
                   </div>
-                  <?php } ?>
+                  <?php }?>
                </div>
                <!-- Horizontal tab Ends-->
                <div class="row justify-content-center my-5">
@@ -274,11 +283,11 @@
                   TAKE LEVEL 3 TEST
                   </button>
                </div>
-               <?php endif ; ?>
+               <?php endif;?>
             </div>
             <div class="tab-pane fade" id="v-pills-four" role="tabpanel" aria-labelledby="v-pills-four-tab">
                <h1 class="text-center p-3">Level Four Words</h1>
-               <?php if (!$level_three_pass) :?>
+               <?php if (!$level_three_pass): ?>
                <div class="alert alert-danger text-center text-white p-5">
                   <h1>You Have not Completed Level 3 Yet</h1>
                </div>
@@ -294,28 +303,31 @@
                   </div>
                </nav>
                <?php
-                  $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='barron' AND level='four' limit 5");
-                  $statement->execute();
-                  $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-                  
-                  ?>
+$statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='barron' AND level='four' limit 5");
+$statement->execute();
+$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+?>
                <div class="tab-content text-dark" id="nav-tabContent">
                   <?php
-                     foreach ($results as $key => $result) {
-                     ?>
-                  <div class="tab-pane fade h-75 <?php if($key==0) echo 'active show'; ?>" id="nav-levelFour-<?php echo $key ?>" role="tabpane<?php echo $key ?>" aria-labelledby="nav-levelFour-<?php echo $key ?>-tab">
+foreach ($results as $key => $result) {
+    ?>
+                  <div class="tab-pane fade h-75 <?php if ($key == 0) {
+        echo 'active show';
+    }
+    ?>" id="nav-levelFour-<?php echo $key ?>" role="tabpane<?php echo $key ?>" aria-labelledby="nav-levelFour-<?php echo $key ?>-tab">
                      <div class="container">
                         <div class="col-12 col-md-10 col-sm-12 offset-md-1">
-                           <h1 class="text-center text-white p3 mt-3">	
-                              <?php echo $result['word']; ?> 
+                           <h1 class="text-center text-white p3 mt-3">
+                              <?php echo $result['word']; ?>
                            </h1>
                            <h3 class="text-center">
-                              <?php echo $result['description']; ?> 
+                              <?php echo $result['description']; ?>
                            </h3>
                         </div>
                      </div>
                   </div>
-                  <?php } ?>
+                  <?php }?>
                </div>
                <!-- Horizontal tab Ends-->
                <div class="row justify-content-center my-5">
@@ -323,11 +335,11 @@
                   TAKE LEVEL 4 TEST
                   </button>
                </div>
-               <?php endif ; ?>
+               <?php endif;?>
             </div>
             <div class="tab-pane fade" id="v-pills-five" role="tabpanel" aria-labelledby="v-pills-five-tab">
                <h1 class="text-center p-3">Level Five Words</h1>
-               <?php if (!$level_four_pass) :?>
+               <?php if (!$level_four_pass): ?>
                <div class="alert alert-danger text-center text-white p-5">
                   <h1>You Have not Completed Level 4 Yet</h1>
                </div>
@@ -343,28 +355,31 @@
                   </div>
                </nav>
                <?php
-                  $statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='barron' AND level='five' limit 5");
-                  $statement->execute();
-                  $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-                  
-                  ?>
+$statement = $pdo->prepare("SELECT * FROM `word_table` WHERE type='barron' AND level='five' limit 5");
+$statement->execute();
+$results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+?>
                <div class="tab-content text-dark" id="nav-tabContent">
                   <?php
-                     foreach ($results as $key => $result) {
-                     ?>
-                  <div class="tab-pane fade h-75 <?php if($key==0) echo 'active show'; ?>" id="nav-levelFive-<?php echo $key ?>" role="tabpane<?php echo $key ?>" aria-labelledby="nav-levelFive-<?php echo $key ?>-tab">
+foreach ($results as $key => $result) {
+    ?>
+                  <div class="tab-pane fade h-75 <?php if ($key == 0) {
+        echo 'active show';
+    }
+    ?>" id="nav-levelFive-<?php echo $key ?>" role="tabpane<?php echo $key ?>" aria-labelledby="nav-levelFive-<?php echo $key ?>-tab">
                      <div class="container">
                         <div class="col-12 col-md-10 col-sm-12  offset-md-1">
-                           <h1 class="text-center text-white p3 mt-3">	
-                              <?php echo $result['word']; ?> 
+                           <h1 class="text-center text-white p3 mt-3">
+                              <?php echo $result['word']; ?>
                            </h1>
                            <h3 class="text-center">
-                              <?php echo $result['description']; ?> 
+                              <?php echo $result['description']; ?>
                            </h3>
                         </div>
                      </div>
                   </div>
-                  <?php } ?>
+                  <?php }?>
                </div>
                <!-- Horizontal tab Ends-->
                <div class="row justify-content-center my-5">
@@ -372,7 +387,7 @@
                   TAKE LEVEL 5 TEST
                   </button>
                </div>
-               <?php endif ; ?>
+               <?php endif;?>
             </div>
          </div>
       </div>
@@ -390,17 +405,17 @@
          <!-- Modal body -->
          <div class="modal-body">
             <?php
-               /* Level One Question Barron*/
-               
-               $ModalQuestionOne = $pdo->prepare("SELECT * FROM question where type='barron' AND level='one' ORDER BY RAND() limit 3");
-               $ModalQuestionOne->execute();
-               $resultModalOne = $ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC); ?>
+/* Level One Question Barron*/
+
+$ModalQuestionOne = $pdo->prepare("SELECT * FROM question where type='barron' AND level='one' ORDER BY RAND() limit 3");
+$ModalQuestionOne->execute();
+$resultModalOne = $ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC);?>
 
             <form action="form/barron_level_one.php" method="post">
                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
-               <?php foreach ($resultModalOne as $key => $row3) { ?>
+               <?php foreach ($resultModalOne as $key => $row3) {?>
 
-               <h5>Q: <b> <?php echo $row3['question'];  ?> ?</b></h5>
+               <h5>Q: <b> <?php echo $row3['question']; ?> ?</b></h5>
                <hr>
                <input type="hidden" name="question_id<?php echo $key; ?>" value="<?php echo $row3['id']; ?>">
                <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option1'] ?>">
@@ -420,7 +435,7 @@
                <br>
 
                <hr/>
-               <?php } ?>
+               <?php }?>
          </div>
          <!-- Modal footer -->
          <div class="modal-footer">
@@ -443,17 +458,17 @@
          <!-- Modal body -->
          <div class="modal-body">
             <?php
-               /* Level Two Question Barron*/
-               
-               $ModalQuestionOne = $pdo->prepare("SELECT * FROM question where type='barron' AND level='two' ORDER BY RAND() limit 3");
-               $ModalQuestionOne->execute();
-               $resultModalOne = $ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC); ?>
+/* Level Two Question Barron*/
+
+$ModalQuestionOne = $pdo->prepare("SELECT * FROM question where type='barron' AND level='two' ORDER BY RAND() limit 3");
+$ModalQuestionOne->execute();
+$resultModalOne = $ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC);?>
 
              <form action="form/barron_level_two.php" method="post">
                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
-               <?php foreach ($resultModalOne as $key => $row3) { ?>
+               <?php foreach ($resultModalOne as $key => $row3) {?>
 
-               <h5>Q: <b> <?php echo $row3['question'];  ?> ?</b></h5>
+               <h5>Q: <b> <?php echo $row3['question']; ?> ?</b></h5>
                <hr>
                <input type="hidden" name="question_id<?php echo $key; ?>" value="<?php echo $row3['id']; ?>">
                <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option1'] ?>">
@@ -473,7 +488,7 @@
                <br>
 
                <hr/>
-               <?php } ?>
+               <?php }?>
          </div>
          <!-- Modal footer -->
          <div class="modal-footer">
@@ -496,17 +511,17 @@
          <!-- Modal body -->
  		<div class="modal-body">
             <?php
-               /* Level Two Question Barron*/
-               
-               $ModalQuestionOne = $pdo->prepare("SELECT * FROM question where type='barron' AND level='three' ORDER BY RAND() limit 3");
-               $ModalQuestionOne->execute();
-               $resultModalOne = $ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC); ?>
+/* Level Two Question Barron*/
+
+$ModalQuestionOne = $pdo->prepare("SELECT * FROM question where type='barron' AND level='three' ORDER BY RAND() limit 3");
+$ModalQuestionOne->execute();
+$resultModalOne = $ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC);?>
 
               <form action="form/barron_level_three.php" method="post">
                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
-               <?php foreach ($resultModalOne as $key => $row3) { ?>
+               <?php foreach ($resultModalOne as $key => $row3) {?>
 
-               <h5>Q: <b> <?php echo $row3['question'];  ?> ?</b></h5>
+               <h5>Q: <b> <?php echo $row3['question']; ?> ?</b></h5>
                <hr>
                <input type="hidden" name="question_id<?php echo $key; ?>" value="<?php echo $row3['id']; ?>">
                <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option1'] ?>">
@@ -526,7 +541,7 @@
                <br>
 
                <hr/>
-               <?php } ?>
+               <?php }?>
          </div>
          <!-- Modal footer -->
          <div class="modal-footer">
@@ -549,17 +564,17 @@
          <!-- Modal body -->
           <div class="modal-body">
             <?php
-               /* Level Two Question Barron*/
-               
-               $ModalQuestionOne = $pdo->prepare("SELECT * FROM question where type='barron' AND level='four' ORDER BY RAND() limit 3");
-               $ModalQuestionOne->execute();
-               $resultModalOne = $ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC); ?>
+/* Level Two Question Barron*/
+
+$ModalQuestionOne = $pdo->prepare("SELECT * FROM question where type='barron' AND level='four' ORDER BY RAND() limit 3");
+$ModalQuestionOne->execute();
+$resultModalOne = $ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC);?>
 
               <form action="form/barron_level_four.php" method="post">
                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
-               <?php foreach ($resultModalOne as $key => $row3) { ?>
+               <?php foreach ($resultModalOne as $key => $row3) {?>
 
-               <h5>Q: <b> <?php echo $row3['question'];  ?> ?</b></h5>
+               <h5>Q: <b> <?php echo $row3['question']; ?> ?</b></h5>
                <hr>
                <input type="hidden" name="question_id<?php echo $key; ?>" value="<?php echo $row3['id']; ?>">
                <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option1'] ?>">
@@ -579,10 +594,10 @@
                <br>
 
                <hr/>
-               <?php } ?>
+               <?php }?>
          </div>
 <!--          <div class="modal-body">
-            
+
          </div> -->
          <!-- Modal footer -->
          <div class="modal-footer">
@@ -605,17 +620,17 @@
          <!-- Modal body -->
          <div class="modal-body">
             <?php
-               /* Level Two Question Barron*/
-               
-               $ModalQuestionOne = $pdo->prepare("SELECT * FROM question where type='barron' AND level='five' ORDER BY RAND() limit 3");
-               $ModalQuestionOne->execute();
-               $resultModalOne = $ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC); ?>
+/* Level Two Question Barron*/
+
+$ModalQuestionOne = $pdo->prepare("SELECT * FROM question where type='barron' AND level='five' ORDER BY RAND() limit 3");
+$ModalQuestionOne->execute();
+$resultModalOne = $ModalQuestionOne->fetchAll(PDO::FETCH_ASSOC);?>
 
               <form action="form/barron_level_five.php" method="post">
                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user']['id']; ?>">
-               <?php foreach ($resultModalOne as $key => $row3) { ?>
+               <?php foreach ($resultModalOne as $key => $row3) {?>
 
-               <h5>Q: <b> <?php echo $row3['question'];  ?> ?</b></h5>
+               <h5>Q: <b> <?php echo $row3['question']; ?> ?</b></h5>
                <hr>
                <input type="hidden" name="question_id<?php echo $key; ?>" value="<?php echo $row3['id']; ?>">
                <input type="radio" class="form-check-group" name="answer<?php echo $key; ?>" required="required" value="<?php echo $row3['option1'] ?>">
@@ -635,7 +650,7 @@
                <br>
 
                <hr/>
-               <?php } ?>
+               <?php }?>
          </div>
          <!-- Modal footer -->
          <div class="modal-footer">
@@ -646,4 +661,4 @@
       </div>
    </div>
 </div>
-<?php require 'footer.php'; ?>
+<?php require 'footer.php';?>

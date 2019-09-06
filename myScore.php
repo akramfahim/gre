@@ -35,10 +35,10 @@
     require 'navbar.php';
 
 ?>
-        
-<!-- Content start -->              
+
+<!-- Content start -->
 <section class="container-fluid">
-    
+
     <div class="row">
         <div class="col-md-2 col-sm-12 mx-auto">
             <div class="card my-5">
@@ -57,28 +57,28 @@
             <h1 class="text-center text-success">Your Score Card</h1>
             <hr>
             <table class="table table-dark">
-            	<thead class="thead-light">
-            		<tr>
+                <thead class="thead-light">
+                    <tr>
                         <th scope="col">Exam Type</th>
-            			<th scope="col">Date</th>
-            			<th scope="col">Total Score</th>
-            		</tr>
-            	</thead>
-            	<tbody>
-            		
-            		<?php foreach ($scores as $score): ?>
-            			<tr>
-            				<td><?php echo strtoupper($score['type']); ?></td>
-            				<td><?php echo date("F jS, Y", strtotime($score['date'])); ?></td>
-            				<td><?php echo $score['score']; ?></td>
-            			</tr>
-            		<?php endforeach ?>
-            		<?php if ($err_msg): ?>
-            			<div class="alert alert-danger">
-            				<h3><?php echo $err_msg; ?></h3>
-            			</div>
-            		<?php endif ?>
-            	</tbody>
+                        <th scope="col">Date</th>
+                        <th scope="col">Total Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <?php foreach ($scores as $score): ?>
+                    <tr>
+                        <td><?php echo strtoupper($score['type']); ?></td>
+                        <td><?php echo date("F jS, Y", strtotime($score['date'])); ?></td>
+                        <td><?php echo $score['score']; ?></td>
+                    </tr>
+                    <?php endforeach ?>
+                    <?php if ($err_msg): ?>
+                    <div class="alert alert-danger">
+                        <h3><?php echo $err_msg; ?></h3>
+                    </div>
+                    <?php endif ?>
+                </tbody>
             </table>
         </div>
     </div>
