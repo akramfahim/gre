@@ -40,7 +40,7 @@ if (isset($_POST['signup'])) {
             }
         }
     }
-    $password = $_POST['password'];
+    $password =strlen($_POST['password']);
 
     if (empty($_POST['password']) || empty($_POST['re_password'])) {
         $valid = 0;
@@ -53,7 +53,7 @@ if (isset($_POST['signup'])) {
             $error_message .= "Passwords do not match<br>";
         }
     }
-    if (strlen($password)) {
+    if ($password < 5) {
         $valid = 0;
         $error_message .= "Password length must be greater than 5<br>";
 
@@ -68,7 +68,8 @@ if (isset($_POST['signup'])) {
         unset($_POST['username']);
         unset($_POST['email']);
         $success_message = 'Registration Successfull.';
-        /*header("location: index.php");*/
+        $_SESSION['user'] = true;
+        header("location: signin.php");
     }
 }
 

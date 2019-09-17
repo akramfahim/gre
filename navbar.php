@@ -35,9 +35,6 @@
                     <a class="nav-link text-white font-weight-bold" href="course.php">COURSE</a>
                 </li>
                 <?php endif ?>
-
-
-
                 <li class="nav-item">
                     <a class="nav-link text-white font-weight-bold" href="allTest.php">TEST</a>
                 </li>
@@ -49,11 +46,9 @@
                     <a class="nav-link text-white font-weight-bold btn btn-outline-success"
                         href="signout.php">SIGNOUT</a>
                 </li>
-
-
                 <?php else: ?>
                 <li class="nav-item">
-                    <a class="nav-link text-white font-weight-bold btn btn-outline-success" href="signin.php">SIGNIN</a>
+                    <a class="nav-link text-white font-weight-bold btn btn-outline-success mr-2" href="signin.php">SIGNIN</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white font-weight-bold btn btn-outline-success" href="signup.php">SIGNUP</a>

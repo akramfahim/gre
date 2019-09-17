@@ -122,9 +122,9 @@ require 'navbar.php';
             <div class="p-3">
                 <ul class="list-group">
                     <li class="list-group-item text-center bg-info text-center font-weight-bold">Start Learning</li>
-                    <li class="list-group-item"><a class="text-dark" href="">Barron</a></li>
-                    <li class="list-group-item"><a class="text-dark" href="">Magoosh</a></li>
-                    <li class="list-group-item"><a class="text-dark" href="">Manhattan</a></li>
+                    <li class="list-group-item">Barron</li>
+                    <li class="list-group-item">Magoosh</li>
+                    <li class="list-group-item">Manhattan</li>
                 </ul>
             </div>
 

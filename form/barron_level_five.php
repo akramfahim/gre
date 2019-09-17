@@ -77,7 +77,7 @@
                         header('Location:../single_course.php');
                     }
                     unset($_POST['answer']);
-                  }else{
+                  }else{ 
                     $_SESSION['error_message'] = 'Your Level 5 Answers are not correct';
                     header('Location:../single_course.php');
                     // unset($_POST['answer']);

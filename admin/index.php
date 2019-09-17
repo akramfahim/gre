@@ -138,9 +138,9 @@
                             <td><?php echo $user['email'] ?></td>
                             <!--<td><?php echo $user['userType'] ?></td> -->
                             <?php if ($user['userType'] == "1") {?>
-                            <td><button class="btn btn-success">Admin</button></td>
+                            <td><badge class="badge badge-success">Admin</badge></td>
                             <?php } else { ?>
-                            <td><button class="btn btn-primary">Pro User</button></td>
+                            <td><badge class="badge badge-primary">Pro User</badge></td>
                             <?php  } ?>
                         </tr>
 
