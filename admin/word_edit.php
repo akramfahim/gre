@@ -35,7 +35,7 @@
     if (isset($_POST['update'])) {
         if (empty($_POST['word']) || empty($_POST['description'])) {
             $error_msg = "Any field should not be empty";
-        }elseif ($_POST['word'] == $word || $_POST['description'] == $description) {
+        }elseif ($_POST['word'] == $word && $_POST['description'] == $description) {
             $error_msg = "You do not change Anything";
         }else{
             $new_word = $_POST['word'];

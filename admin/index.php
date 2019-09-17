@@ -126,7 +126,7 @@
                         <tr>
                             <th>Username</th>
                             <th>Email</th>
-                            <th>Level</th>
+                            <th>Type</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -138,9 +138,44 @@
                             <td><?php echo $user['email'] ?></td>
                             <!--<td><?php echo $user['userType'] ?></td> -->
                             <?php if ($user['userType'] == "1") {?>
-                            <td><badge class="badge badge-success">Admin</badge></td>
+                            <td>
+                              <?php
+                             if (isset($_POST['remove'])) {
+
+                              $id=$_POST['user_id'];
+                              $user_Type=0;
+                                $update_stmt = $pdo->prepare("UPDATE users SET userType = ? WHERE id = ?");
+                                $done_update = $update_stmt->execute(array($user_Type,$id));
+                                header("Refresh:0");
+                              }
+
+                               ?>
+                              <badge class="badge badge-success p-3">Admin</badge>
+                              <form method="post" action="">
+                                  <input type="hidden" value="<?php echo $user['id']; ?>" name="user_id" />
+                              <button type="submit" class="btn btn-danger mt-1" name="remove">Remove</button> 
+                              </form>
+
+                            </td>
                             <?php } else { ?>
-                            <td><badge class="badge badge-primary">Pro User</badge></td>
+                            <td>
+                            <?php
+                             if (isset($_POST['admin'])) {
+
+                              $id=$_POST['user_id'];
+                              $user_Type=1;
+                                $update_stmt = $pdo->prepare("UPDATE users SET userType = ? WHERE id = ?");
+                                $done_update = $update_stmt->execute(array($user_Type,$id));
+                                header("Refresh:0");
+                              }
+
+                               ?>
+                              <badge class="badge badge-primary p-3">Pro User</badge>
+                             <form method="post" action="">
+                                  <input type="hidden" value="<?php echo $user['id']; ?>" name="user_id" />
+                              <button type="submit" class="btn btn-danger mt-1" name="admin">Make Admin</button> 
+                              </form>
+                            </td>
                             <?php  } ?>
                         </tr>
 
